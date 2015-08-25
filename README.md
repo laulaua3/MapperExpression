@@ -1,4 +1,3 @@
 # MapperExpression
-Simple Mapper like AutoMapper without all options but more efficient in performances
-
+Mapper simple like AutoMapper without all options but more efficient for performances
  
