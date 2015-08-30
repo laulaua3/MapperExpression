@@ -24,7 +24,7 @@ namespace MapperCore.Extensions
             where TSource : class
             where TDest : class
         {
-            return CreateMethodCallOrdered<TSource, TDest>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
+            return CreateMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace MapperCore.Extensions
             where TSource : class
             where TDest : class
         {
-            return CreateMethodCallOrdered<TSource, TDest>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
+            return CreateMethodCall<TSource, TDest,IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
         }
 
 
@@ -55,7 +55,7 @@ namespace MapperCore.Extensions
             where TSource : class
             where TDest : class
         {
-            return CreateMethodCallOrdered<TSource, TDest>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
+            return CreateMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace MapperCore.Extensions
             where TDest : class
         {
 
-            return CreateMethodCallOrdered<TSource, TDest>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
+            return CreateMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
         }
 
         /// <summary>
@@ -103,9 +103,10 @@ namespace MapperCore.Extensions
 
         #region Méthodes privées
 
-        private static IOrderedQueryable<TSource> CreateMethodCallOrdered<TSource, TDest>(IQueryable<TSource> query, string methodName, string sortedPropertySourceName)
+        private static TQueryable CreateMethodCall<TSource, TDest,TQueryable>(IQueryable<TSource> query, string methodName, string sortedPropertySourceName)
             where TSource : class
             where TDest : class
+            where TQueryable : class, IQueryable<TSource>
         {
             MapperConfiguration<TSource, TDest> mapper = GetMapper<TSource, TDest>();
             var prop = mapper.GetPropertyInfoSource(sortedPropertySourceName);
@@ -115,7 +116,7 @@ namespace MapperCore.Extensions
                 new Type[] { typeof(TSource), prop.PropertyType },
                 query.Expression,
                 Expression.Quote(lambda));
-            return query.Provider.CreateQuery<TSource>(resultExp) as IOrderedQueryable<TSource>;
+            return query.Provider.CreateQuery<TSource>(resultExp) as TQueryable;
         }
 
         private static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>()

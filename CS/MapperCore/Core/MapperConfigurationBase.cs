@@ -47,8 +47,6 @@ namespace MapperCore.Core
         /// </summary>
         public List<MemberAssignment> MemberToMap { get; protected set; }
 
-      
-
         #endregion
 
         #region Constructeur
@@ -60,15 +58,54 @@ namespace MapperCore.Core
         /// <param name="destination">The destination.</param>
         public MapperConfigurationBase(Type source, Type destination)
         {
-            this.TypeDest = destination;
-            this.TypeSource = source;
-            this.paramClassSource = Expression.Parameter(source, "source");
-            this.MemberToMap = new List<MemberAssignment>();
+            TypeDest = destination;
+            TypeSource = source;
+            paramClassSource = Expression.Parameter(source, "source");
+            MemberToMap = new List<MemberAssignment>();
         }
       
         #endregion
 
         #region Méthodes publiques
+
+       
+
+        /// <summary>
+        /// Gets the delegate of mapping.
+        /// </summary>
+        /// <returns></returns>
+        public Delegate GetDelegate()
+        {
+            if (!isInitialized)
+            {
+                throw new MapperNotInitializedException(TypeSource, TypeDest);
+            }
+            //Le fait de stocker le delegate réduit considérablement le temps de traitement 
+            //Super Perf!!! 
+            //(pas de compile de l'expression à chaque appel qui est très consommateur)
+            if (delegateCall == null)
+            {
+                MemberInitExpression exp = GetMemberInitExpression();
+
+                delegateCall = Expression.Lambda(exp, paramClassSource).Compile();
+            }
+            return delegateCall;
+        }
+
+        /// <summary>
+        /// Gets the type of the destination.
+        /// </summary>
+        /// <returns></returns>
+        public Type GetDestinationType()
+        {
+            if (UseServiceLocator)
+                return constructorFunc(TypeDest).GetType();
+            return TypeDest;
+        }
+
+        #endregion
+
+        #region Méthodes privées
 
         /// <summary>
         /// Changes the original source.
@@ -80,10 +117,10 @@ namespace MapperCore.Core
         {
             if (!isInitialized)
             {
-                this.CreateMappingExpression(constructorFunc);
+                CreateMappingExpression(constructorFunc);
             }
             List<MemberAssignment> membersTransformed = new List<MemberAssignment>();
-            this.MemberToMap.ForEach((m) =>
+            MemberToMap.ForEach((m) =>
             {
                 //Propriété de la classe source référençant la classe enfant
                 Expression innerProperty = Expression.Property(paramSource, property);
@@ -100,44 +137,6 @@ namespace MapperCore.Core
             });
             return membersTransformed;
         }
-
-        /// <summary>
-        /// Gets the delegate of mapping.
-        /// </summary>
-        /// <returns></returns>
-        public Delegate GetDelegate()
-        {
-            if (!isInitialized)
-            {
-                throw new MapperNotInitializedException(this.TypeSource, this.TypeDest);
-            }
-            //Le fait de stocker le delegate réduit considérablement le temps de traitement 
-            //Super Perf!!! 
-            //(pas de compile de l'expression à chaque appel qui est très consommateur)
-            if (this.delegateCall == null)
-            {
-                MemberInitExpression exp = this.GetMemberInitExpression();
-
-                this.delegateCall = Expression.Lambda(exp, paramClassSource).Compile();
-            }
-            return this.delegateCall;
-        }
-
-        /// <summary>
-        /// Gets the type of the destination.
-        /// </summary>
-        /// <returns></returns>
-        public Type GetDestinationType()
-        {
-            if (this.UseServiceLocator)
-                return constructorFunc(this.TypeDest).GetType();
-            return this.TypeDest;
-        }
-        
-        #endregion
-
-        #region Méthodes privées
-
         protected MapperConfigurationBase GetMapper(Type tSource, Type tDest, bool throwExceptionOnNoFound = true)
         {
             MapperConfigurationBase mapperExterne = null;
@@ -152,12 +151,12 @@ namespace MapperCore.Core
 
         protected  void CreateCommonMember()
         {
-            PropertyInfo[] propertiesSource = this.TypeSource.GetProperties();
-            ParameterExpression paramDest = Expression.Parameter(this.TypeDest, "d");
+            PropertyInfo[] propertiesSource = TypeSource.GetProperties();
+            ParameterExpression paramDest = Expression.Parameter(TypeDest, "d");
          
             foreach (PropertyInfo propSource in propertiesSource)
             {
-                PropertyInfo propDest = this.TypeDest.GetProperty(propSource.Name);
+                PropertyInfo propDest = TypeDest.GetProperty(propSource.Name);
                 if (propDest != null)
                 {
                     bool ignorePropDest = propertiesToIgnore.Exists(x => x.Name == propDest.Name);
@@ -165,7 +164,7 @@ namespace MapperCore.Core
                     {
                         LambdaExpression expSource = Expression.Lambda(Expression.MakeMemberAccess(paramClassSource, propSource), paramClassSource);
                         LambdaExpression expDest = Expression.Lambda(Expression.MakeMemberAccess(paramDest, propDest), paramDest);
-                        this.propertiesMapping.Add(Tuple.Create<LambdaExpression, LambdaExpression, bool>(expSource, expDest, false));
+                        propertiesMapping.Add(Tuple.Create(expSource, expDest, false));
                     }
                 }
             }
@@ -173,9 +172,9 @@ namespace MapperCore.Core
 
         protected void CreateMemberAssignement(PropertyInfo memberSource, PropertyInfo memberDest)
         {
-            
+
             //On supprime l'ancien (si appel plusieurs fois de la méthode)
-            this.MemberToMap.RemoveAll(m => m.Member.Name == memberSource.Name);
+            MemberToMap.RemoveAll(m => m.Member.Name == memberSource.Name);
 
             if (!memberDest.CanWrite)
             {
@@ -191,7 +190,7 @@ namespace MapperCore.Core
             }
         }
 
-        private void CheckAndConfigureMembersMapping(PropertyInfo memberSource, PropertyInfo memberDest)
+        protected void CheckAndConfigureMembersMapping(PropertyInfo memberSource, PropertyInfo memberDest)
         {
             MapperConfigurationBase mapperExterne = null;
             //On regarde si la propriété source existe dans la source 
@@ -199,22 +198,22 @@ namespace MapperCore.Core
             //Exemple
             //On veut mapper
             //destination.LaPropriete = source.SubClass.LaPropriete
-            PropertyInfo property = this.TypeSource.GetProperty(memberSource.Name);
-            if (property != null && memberSource.DeclaringType == this.TypeSource.DeclaringType)
+            PropertyInfo property = TypeSource.GetProperty(memberSource.Name);
+            if (property != null && memberSource.DeclaringType == TypeSource)
             {
                 //Suppression du mapping d'origine de destination pour cette propriété
-                this.CheckAndRemoveMemberDest(memberDest.Name);
+                CheckAndRemoveMemberDest(memberDest.Name);
                 //Suppression du mapping d'origine pour cette propriété
-                this.CheckAndRemoveMemberSource(memberSource.Name);
+                CheckAndRemoveMemberSource(memberSource.Name);
                 if (memberDest.PropertyType == property.PropertyType)
                 {
                     //Si la propriété correspond bien au type source
-                    if (property.ReflectedType == this.TypeSource)
+                    if (property.ReflectedType == TypeSource)
                     {
                         MemberExpression memberClassSource = Expression.Property(paramClassSource, property);
 
                         MemberAssignment expBind = Expression.Bind(memberDest, memberClassSource);
-                        this.MemberToMap.Add(expBind);
+                        MemberToMap.Add(expBind);
                     }
                 }
                 else
@@ -223,6 +222,10 @@ namespace MapperCore.Core
                     if (mapperExterne != null)
                     {
                         CreateCheckIfNull(property, memberDest, mapperExterne);
+                    }
+                    else //On lève un exception
+                    {
+                        throw new NotSameTypePropertyException(memberSource.PropertyType, memberDest.PropertyType);
                     }
                 }
             }
@@ -242,11 +245,11 @@ namespace MapperCore.Core
                     }
                 }
                 //Si on vient de la class de base
-                else if (memberSource.ReflectedType == this.TypeSource)
+                else if (memberSource.ReflectedType == TypeSource)
                 {
                     MemberExpression memberClassSource = Expression.Property(paramClassSource, memberSource);
                     MemberAssignment expBind = Expression.Bind(memberDest, memberClassSource);
-                    this.MemberToMap.Add(expBind);
+                    MemberToMap.Add(expBind);
                 }
                 //cas :
                 //destination.LaPropriete = source.SubClass.LaPropriete
@@ -259,14 +262,14 @@ namespace MapperCore.Core
                     else
                     {
                         //On va récupérer l'expression source
-                        Tuple<LambdaExpression, LambdaExpression, bool> expMember = this.propertiesMapping.Find(s => GetPropertyInfo(s.Item1).Name == memberSource.Name);
+                        Tuple<LambdaExpression, LambdaExpression, bool> expMember = propertiesMapping.Find(s => GetPropertyInfo(s.Item1).Name == memberSource.Name);
                         if (expMember != null)
                         {
                             //On crée la nouvelle expression
-                            Expression memberAccess = this.CreateMemberAssign(expMember.Item1, expMember.Item3);
+                            Expression memberAccess = CreateMemberAssign(expMember.Item1, expMember.Item3);
                             //Et on assigne (cool)
                             MemberAssignment expBind = Expression.Bind(memberDest, memberAccess);
-                            this.MemberToMap.Add(expBind);
+                            MemberToMap.Add(expBind);
                         }
                     }
                 }
@@ -274,7 +277,7 @@ namespace MapperCore.Core
             
         }
 
-        private bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
+        protected bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
         {
 
 
@@ -286,12 +289,12 @@ namespace MapperCore.Core
                 Type sourceTypeList = memberSource.PropertyType.GetGenericArguments()[0];
                 // Type de la liste de destination
                 Type destTypeList = memberDest.PropertyType.GetGenericArguments()[0];
-                mapperExterne = this.GetMapper(sourceTypeList, destTypeList);
+                mapperExterne = GetMapper(sourceTypeList, destTypeList);
                 //Pour initialisé le mappeur
                 mapperExterne.CreateMappingExpression(constructorFunc);
                 //Suppression du mapping d'origine pour cette propriété
-                this.CheckAndRemoveMemberSource(memberSource.Name);
-                this.CheckAndRemoveMemberDest(memberDest.Name);
+                CheckAndRemoveMemberSource(memberSource.Name);
+                CheckAndRemoveMemberDest(memberDest.Name);
                 //Appel de la méthode pour récupère l'expression lambda pour le select
                 MethodInfo methodeGetExpression = mapperExterne.GetType().GetMethod("GetLambdaExpression");
 
@@ -328,7 +331,7 @@ namespace MapperCore.Core
                 Expression expCondition = Expression.Condition(checkIfNull, asExp, Expression.Constant(null, memberDest.PropertyType));
                 //Affectation de la propriétés de destination
                 MemberAssignment expBind = Expression.Bind(memberDest, expCondition);
-                this.MemberToMap.Add(expBind);
+                MemberToMap.Add(expBind);
                 return true;
             }
             return false;
@@ -342,7 +345,7 @@ namespace MapperCore.Core
             NewExpression newClassDest  = Expression.New(mapperExterne.GetDestinationType());
 
             //On crée la nouvelle affectation des propriétés avec la source
-            List<MemberAssignment> newMembers = mapperExterne.ChangeSource(memberSource, this.paramClassSource);
+            List<MemberAssignment> newMembers = mapperExterne.ChangeSource(memberSource, paramClassSource);
 
             //Initialisation de l'affectation des propriétés de l'objet de destination
             Expression exp = Expression.MemberInit(newClassDest, newMembers);
@@ -352,15 +355,15 @@ namespace MapperCore.Core
 
             //Affectation de la propriétés de destination
             MemberAssignment expBind = Expression.Bind(memberDest, expCondition);
-            this.MemberToMap.Add(expBind);
+            MemberToMap.Add(expBind);
         }
 
         protected void CheckAndRemoveMemberDest(string properyName)
         {
             Predicate<MemberAssignment> exp = m => m.Member.Name == properyName;
-            if (this.MemberToMap.Exists(exp))
+            if (MemberToMap.Exists(exp))
             {
-                this.MemberToMap.RemoveAll(exp);
+                MemberToMap.RemoveAll(exp);
             }
 
         }
@@ -369,20 +372,20 @@ namespace MapperCore.Core
         {
             Predicate<MemberAssignment> exp = m => m.Expression is MemberExpression
                 && (m.Expression as MemberExpression).Member.Name == properyName;
-            if (this.MemberToMap.Exists(exp))
+            if (MemberToMap.Exists(exp))
             {
-                this.MemberToMap.RemoveAll(exp);
+                MemberToMap.RemoveAll(exp);
             }
         }
 
         protected MemberInitExpression GetMemberInitExpression()
         {
-            Type typeDest = this.GetDestinationType();
+            Type typeDest = GetDestinationType();
 
             NewExpression newClassDest = Expression.New(typeDest);
 
             //new ClassDestination() { Test1 = c1.Test1, Test2 = c1.Test2 };
-            MemberInitExpression exp = Expression.MemberInit(newClassDest, this.MemberToMap);
+            MemberInitExpression exp = Expression.MemberInit(newClassDest, MemberToMap);
             return exp;
         }
 
@@ -401,7 +404,7 @@ namespace MapperCore.Core
         {
 
             //Ajout dans la liste pour le traitement ultérieur
-            this.propertiesMapping.Add(Tuple.Create<LambdaExpression, LambdaExpression, bool>(getPropertySource, getPropertyDest, checkIfNull));
+            propertiesMapping.Add(Tuple.Create<LambdaExpression, LambdaExpression, bool>(getPropertySource, getPropertyDest, checkIfNull));
             return this;
         }
 
@@ -428,13 +431,13 @@ namespace MapperCore.Core
 
         internal virtual void CreateMappingExpression(Func<Type, object> constructor)
         {
-            if (!this.isInitialized)
+            if (!isInitialized)
             {
-                this.isInitialized = true;
-                if (this.UseServiceLocator)
-                    this.constructorFunc = constructor;
+                isInitialized = true;
+                if (UseServiceLocator)
+                    constructorFunc = constructor;
                 CreateCommonMember();
-                this.GetDelegate();
+                GetDelegate();
             }
         }
 
@@ -442,7 +445,7 @@ namespace MapperCore.Core
         {
             DataLoadOptions options = new DataLoadOptions();
             //On prend tous le objets qui sont lie au data model
-            IEnumerable<Expression> propertiesLinq = this.MemberToMap.Where(p => p.Expression.NodeType == ExpressionType.Conditional
+            IEnumerable<Expression> propertiesLinq = MemberToMap.Where(p => p.Expression.NodeType == ExpressionType.Conditional
                                                         && ((p.Expression as ConditionalExpression).Test as BinaryExpression).Left.Type.BaseType.Name == "EntityBase")
                                                     .Select(p => ((p.Expression as ConditionalExpression).Test as BinaryExpression).Left);
             List<string> memberInserted = new List<string>();

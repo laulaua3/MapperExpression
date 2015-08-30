@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 VB", "02 VB", "{55F5B7C0
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MapperExpression", "VB\Mapper\MapperExpression.vbproj", "{648F4D45-E1D3-47EB-B779-4CE0E6FAE604}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperExpression.Tests.Units", "CS\MapperExpressionTests\MapperExpression.Tests.Units.csproj", "{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exemple", "Exemple", "{7AB142FD-A819-46DC-9581-6245B810B5EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{648F4D45-E1D3-47EB-B779-4CE0E6FAE604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{648F4D45-E1D3-47EB-B779-4CE0E6FAE604}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{648F4D45-E1D3-47EB-B779-4CE0E6FAE604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A23D28C5-4FFA-46E9-913F-5C959782CDAA} = {18B61B36-9D03-4784-B6E6-4520D5FFEE01}
 		{648F4D45-E1D3-47EB-B779-4CE0E6FAE604} = {55F5B7C0-D997-4C46-9704-23D4ED22BFC0}
+		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A} = {18B61B36-9D03-4784-B6E6-4520D5FFEE01}
+		{7AB142FD-A819-46DC-9581-6245B810B5EA} = {18B61B36-9D03-4784-B6E6-4520D5FFEE01}
 	EndGlobalSection
 EndGlobal

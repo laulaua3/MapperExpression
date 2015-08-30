@@ -11,7 +11,7 @@ namespace MapperCore
 {
 
     /// <summary>
-    /// Class de base pour l'accès au mapping
+    ///Base class for each access to mapper
     /// </summary>
     public static class Mapper
     {
@@ -22,38 +22,38 @@ namespace MapperCore
 
         #endregion
 
-        #region Méthodes publiques
+        #region Public methods
 
         /// <summary>
         /// Maps the specified source.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TDest">The type of the dest.</typeparam>
-        /// <param name="source">The business.</param>
+        /// <param name="source">the source object.</param>
         /// <returns></returns>
         public static TDest Map<TSource, TDest>(TSource source)
             where TSource : class
             where TDest : class
         {
+            TDest result = null;
             try
             {
                 MapperConfiguration<TSource, TDest> mapper = GetMapper<TSource, TDest>();
                 Func<TSource, TDest> query = mapper.GetFuncDelegate();
                 if (query != null)
                 {
-                    TDest result = query(source);
+                     result = query(source);
                     //Action à exécutées après le mapping
                     mapper.ExecuteAfterActions(source, result);
-
-                    return result;
+                    
                 }
             }
-            catch (System.Exception ex)
+            catch (System.Exception )
             {
 
-                throw ex;
+                throw ;
             }
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace MapperCore
         }
 
         /// <summary>
-        /// Creates the map.
+        /// Creates a mapper.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TDest">The type of the dest.</typeparam>
@@ -79,6 +79,7 @@ namespace MapperCore
             where TSource : class
             where TDest : class
         {
+            //We do not use the method because it GetMapper throw an exception if not found
             MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TDest));
             if (map == null)
             {
@@ -89,7 +90,7 @@ namespace MapperCore
         }
 
         /// <summary>
-        /// Indique le service d'injection à utilisée
+        /// Indicates the injection service used
         /// </summary>
         /// <param name="constructor">The constructor.</param>
         public static void ConstructServicesUsing(Func<Type, object> constructor)
@@ -98,7 +99,7 @@ namespace MapperCore
         }
 
         /// <summary>
-        /// Efface tout les mappeur existants
+        /// Remove all mappers
         /// </summary>
         public static void Reset()
         {
@@ -120,7 +121,7 @@ namespace MapperCore
         }
 
         /// <summary>
-        /// Initialises les mappeurs.
+        /// Initialise the mappers.
         /// </summary>
         public static void Initialize()
         {
@@ -146,13 +147,13 @@ namespace MapperCore
         }
         #endregion
 
-        #region Méthodes privées
+        #region Private methods
 
         internal static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>()
             where TSource : class
             where TDest : class
         {
-            if (current == null || (current != null && current.TypeDest.FullName != typeof(TDest).FullName && current.TypeSource.FullName != typeof(TSource).FullName))
+            if (current == null || (current != null && current.TypeDest.FullName != typeof(TDest).FullName || current.TypeSource.FullName != typeof(TSource).FullName))
                 current = GetMapper(typeof(TSource), typeof(TDest));
 
             return (current as MapperConfiguration<TSource, TDest>);
@@ -171,9 +172,6 @@ namespace MapperCore
                 throw new NoFoundMapperException(tSource, tDest);
             }
         }
-      
-       
-
 
         #endregion
     }

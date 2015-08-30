@@ -53,11 +53,11 @@ namespace MapperCore.Core
                 switch (node.NodeType)
                 {
                     case ExpressionType.MemberAccess:
-                        return this.VisitMember(node as MemberExpression);
+                        return VisitMember(node as MemberExpression);
                     case ExpressionType.Parameter:
-                        return this.VisitParameter(node as ParameterExpression);
+                        return VisitParameter(node as ParameterExpression);
                     case ExpressionType.Convert:
-                        return this.VisitMember((node as UnaryExpression).Operand as MemberExpression);
+                        return VisitMember((node as UnaryExpression).Operand as MemberExpression);
                     case ExpressionType.Lambda:
                         base.Visit((node as LambdaExpression).Body);
                         break;
@@ -168,7 +168,7 @@ namespace MapperCore.Core
         /// </returns>
         protected override Expression VisitUnary(UnaryExpression node)
         {
-            return this.VisitMember(node.Operand as MemberExpression);
+            return VisitMember(node.Operand as MemberExpression);
         }
 
         private object GetDefaultValue(Type typeObject)

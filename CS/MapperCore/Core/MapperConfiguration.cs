@@ -18,7 +18,7 @@ namespace MapperCore.Core
     {
         #region Variables
 
-        private readonly List<Action<TSource, TDest>> actionsAfterMap;
+        protected readonly List<Action<TSource, TDest>> actionsAfterMap;
 
         #endregion
 
@@ -30,9 +30,9 @@ namespace MapperCore.Core
         internal MapperConfiguration()
             : base(typeof(TSource), typeof(TDest))
         {
-            this.propertiesMapping = new List<Tuple<LambdaExpression, LambdaExpression, bool>>();
-            this.propertiesToIgnore = new List<PropertyInfo>();
-            this.actionsAfterMap = new List<Action<TSource, TDest>>();
+            propertiesMapping = new List<Tuple<LambdaExpression, LambdaExpression, bool>>();
+            propertiesToIgnore = new List<PropertyInfo>();
+            actionsAfterMap = new List<Action<TSource, TDest>>();
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace MapperCore.Core
         /// <returns></returns>
         public Expression<Func<TSource, TDest>> GetLambdaExpression()
         {
-            MemberInitExpression exp = this.GetMemberInitExpression();
+            MemberInitExpression exp = GetMemberInitExpression();
             // Expression<Func<ClassSource, ClassDestination>> lambdaExecute = (c1) => new ClassDestination() { Test1 = c1.Test1, Test2 = c1.Test2 };
             return Expression.Lambda<Func<TSource, TDest>>(exp, paramClassSource);
         }
@@ -56,7 +56,7 @@ namespace MapperCore.Core
         /// <returns></returns>
         public Func<TSource, TDest> GetFuncDelegate()
         {
-            return base.GetDelegate() as Func<TSource, TDest>;
+            return GetDelegate() as Func<TSource, TDest>;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace MapperCore.Core
         public MapperConfiguration<TSource, TDest> ForMember(Expression<Func<TSource, object>> getPropertySource, Expression<Func<TDest, object>> getPropertyDest, bool checkIfNull = false)
         {
             //Ajout dans la liste pour le traitement ultérieur
-            base.ForMember(getPropertySource as LambdaExpression, getPropertyDest as LambdaExpression, checkIfNull);
+            ForMember(getPropertySource as LambdaExpression, getPropertyDest as LambdaExpression, checkIfNull);
             return this;
         }
 
@@ -81,7 +81,7 @@ namespace MapperCore.Core
         public MapperConfiguration<TSource, TDest> Ignore(Expression<Func<TDest, object>> propertyDest)
         {
 
-            propertiesToIgnore.Add(this.GetPropertyInfo(propertyDest));
+            propertiesToIgnore.Add(GetPropertyInfo(propertyDest));
             return this;
         }
 
@@ -92,7 +92,7 @@ namespace MapperCore.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> AfterMap(Action<TSource, TDest> actionAfterMap)
         {
-            this.actionsAfterMap.Add(actionAfterMap);
+            actionsAfterMap.Add(actionAfterMap);
             return this;
         }
 
@@ -103,9 +103,9 @@ namespace MapperCore.Core
         /// <param name="dest">The dest.</param>
         public void ExecuteAfterActions(TSource source, TDest dest)
         {
-            for (int i = 0; i < this.actionsAfterMap.Count; i++)
+            for (int i = 0; i < actionsAfterMap.Count; i++)
             {
-                this.actionsAfterMap[i](source, dest);
+                actionsAfterMap[i](source, dest);
             }
         }
 
@@ -123,12 +123,11 @@ namespace MapperCore.Core
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
             map = new MapperConfiguration<TDest, TSource>();
-            this.CreateCommonMember();
             //On parcours les propriétés de mapping de l'existant et on crée les relations inverses
-            for (int i = 0; i < this.propertiesMapping.Count; i++)
+            for (int i = 0; i < propertiesMapping.Count; i++)
             {
-                Tuple<LambdaExpression, LambdaExpression, bool> item = this.propertiesMapping[i];
-                PropertyInfo propertyDest = this.GetPropertyInfo(item.Item1);
+                Tuple<LambdaExpression, LambdaExpression, bool> item = propertiesMapping[i];
+                PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
                 //Si la propriété de destination n'est pas en lecture seul
                 if (propertyDest.CanWrite)
                     map.ForMember(item.Item2, item.Item1, item.Item3);
@@ -142,7 +141,7 @@ namespace MapperCore.Core
         /// </summary>
         public MapperConfiguration<TSource, TDest> ConstructUsingServiceLocator()
         {
-            this.UseServiceLocator = true;
+            UseServiceLocator = true;
             return this;
         }
 
@@ -155,47 +154,47 @@ namespace MapperCore.Core
             if (!isInitialized)
             {
                 //on le met avant le traitement pour éviter les boucles récursives
-                this.isInitialized = true;
-                this.constructorFunc = constructor;
-                this.CreateCommonMember();
+                isInitialized = true;
+                constructorFunc = constructor;
+                CreateCommonMember();
 
-                for (int i = 0; i < this.propertiesMapping.Count; i++)
+                for (int i = 0; i < propertiesMapping.Count; i++)
                 {
-                    LambdaExpression getPropertySource = this.propertiesMapping[i].Item1;
-                    LambdaExpression getPropertyDest = this.propertiesMapping[i].Item2;
+                    LambdaExpression getPropertySource = propertiesMapping[i].Item1;
+                    LambdaExpression getPropertyDest = propertiesMapping[i].Item2;
                     //On va chercher les propriétés choisies
-                    PropertyInfo memberSource = this.GetPropertyInfo(getPropertySource);
-                    PropertyInfo memberDest = this.GetPropertyInfo(getPropertyDest);
-                    base.CreateMemberAssignement(memberSource, memberDest);
+                    PropertyInfo memberSource = GetPropertyInfo(getPropertySource);
+                    PropertyInfo memberDest = GetPropertyInfo(getPropertyDest);
+                    CreateMemberAssignement(memberSource, memberDest);
                 }
                 //création du delegate
-                this.GetFuncDelegate();
+                GetFuncDelegate();
             }
         }
   
         internal LambdaExpression GetSortedExpression(string propertySource)
         {
             Expression result = null;
-            var exp = this.propertiesMapping.Find(x => this.GetPropertyInfo(x.Item2).Name == propertySource);
+            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
             if (exp == null)
             {
                 throw new PropertyNoExistException(propertySource, typeof(TDest));
             }
-            var property = this.GetPropertyInfo(exp.Item2);
-            var visitor = new MapperExpressionVisitor(false, this.paramClassSource);
+            var property = GetPropertyInfo(exp.Item2);
+            var visitor = new MapperExpressionVisitor(false, paramClassSource);
             result = visitor.Visit(exp.Item1);
-            return Expression.Lambda(result, this.paramClassSource);
+            return Expression.Lambda(result, paramClassSource);
 
         }
 
         internal PropertyInfo GetPropertyInfoSource(string propertyName)
         {
-            var exp = this.propertiesMapping.Find(x => this.GetPropertyInfo(x.Item2).Name == propertyName);
+            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertyName);
             if (exp == null)
             {
                 throw new PropertyNoExistException(propertyName, typeof(TDest));
             }
-            var property = this.GetPropertyInfo(exp.Item2);
+            var property = GetPropertyInfo(exp.Item2);
             return property;
         }
 
