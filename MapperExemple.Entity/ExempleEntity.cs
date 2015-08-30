@@ -62,7 +62,7 @@ namespace MapperExemple.Entity
 
             context.Database.Log = x => Debug.WriteLine(x);
 
-            var result = context.Orders.Include("Customer");
+            var result = context.Orders;
 
 
             return result;

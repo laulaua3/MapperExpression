@@ -22,8 +22,6 @@ namespace MapperExpression.Tests.Units
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
 
-
-
         }
         [ClassCleanup]
         public static void Clean()
@@ -120,7 +118,7 @@ namespace MapperExpression.Tests.Units
         }
 
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NoFoundMapperException))]
-        public void NoFoundMapperException_Exception()
+        public void Map_NoFoundMapperException_Exception()
         {
             ClassDest2 actual = null;
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
