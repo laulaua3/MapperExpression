@@ -5,7 +5,7 @@
 // 
 // The following connection settings were used to generate this file
 // 
-//     Configuration file:     "MapperExemple.Entity\App.config"
+//     Configuration file:     "MapperExemple.Web\Web.config"
 //     Connection String Name: "NorthwingDbContext"
 //     Connection String:      "Data Source=WinServer2012R2;Initial Catalog=NORTHWND;Integrated Security=False;User ID=northwing_user;password=**zapped**;"
 
@@ -41,7 +41,7 @@ namespace MapperExemple.Entity
 {
     // ************************************************************************
     // Unit of work
-    internal interface IMyDbContext : IDisposable
+    public interface IExempleDbContext : IDisposable
     {
         DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; } // Alphabetical list of products
         DbSet<Category> Categories { get; set; } // Categories
@@ -87,7 +87,7 @@ namespace MapperExemple.Entity
 
     // ************************************************************************
     // Database context
-    internal class MyDbContext : DbContext, IMyDbContext
+    public class ExempleDbContext : DbContext, IExempleDbContext
     {
         public DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; } // Alphabetical list of products
         public DbSet<Category> Categories { get; set; } // Categories
@@ -117,21 +117,21 @@ namespace MapperExemple.Entity
         public DbSet<Sysdiagram> Sysdiagrams { get; set; } // sysdiagrams
         public DbSet<Territory> Territories { get; set; } // Territories
         
-        static MyDbContext()
+        static ExempleDbContext()
         {
-            System.Data.Entity.Database.SetInitializer<MyDbContext>(null);
+            System.Data.Entity.Database.SetInitializer<ExempleDbContext>(null);
         }
 
-        internal MyDbContext()
+        public ExempleDbContext()
             : base("Name=NorthwingDbContext")
         {
         }
 
-        internal MyDbContext(string connectionString) : base(connectionString)
+        public ExempleDbContext(string connectionString) : base(connectionString)
         {
         }
 
-        internal MyDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+        public ExempleDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
         {
         }
 
@@ -359,7 +359,7 @@ namespace MapperExemple.Entity
     // ************************************************************************
     // Fake Database context
     [GeneratedCodeAttribute("EF.Reverse.POCO.Generator", "2.15.1.0")]
-    public class FakeMyDbContext : IMyDbContext
+    public class FakeExempleDbContext : IExempleDbContext
     {
         public DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -389,7 +389,7 @@ namespace MapperExemple.Entity
         public DbSet<Sysdiagram> Sysdiagrams { get; set; }
         public DbSet<Territory> Territories { get; set; }
 
-        public FakeMyDbContext()
+        public FakeExempleDbContext()
         {
             AlphabeticalListOfProducts = new FakeDbSet<AlphabeticalListOfProduct>();
             Categories = new FakeDbSet<Category>();

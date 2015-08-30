@@ -6,7 +6,7 @@
 
     // Main settings **********************************************************************************************************************
     // Namespace = ""; // Override the default namespace here
-    DbContextName = "MyDbContext";
+    DbContextName = "ExempleDbContext";
     DbContextInterfaceBaseClasses = "IDisposable";    // Specify what the base classes are for your database context interface
     DbContextBaseClass = "DbContext";   // Specify what the base class is for your DbContext. For ASP.NET Identity use "IdentityDbContext<ApplicationUser>"
     ConnectionStringName = "NorthwingDbContext";   // Searches for this connection string in config files listed below

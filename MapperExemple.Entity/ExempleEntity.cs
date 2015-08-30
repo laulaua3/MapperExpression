@@ -9,9 +9,11 @@ namespace MapperExemple.Entity
 {
     public class ExempleEntity
     {
+        #region Simple mapping
+
         public Customer GetFirstCustomer()
         {
-            using (MyDbContext context = new MyDbContext())
+            using (ExempleDbContext context = new ExempleDbContext())
             {
                 context.Database.Log = x => Debug.WriteLine(x);
                 var result = from c in context.Customers
@@ -22,7 +24,7 @@ namespace MapperExemple.Entity
 
         public IQueryable<Customer> GetCustomers()
         {
-            MyDbContext context = new MyDbContext();
+            ExempleDbContext context = new ExempleDbContext();
             context.Database.Log = x => Debug.WriteLine(x);
             var result = from c in context.Customers
                          select c;
@@ -32,7 +34,7 @@ namespace MapperExemple.Entity
 
         public List<Customer> GetCustomersList()
         {
-            using (MyDbContext context = new MyDbContext())
+            using (ExempleDbContext context = new ExempleDbContext())
             {
                 context.Database.Log = x => Debug.WriteLine(x);
                 var result = from c in context.Customers
@@ -42,9 +44,13 @@ namespace MapperExemple.Entity
         }
 
 
+        #endregion
+
+        #region Custom mapping
+
         public Order GetFirstOrder()
         {
-            using (MyDbContext context = new MyDbContext())
+            using (ExempleDbContext context = new ExempleDbContext())
             {
 
                 context.Database.Log = x => Debug.WriteLine(x);
@@ -58,7 +64,7 @@ namespace MapperExemple.Entity
 
         public IQueryable<Order> GetOrders()
         {
-            MyDbContext context = new MyDbContext();
+            ExempleDbContext context = new ExempleDbContext();
 
             context.Database.Log = x => Debug.WriteLine(x);
 
@@ -67,5 +73,7 @@ namespace MapperExemple.Entity
             return result;
 
         }
+
+        #endregion
     }
 }
