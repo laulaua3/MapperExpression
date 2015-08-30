@@ -11,10 +11,17 @@ namespace MapperExemple.Web.App_Start
     public class MapperConfig
     {
 
-        public static void  Initialise()
+        public static void Initialise()
         {
+            //For simple exemple
             Mapper.CreateMap<Customer, CustomerModel>();
 
+            //For exemple with custom mapping
+            Mapper.CreateMap<Order, OrderModel>()
+                //Custom mapping
+                .ForMember(s => s.Customer.CompanyName, d => d.CustomerName, true);
+
+            Mapper.CreateMap<OrderDetail, OrderDetailModel>();
 
             Mapper.Initialize();
         }

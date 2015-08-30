@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<MapperExemple.Web.Models.CustomerModel>
 
 @{
-    ViewBag.Title = "Exemple2";
+    ViewBag.Title = "Exemple3";
 }
 
 <h2>@ViewBag.Message</h2>
 <pre class="brush: csharp">
-ExempleEntity exemple2 = new ExempleEntity();
-var result = exemple2.GetCustomersList();
-//Map to list
-var model = result.Select(Mapper.GetQuery&lt;Customer, CustomerModel&gt;());
+//this exemple show how map a IQuerable of customer to List of customerModel
+ExempleEntity exemple3 = new ExempleEntity();
+var result = exemple3.GetCustomers();
+//Map to list with using the select extention of the mapper
+var model = result.Select&lt;Customer, CustomerModel&gt;().ToList();
 </pre>
 
 <table class="table">

@@ -5,7 +5,12 @@
 
 <div class="jumbotron">
     <h1>MapperExpression Exemples</h1>
-
+    <pre class="brush: csharp">
+ExempleEntity exemple1 = new ExempleEntity();
+Customer result = exemple1.GetFirstCustomer();
+//exemple to Map a object
+var model = Mapper.Map&lt;Customer, CustomerModel&gt;(result);
+</pre>
 </div>
 
 <div class="row">

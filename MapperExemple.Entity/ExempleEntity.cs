@@ -40,5 +40,33 @@ namespace MapperExemple.Entity
                 return result.ToList();
             }
         }
+
+
+        public Order GetFirstOrder()
+        {
+            using (MyDbContext context = new MyDbContext())
+            {
+
+                context.Database.Log = x => Debug.WriteLine(x);
+
+                var result = context.Orders.Include("Customer");
+
+
+                return result.FirstOrDefault();
+            }
+        }
+
+        public IQueryable<Order> GetOrders()
+        {
+            MyDbContext context = new MyDbContext();
+
+            context.Database.Log = x => Debug.WriteLine(x);
+
+            var result = context.Orders.Include("Customer");
+
+
+            return result;
+
+        }
     }
 }

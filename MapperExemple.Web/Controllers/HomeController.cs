@@ -9,11 +9,14 @@ using System.Web.Mvc;
 using MapperExpression.Extensions;
 namespace MapperExemple.Web.Controllers
 {
+    //see  MappingConfig class in App_Start for create the mapping
     public class HomeController : Controller
     {
+        #region Simple Mapping
+
         public ActionResult Index()
         {
-           
+
             ExempleEntity exemple1 = new ExempleEntity();
 
             Customer result = exemple1.GetFirstCustomer();
@@ -42,13 +45,13 @@ namespace MapperExemple.Web.Controllers
         {
             ViewBag.Message = "Mapping of a IQuerable";
             //this exemple show how map a IQuerable of customer to List of customerModel
-            ExempleEntity exemple2 = new ExempleEntity();
+            ExempleEntity exemple3 = new ExempleEntity();
 
-            var result = exemple2.GetCustomers();
+            var result = exemple3.GetCustomers();
             //Map to list with using the select extention of the mapper
             var model = result.Select<Customer, CustomerModel>().ToList();
 
-            return View("Exemple2", model);
+            return View( model);
         }
 
         [HttpGet]
@@ -62,7 +65,7 @@ namespace MapperExemple.Web.Controllers
             var result = exemple4.GetCustomers();
 
             SortedCustomerModel model = new SortedCustomerModel();
-           
+
             model.Customers = result.Select<Customer, CustomerModel>().ToList();
 
             return View(model);
@@ -88,11 +91,44 @@ namespace MapperExemple.Web.Controllers
                     .OrderByDescending<Customer, CustomerModel>(model.SortField)
                     .Select<Customer, CustomerModel>().ToList();
             }
-            
+
             //ThenBy and ThenByDescending are also implemented
             return View(model);
         }
 
+
+        #endregion
+
+        #region Mapping with sub object
+
+        public ActionResult Exemple5()
+        {
+            //Default page
+            ViewBag.Message = "Exemple for custom mapping ";
+            //this exemple show the map with custom mapping
+            ExempleEntity exemple5 = new ExempleEntity();
+
+            var result = exemple5.GetFirstOrder();
+
+            var model = Mapper.Map<Order, OrderModel>(result);
+
+            return View(model);
+        }
+        public ActionResult Exemple6()
+        {
+            //Default page
+            ViewBag.Message = "Exemple for custom mapping ";
+            //this exemple show how map a IQuerable to List  With custom mapping
+            ExempleEntity exemple6 = new ExempleEntity();
+
+            var result = exemple6.GetOrders();
+            //see sql request in console output
+            var model = result.Select<Order, OrderModel>().ToList(); 
+
+            return View(model);
+        }
+
+        #endregion
         public ActionResult About()
         {
 
