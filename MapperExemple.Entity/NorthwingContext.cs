@@ -122,16 +122,16 @@ namespace MapperExemple.Entity
             System.Data.Entity.Database.SetInitializer<MyDbContext>(null);
         }
 
-        public MyDbContext()
+        internal MyDbContext()
             : base("Name=NorthwingDbContext")
         {
         }
 
-        public MyDbContext(string connectionString) : base(connectionString)
+        internal MyDbContext(string connectionString) : base(connectionString)
         {
         }
 
-        public MyDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+        internal MyDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
         {
         }
 

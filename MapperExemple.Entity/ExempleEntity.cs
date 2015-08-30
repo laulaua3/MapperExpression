@@ -48,7 +48,7 @@ namespace MapperExemple.Entity
             {
 
                 context.Database.Log = x => Debug.WriteLine(x);
-
+                //Need to include the sub object
                 var result = context.Orders.Include("Customer");
 
 
@@ -63,7 +63,6 @@ namespace MapperExemple.Entity
             context.Database.Log = x => Debug.WriteLine(x);
 
             var result = context.Orders;
-
 
             return result;
 

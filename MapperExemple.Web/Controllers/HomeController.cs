@@ -16,7 +16,7 @@ namespace MapperExemple.Web.Controllers
 
         public ActionResult Index()
         {
-
+           
             ExempleEntity exemple1 = new ExempleEntity();
 
             Customer result = exemple1.GetFirstCustomer();
