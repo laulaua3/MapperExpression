@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MapperCore.Core
+namespace MapperExpression.Core
 {
     /// <summary>
     /// Singleton du stockage des mappeurs

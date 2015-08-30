@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using MapperCore.Exception;
+using MapperExpression.Exception;
 
-namespace MapperCore.Core
+namespace MapperExpression.Core
 {
 
     /// <summary>

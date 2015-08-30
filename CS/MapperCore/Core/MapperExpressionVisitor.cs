@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System;
 
-namespace MapperCore.Core
+namespace MapperExpression.Core
 {
     internal class MapperExpressionVisitor : ExpressionVisitor
     {

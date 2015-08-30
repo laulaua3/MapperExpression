@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace MapperCore.Exception
+namespace MapperExpression.Exception
 {
+    [Serializable]
     public class NoFoundMapperException : System.Exception
     {
 

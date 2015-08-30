@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Reflection;
 
-namespace MapperCore.Exception
+namespace MapperExpression.Exception
 {
+    [Serializable]
     public class ReadOnlyPropertyException :System.Exception
     {
 

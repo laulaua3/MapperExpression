@@ -54,6 +54,9 @@
     <Reference Include="MapperCore.Fakes">
       <HintPath>FakesAssemblies\MapperCore.Fakes.dll</HintPath>
     </Reference>
+    <Reference Include="MapperExpression.Fakes">
+      <HintPath>FakesAssemblies\MapperExpression.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -91,15 +94,13 @@
     <Compile Include="Core\MapperConfigurationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MapperCore\MapperCore.csproj">
+    <ProjectReference Include="..\MapperCore\MapperExpression.csproj">
       <Project>{a23d28c5-4ffa-46e9-913f-5c959782cdaa}</Project>
-      <Name>MapperCore</Name>
+      <Name>MapperExpression</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Fakes Include="Fakes\MapperCore.fakes" />
-  </ItemGroup>
-  <ItemGroup>
+    <Fakes Include="Fakes\MapperExpression.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

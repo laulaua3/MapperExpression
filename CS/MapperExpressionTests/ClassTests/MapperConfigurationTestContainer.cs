@@ -1,4 +1,4 @@
-﻿using MapperCore.Core;
+﻿using MapperExpression.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

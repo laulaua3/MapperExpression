@@ -1,0 +1,48 @@
+﻿@model MapperExemple.Web.Models.CustomerModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>MapperExpression Exemples</h1>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Simple exemple to map Customer to CustomerModel</h2>
+
+        <div>
+            @Html.LabelFor(m => m.CompanyName)
+            @Html.DisplayTextFor(m => m.CompanyName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address)
+            @Html.DisplayTextFor(m => m.Address)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.City)
+            @Html.DisplayTextFor(m => m.City)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Phone)
+            @Html.DisplayTextFor(m => m.Phone)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Fax)
+            @Html.DisplayTextFor(m => m.Fax)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactTitle)
+            @Html.DisplayTextFor(m => m.ContactTitle)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactName)
+            @Html.DisplayTextFor(m => m.ContactName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Country)
+            @Html.DisplayTextFor(m => m.Country)
+        </div>
+    </div>
+</div>

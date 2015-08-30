@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MapperCore.Core;
+using MapperExpression.Core;
 using System.Linq.Expressions;
 using MapperExpression.Tests.Units.ClassTests;
 

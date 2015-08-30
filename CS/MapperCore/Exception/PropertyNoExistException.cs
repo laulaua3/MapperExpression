@@ -2,8 +2,9 @@
 
 using System.Reflection;
 
-namespace MapperCore.Exception
+namespace MapperExpression.Exception
 {
+    [Serializable]
     public class PropertyNoExistException : System.Exception
     {
         

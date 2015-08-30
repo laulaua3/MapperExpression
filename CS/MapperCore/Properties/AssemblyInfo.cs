@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("MapperCore")]
+[assembly: AssemblyTitle("MapperExpression")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LB")]
-[assembly: AssemblyProduct("MapperCore")]
+[assembly: AssemblyProduct("MapperExpression")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("MapperExpression.Tests.Units")]
-[assembly: InternalsVisibleTo("MapperCore.Fakes")]
+[assembly: InternalsVisibleTo("MapperExpression.Fakes")]

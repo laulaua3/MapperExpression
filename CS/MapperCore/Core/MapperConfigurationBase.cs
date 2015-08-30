@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using MapperCore.Exception;
+using MapperExpression.Exception;
 using System.Data.Linq;
 
-namespace MapperCore.Core
+namespace MapperExpression.Core
 {
     /// <summary>
     /// Class de base de la gestion du mapping

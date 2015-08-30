@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MapperCore;
+
 using MapperExpression.Tests.Units.ClassTests;
-using MapperCore.Core;
-using MapperCore.Exception;
+using MapperExpression.Core;
+using MapperExpression.Exception;
 using Microsoft.QualityTools.Testing.Fakes;
 using System.Linq.Expressions;
 using System;
@@ -21,8 +21,8 @@ namespace MapperExpression.Tests.Units
             //Create the default map for the test
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
-               
-           
+
+
 
         }
         [ClassCleanup]
@@ -73,7 +73,7 @@ namespace MapperExpression.Tests.Units
             ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1, PropString1 = "test" };
             using (ShimsContext.Create())
             {
-                MapperCore.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => { throw new MapperNotInitializedException(typeof(ClassSource), typeof(ClassDest)); };
+                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => { throw new MapperNotInitializedException(typeof(ClassSource), typeof(ClassDest)); };
 
                 actual = Mapper.Map<ClassSource, ClassDest>(expected);
             }
@@ -86,7 +86,7 @@ namespace MapperExpression.Tests.Units
             ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1, PropString1 = "test" };
             using (ShimsContext.Create())
             {
-                MapperCore.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => { return null; };
+                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => { return null; };
 
                 actual = Mapper.Map<ClassSource, ClassDest>(expected);
             }
