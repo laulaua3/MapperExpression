@@ -25,8 +25,9 @@
    });
 </script>
 <h2> @ViewBag.Message</h2>
+<h3>Code</h3>
 <pre class="brush: csharp">
-//this exemple show how map a IQuerable of customer with the OrderBy extention
+//this exemple show how map a IQueryable of customer with the OrderBy extention
 ExempleEntity exemple4 = new ExempleEntity();
 var result = exemple4.GetCustomers();
 if (model.SortDirection == &quot;ascending&quot;)
@@ -44,6 +45,7 @@ else
 }
 //ThenBy and ThenByDescending are also implemented
 </pre>
+<h3>Result</h3>
 @using (Html.BeginForm("Exemple4", "Home", FormMethod.Post))
 {
     @Html.Hidden("SortField", Model.SortField)

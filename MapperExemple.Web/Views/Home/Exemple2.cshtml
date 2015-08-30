@@ -5,13 +5,14 @@
 }
 
 <h2>@ViewBag.Message</h2>
+<h3>Code</h3>
 <pre class="brush: csharp">
 ExempleEntity exemple2 = new ExempleEntity();
 var result = exemple2.GetCustomersList();
 //Map to list
 var model = result.Select(Mapper.GetQuery&lt;Customer, CustomerModel&gt;());
 </pre>
-
+<h3>Result</h3>
 <table class="table">
     <tr>
         <th>

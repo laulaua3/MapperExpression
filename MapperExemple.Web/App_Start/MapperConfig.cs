@@ -22,7 +22,7 @@ namespace MapperExemple.Web.App_Start
                 .ForMember(s => s.Customer.CompanyName, d => d.CustomerName, true);
 
             Mapper.CreateMap<OrderDetail, OrderDetailModel>();
-
+            //Important
             Mapper.Initialize();
         }
     }

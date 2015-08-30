@@ -1,10 +1,23 @@
 ﻿@model MapperExemple.Web.Models.CustomerModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Exemple 1";
 }
 
 <div class="jumbotron">
     <h1>MapperExpression Exemples</h1>
+    <h2>Configuration at boot application</h2>
+    <pre class="brush: csharp">
+//Create a simple mapping
+Mapper.CreateMap&lt;Customer, CustomerModel&gt;();
+//Create a mapping with custom mapping
+Mapper.CreateMap&lt;Order, OrderModel&gt;()
+    //Custom mapping with true to test if the sub class is null
+    .ForMember(s =&gt; s.Customer.CompanyName, d =&gt; d.CustomerName, true);
+
+//Important !!!
+Mapper.Initialize();
+</pre>
+    <h2>Use</h2>
     <pre class="brush: csharp">
 ExempleEntity exemple1 = new ExempleEntity();
 Customer result = exemple1.GetFirstCustomer();
@@ -12,11 +25,9 @@ Customer result = exemple1.GetFirstCustomer();
 var model = Mapper.Map&lt;Customer, CustomerModel&gt;(result);
 </pre>
 </div>
-
+<h3>Result</h3>
 <div class="row">
     <div class="col-md-12">
-        <h2>Simple exemple to map Customer to CustomerModel</h2>
-
         <div>
             @Html.LabelFor(m => m.CompanyName)
             @Html.DisplayTextFor(m => m.CompanyName)

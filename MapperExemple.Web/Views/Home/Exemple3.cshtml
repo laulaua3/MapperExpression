@@ -5,14 +5,15 @@
 }
 
 <h2>@ViewBag.Message</h2>
+<h3>Code</h3>
 <pre class="brush: csharp">
-//this exemple show how map a IQuerable of customer to List of customerModel
+//this exemple show how map a IQueryable of customer to List of customerModel
 ExempleEntity exemple3 = new ExempleEntity();
 var result = exemple3.GetCustomers();
 //Map to list with using the select extention of the mapper
 var model = result.Select&lt;Customer, CustomerModel&gt;().ToList();
 </pre>
-
+<h3>Result</h3>
 <table class="table">
     <tr>
         <th>

@@ -5,14 +5,15 @@
 }
 
 <h2>@ViewBag.Message </h2>
-
+<h3>Code</h3>
 <pre class="brush: csharp">
-    //this exemple show how map a IQuerable to List  With custom mapping
+    //this exemple show how map a IQueryable to List  With custom mapping
     ExempleEntity exemple6 = new ExempleEntity();
     var result = exemple6.GetOrders();
     //see sql request in console output
     var model = result.Select&lt;Order, OrderModel&gt;().ToList(); 
 </pre>
+<h3>Result</h3>
 <table class="table">
 <tr>
 <th>

@@ -31,7 +31,7 @@ namespace MapperExemple.Web.Controllers
 
         public ActionResult Exemple2()
         {
-            ViewBag.Message = "Mapping of a List";
+            ViewBag.Message = "Mapping a List";
             //this exemple show how map a list of customer to customerModel
             ExempleEntity exemple2 = new ExempleEntity();
 
@@ -43,8 +43,8 @@ namespace MapperExemple.Web.Controllers
         }
         public ActionResult Exemple3()
         {
-            ViewBag.Message = "Mapping of a IQuerable";
-            //this exemple show how map a IQuerable of customer to List of customerModel
+            ViewBag.Message = "Mapping a IQueryable";
+            //this exemple show how map a IQueryable of customer to List of customerModel
             ExempleEntity exemple3 = new ExempleEntity();
 
             var result = exemple3.GetCustomers();
@@ -59,7 +59,7 @@ namespace MapperExemple.Web.Controllers
         {
             //Default page
             ViewBag.Message = "Exemple for OrderBy extentions";
-            //this exemple show how map a IQuerable of customer to List of customerModel
+            //this exemple show how map a IQueryable of customer to List of customerModel
             ExempleEntity exemple4 = new ExempleEntity();
 
             var result = exemple4.GetCustomers();
@@ -74,7 +74,7 @@ namespace MapperExemple.Web.Controllers
         public ActionResult Exemple4(SortedCustomerModel model)
         {
             ViewBag.Message = "Exemple for OrderBy extentions";
-            //this exemple show how map a IQuerable of customer with the OrderBy extention
+            //this exemple show how map a IQueryable of customer with the OrderBy extention
             ExempleEntity exemple4 = new ExempleEntity();
 
             var result = exemple4.GetCustomers();
@@ -104,7 +104,7 @@ namespace MapperExemple.Web.Controllers
         public ActionResult Exemple5()
         {
             //Default page
-            ViewBag.Message = "Exemple for custom mapping ";
+            ViewBag.Message = "Exemple for custom mapping";
             //this exemple show the map with custom mapping
             ExempleEntity exemple5 = new ExempleEntity();
 
@@ -117,8 +117,8 @@ namespace MapperExemple.Web.Controllers
         public ActionResult Exemple6()
         {
             //Default page
-            ViewBag.Message = "Exemple for custom mapping ";
-            //this exemple show how map a IQuerable to List  With custom mapping
+            ViewBag.Message = "Exemple for custom mapping";
+            //this exemple show how map a IQueryable to List  With custom mapping
             ExempleEntity exemple6 = new ExempleEntity();
 
             var result = exemple6.GetOrders();
