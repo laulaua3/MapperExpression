@@ -1,0 +1,566 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MapperCore.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperConfiguration`2">
+            <summary>Type shim de MapperCore.Core.MapperConfiguration`2</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfiguration`2.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfiguration`2.#ctor(MapperCore.Core.MapperConfiguration{`0,`1})">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AfterMapActionOfT0T1">
+            <summary>Définit le shim de MapperConfiguration`2.AfterMap(Action`2&lt;!0,!1&gt; actionAfterMap)</summary>
+        </member>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.AfterMapActionOfT0T1">
+            <summary>Définit le shim de MapperConfiguration`2.AfterMap(Action`2&lt;!0,!1&gt; actionAfterMap)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ConstructUsingServiceLocator">
+            <summary>Définit le shim de MapperConfiguration`2.ConstructUsingServiceLocator()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.CreateMappingExpressionFuncOfTypeObject">
+            <summary>Définit le shim de MapperConfiguration`2.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ExecuteAfterActionsT0T1">
+            <summary>Définit le shim de MapperConfiguration`2.ExecuteAfterActions(!0 source, !1 dest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ForMemberExpressionOfFuncOfT0ObjectExpressionOfFuncOfT1ObjectBoolean">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,Object&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetFuncDelegate">
+            <summary>Définit le shim de MapperConfiguration`2.GetFuncDelegate()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetLambdaExpression">
+            <summary>Définit le shim de MapperConfiguration`2.GetLambdaExpression()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetPropertyInfoSourceString">
+            <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoSource(String propertyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetSortedExpressionString">
+            <summary>Définit le shim de MapperConfiguration`2.GetSortedExpression(String propertySource)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.IgnoreExpressionOfFuncOfT1Object">
+            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; propertyDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ReverseMap">
+            <summary>Définit le shim de MapperConfiguration`2.ReverseMap()</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfiguration`2.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfiguration`2.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.ConstructUsingServiceLocator">
+            <summary>Définit le shim de MapperConfiguration`2.ConstructUsingServiceLocator()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.Constructor">
+            <summary>Définit le shim de MapperConfiguration`2.MapperConfiguration`2()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.CreateMappingExpressionFuncOfTypeObject">
+            <summary>Définit le shim de MapperConfiguration`2.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.ExecuteAfterActionsT0T1">
+            <summary>Définit le shim de MapperConfiguration`2.ExecuteAfterActions(!0 source, !1 dest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.ForMemberExpressionOfFuncOfT0ObjectExpressionOfFuncOfT1ObjectBoolean">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,Object&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.GetFuncDelegate">
+            <summary>Définit le shim de MapperConfiguration`2.GetFuncDelegate()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.GetLambdaExpression">
+            <summary>Définit le shim de MapperConfiguration`2.GetLambdaExpression()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.GetPropertyInfoSourceString">
+            <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoSource(String propertyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.GetSortedExpressionString">
+            <summary>Définit le shim de MapperConfiguration`2.GetSortedExpression(String propertySource)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.IgnoreExpressionOfFuncOfT1Object">
+            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; propertyDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfiguration`2.ReverseMap">
+            <summary>Définit le shim de MapperConfiguration`2.ReverseMap()</summary>
+        </member>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperConfigurationBase">
+            <summary>Type shim de MapperCore.Core.MapperConfigurationBase</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfigurationBase.#ctor(MapperCore.Core.MapperConfigurationBase)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ChangeSourcePropertyInfoParameterExpression">
+            <summary>Définit le shim de MapperConfigurationBase.ChangeSource(PropertyInfo property, ParameterExpression paramSource)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndConfigureMembersMappingPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMembersMapping(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndConfigureTypeOfListPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndRemoveMemberDestString">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndRemoveMemberSourceString">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberSource(String properyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateCheckIfNullPropertyInfoPropertyInfoMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationBase.CreateCheckIfNull(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateCommonMember">
+            <summary>Définit le shim de MapperConfigurationBase.CreateCommonMember()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMappingExpressionFuncOfTypeObject">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMemberAssignExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssign(Expression propertyExpression, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMemberAssignementPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssignement(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ForMemberLambdaExpressionLambdaExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetDataLoadOptionsLinq">
+            <summary>Définit le shim de MapperConfigurationBase.GetDataLoadOptionsLinq()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetDelegate">
+            <summary>Définit le shim de MapperConfigurationBase.GetDelegate()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetDestinationType">
+            <summary>Définit le shim de MapperConfigurationBase.GetDestinationType()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMapperTypeTypeBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tDest, Boolean throwExceptionOnNoFound)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMemberInitExpression">
+            <summary>Définit le shim de MapperConfigurationBase.GetMemberInitExpression()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetPropertyInfoLambdaExpression">
+            <summary>Définit le shim de MapperConfigurationBase.GetPropertyInfo(LambdaExpression propertyExpression)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.MemberToMapGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_MemberToMap()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.MemberToMapSetListOfMemberAssignment">
+            <summary>Définit le shim de MapperConfigurationBase.set_MemberToMap(List`1&lt;MemberAssignment&gt; value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.TypeDestGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_TypeDest()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.TypeDestSetType">
+            <summary>Définit le shim de MapperConfigurationBase.set_TypeDest(Type value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.TypeSourceGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_TypeSource()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.TypeSourceSetType">
+            <summary>Définit le shim de MapperConfigurationBase.set_TypeSource(Type value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.UseServiceLocatorGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_UseServiceLocator()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.AllInstances.UseServiceLocatorSetBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.set_UseServiceLocator(Boolean value)</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfigurationBase.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperConfigurationBase.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.ChangeSourcePropertyInfoParameterExpression">
+            <summary>Définit le shim de MapperConfigurationBase.ChangeSource(PropertyInfo property, ParameterExpression paramSource)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CheckAndConfigureMembersMappingPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMembersMapping(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CheckAndConfigureTypeOfListPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CheckAndRemoveMemberDestString">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CheckAndRemoveMemberSourceString">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberSource(String properyName)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.ConstructorTypeType">
+            <summary>Définit le shim de MapperConfigurationBase.MapperConfigurationBase(Type source, Type destination)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CreateCheckIfNullPropertyInfoPropertyInfoMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationBase.CreateCheckIfNull(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CreateCommonMember">
+            <summary>Définit le shim de MapperConfigurationBase.CreateCommonMember()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CreateMappingExpressionFuncOfTypeObject">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CreateMemberAssignExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssign(Expression propertyExpression, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.CreateMemberAssignementPropertyInfoPropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssignement(PropertyInfo memberSource, PropertyInfo memberDest)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.ForMemberLambdaExpressionLambdaExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetDataLoadOptionsLinq">
+            <summary>Définit le shim de MapperConfigurationBase.GetDataLoadOptionsLinq()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetDelegate">
+            <summary>Définit le shim de MapperConfigurationBase.GetDelegate()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetDestinationType">
+            <summary>Définit le shim de MapperConfigurationBase.GetDestinationType()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetMapperTypeTypeBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tDest, Boolean throwExceptionOnNoFound)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetMemberInitExpression">
+            <summary>Définit le shim de MapperConfigurationBase.GetMemberInitExpression()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.GetPropertyInfoLambdaExpression">
+            <summary>Définit le shim de MapperConfigurationBase.GetPropertyInfo(LambdaExpression propertyExpression)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.MemberToMapGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_MemberToMap()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.MemberToMapSetListOfMemberAssignment">
+            <summary>Définit le shim de MapperConfigurationBase.set_MemberToMap(List`1&lt;MemberAssignment&gt; value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.TypeDestGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_TypeDest()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.TypeDestSetType">
+            <summary>Définit le shim de MapperConfigurationBase.set_TypeDest(Type value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.TypeSourceGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_TypeSource()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.TypeSourceSetType">
+            <summary>Définit le shim de MapperConfigurationBase.set_TypeSource(Type value)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.UseServiceLocatorGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_UseServiceLocator()</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperConfigurationBase.UseServiceLocatorSetBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.set_UseServiceLocator(Boolean value)</summary>
+        </member>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperExpressionVisitor">
+            <summary>Type shim de MapperCore.Core.MapperExpressionVisitor</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.#ctor(MapperCore.Core.MapperExpressionVisitor)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances.GetDefaultValueType">
+            <summary>Définit le shim de MapperExpressionVisitor.GetDefaultValue(Type typeObject)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances.VisitExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.Visit(Expression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances.VisitMemberMemberExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitMember(MemberExpression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances.VisitParameterParameterExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitParameter(ParameterExpression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.AllInstances.VisitUnaryUnaryExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitUnary(UnaryExpression node)</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.ConstructorBooleanParameterExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.MapperExpressionVisitor(Boolean checkIfNull, ParameterExpression paramClassSource)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.GetDefaultValueType">
+            <summary>Définit le shim de MapperExpressionVisitor.GetDefaultValue(Type typeObject)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.VisitExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.Visit(Expression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.VisitMemberMemberExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitMember(MemberExpression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.VisitParameterParameterExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitParameter(ParameterExpression node)</summary>
+        </member>
+        <member name="P:MapperCore.Core.Fakes.ShimMapperExpressionVisitor.VisitUnaryUnaryExpression">
+            <summary>Définit le shim de MapperExpressionVisitor.VisitUnary(UnaryExpression node)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimMapperExistException">
+            <summary>Type shim de MapperCore.Exception.MapperExistException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperExistException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperExistException.#ctor(MapperCore.Exception.MapperExistException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimMapperExistException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperExistException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperExistException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimMapperExistException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperExistException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimMapperExistException.ConstructorTypeType">
+            <summary>Définit le shim de MapperExistException.MapperExistException(Type source, Type dest)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimMapperNotInitializedException">
+            <summary>Type shim de MapperCore.Exception.MapperNotInitializedException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.#ctor(MapperCore.Exception.MapperNotInitializedException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimMapperNotInitializedException.ConstructorTypeType">
+            <summary>Définit le shim de MapperNotInitializedException.MapperNotInitializedException(Type typeSource, Type typeDest)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimNoFoundMapperException">
+            <summary>Type shim de MapperCore.Exception.NoFoundMapperException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNoFoundMapperException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNoFoundMapperException.#ctor(MapperCore.Exception.NoFoundMapperException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimNoFoundMapperException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNoFoundMapperException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNoFoundMapperException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimNoFoundMapperException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNoFoundMapperException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimNoFoundMapperException.ConstructorTypeType">
+            <summary>Définit le shim de NoFoundMapperException.NoFoundMapperException(Type source, Type dest)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException">
+            <summary>Type shim de MapperCore.Exception.NotSameTypePropertyException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.#ctor(MapperCore.Exception.NotSameTypePropertyException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimNotSameTypePropertyException.ConstructorTypeType">
+            <summary>Définit le shim de NotSameTypePropertyException.NotSameTypePropertyException(Type typeSource, Type typeDest)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimPropertyNoExistException">
+            <summary>Type shim de MapperCore.Exception.PropertyNoExistException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimPropertyNoExistException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimPropertyNoExistException.#ctor(MapperCore.Exception.PropertyNoExistException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimPropertyNoExistException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimPropertyNoExistException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimPropertyNoExistException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimPropertyNoExistException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimPropertyNoExistException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimPropertyNoExistException.ConstructorStringType">
+            <summary>Définit le shim de PropertyNoExistException.PropertyNoExistException(String propertyName, Type typeObject)</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException">
+            <summary>Type shim de MapperCore.Exception.ReadOnlyPropertyException</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.#ctor(MapperCore.Exception.ReadOnlyPropertyException)">
+            <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
+        </member>
+        <member name="T:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.AllInstances">
+            <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        </member>
+        <member name="P:MapperCore.Exception.Fakes.ShimReadOnlyPropertyException.ConstructorPropertyInfo">
+            <summary>Définit le shim de ReadOnlyPropertyException.ReadOnlyPropertyException(PropertyInfo property)</summary>
+        </member>
+        <member name="T:MapperCore.Extensions.Fakes.ShimQueryableExtentions">
+            <summary>Type shim de MapperCore.Extensions.QueryableExtentions</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Extensions.Fakes.ShimQueryableExtentions.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.CreateMethodCallOf3IQueryableOfM0StringString``3(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.String,System.String,``2})">
+            <summary>Définit le shim de QueryableExtentions.CreateMethodCall(IQueryable`1&lt;!!0&gt; query, String methodName, String sortedPropertySourceName)</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.GetMapperOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperCore.Core.MapperConfiguration{``0,``1}})">
+            <summary>Définit le shim de QueryableExtentions.GetMapper()</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.OrderByDescendingOf2IQueryableOfM0String``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.String,System.Linq.IOrderedQueryable{``0}})">
+            <summary>Définit le shim de QueryableExtentions.OrderByDescending(IQueryable`1&lt;!!0&gt; query, String sortedPropertyDestName)</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.OrderByOf2IQueryableOfM0String``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.String,System.Linq.IOrderedQueryable{``0}})">
+            <summary>Définit le shim de QueryableExtentions.OrderBy(IQueryable`1&lt;!!0&gt; query, String sortedPropertyDestName)</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.SelectOf2IQueryableOfM0``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``1}})">
+            <summary>Définit le shim de QueryableExtentions.Select(IQueryable`1&lt;!!0&gt; query)</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.ThenByDescendingOf2IQueryableOfM0String``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.String,System.Linq.IOrderedQueryable{``0}})">
+            <summary>Définit le shim de QueryableExtentions.ThenByDescending(IQueryable`1&lt;!!0&gt; query, String sortedPropertyDestName)</summary>
+        </member>
+        <member name="M:MapperCore.Extensions.Fakes.ShimQueryableExtentions.ThenByOf2IQueryableOfM0String``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.IQueryable{``0},System.String,System.Linq.IOrderedQueryable{``0}})">
+            <summary>Définit le shim de QueryableExtentions.ThenBy(IQueryable`1&lt;!!0&gt; query, String sortedPropertyDestName)</summary>
+        </member>
+        <member name="T:MapperCore.Fakes.ShimMapper">
+            <summary>Type shim de MapperCore.Mapper</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.#ctor">
+            <summary>Initialise une nouvelle instance de shim</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.BehaveAsCurrent">
+            <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.BehaveAsNotImplemented">
+            <summary>Attribue le comportement &apos;NotImplemented&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Fakes.ShimMapper.Behavior">
+            <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
+        </member>
+        <member name="P:MapperCore.Fakes.ShimMapper.ConstructServicesUsingFuncOfTypeObject">
+            <summary>Définit le shim de Mapper.ConstructServicesUsing(Func`2&lt;Type,Object&gt; constructor)</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.CreateMapOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperCore.Core.MapperConfiguration{``0,``1}})">
+            <summary>Définit le shim de Mapper.CreateMap()</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.GetDataLoadOptionsLinqOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Data.Linq.DataLoadOptions})">
+            <summary>Définit le shim de Mapper.GetDataLoadOptionsLinq()</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.GetMapperOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperCore.Core.MapperConfiguration{``0,``1}})">
+            <summary>Définit le shim de Mapper.GetMapper()</summary>
+        </member>
+        <member name="P:MapperCore.Fakes.ShimMapper.GetMapperTypeType">
+            <summary>Définit le shim de Mapper.GetMapper(Type tSource, Type tDest)</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.GetQueryExpressionOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.Expressions.Expression{System.Func{``0,``1}}})">
+            <summary>Définit le shim de Mapper.GetQueryExpression()</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.GetQueryOf2``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``0,``1}})">
+            <summary>Définit le shim de Mapper.GetQuery()</summary>
+        </member>
+        <member name="P:MapperCore.Fakes.ShimMapper.Initialize">
+            <summary>Définit le shim de Mapper.Initialize()</summary>
+        </member>
+        <member name="M:MapperCore.Fakes.ShimMapper.MapOf2M0``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{``0,``1})">
+            <summary>Définit le shim de Mapper.Map(!!0 source)</summary>
+        </member>
+        <member name="P:MapperCore.Fakes.ShimMapper.Reset">
+            <summary>Définit le shim de Mapper.Reset()</summary>
+        </member>
+    </members>
+</doc>
