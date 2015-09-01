@@ -107,20 +107,6 @@ namespace MapperExpression
         }
 
         /// <summary>
-        /// Gets the data load options for linqToSql.
-        /// </summary>
-        /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDest">The type of the dest.</typeparam>
-        /// <returns></returns>
-        public static DataLoadOptions GetDataLoadOptionsLinq<TSource, TDest>()
-            where TSource : class
-            where TDest : class
-        {
-            MapperConfiguration<TSource, TDest> map = GetMapper<TSource, TDest>();
-            return map.GetDataLoadOptionsLinq();
-        }
-
-        /// <summary>
         /// Initialise the mappers.
         /// </summary>
         public static void Initialize()

@@ -31,6 +31,7 @@ namespace MapperExemple.Web.App_Start
             Mapper.CreateMap<IExempleProduct,ProductModel>();
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
+           
             //Important!!!
             Mapper.Initialize();
         }

@@ -123,19 +123,6 @@ namespace MapperExpression.Tests.Units
             ClassDest2 actual = null;
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
-        [TestMethod, TestCategory("Linq2Sql")]
-        public void GetDataLoadOptionsLinq_Succes()
-        {
-            DataLoadOptions actual = null;
-            Mapper.CreateMap<ClassSource, ClassDest>()
-                 .ForMember(s => s.ClassSourceEntityBase, d => d.ClassDestEntityBase, true);
-            Mapper.CreateMap<ClassSourceEntityBase, ClassDest2>();
-            Mapper.Initialize();
-            actual = Mapper.GetDataLoadOptionsLinq<ClassSource, ClassDest>();
-
-            Assert.IsNotNull(actual);
-            Clean();
-        }
 
     }
 }

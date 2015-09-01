@@ -441,26 +441,6 @@ namespace MapperExpression.Core
             }
         }
 
-        internal DataLoadOptions GetDataLoadOptionsLinq()
-        {
-            DataLoadOptions options = new DataLoadOptions();
-            //On prend tous le objets qui sont lie au data model
-            IEnumerable<Expression> propertiesLinq = MemberToMap.Where(p => p.Expression.NodeType == ExpressionType.Conditional
-                                                        && ((p.Expression as ConditionalExpression).Test as BinaryExpression).Left.Type.BaseType.Name == "EntityBase")
-                                                    .Select(p => ((p.Expression as ConditionalExpression).Test as BinaryExpression).Left);
-            List<string> memberInserted = new List<string>();
-
-            foreach (MemberExpression prop in propertiesLinq.Cast<MemberExpression>())
-            {
-                if (!memberInserted.Contains(prop.Member.Name))
-                {
-                    options.LoadWith(Expression.Lambda(prop));
-                    memberInserted.Add(prop.Member.Name);
-                }
-            }
-            return options;
-        }
-
         #endregion       
     }
 }
