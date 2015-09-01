@@ -1,6 +1,8 @@
 ﻿using MapperExemple.Entity;
+using MapperExemple.Entity.Interface;
 using MapperExemple.Web.Models;
 using MapperExpression;
+using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,14 @@ namespace MapperExemple.Web.App_Start
                 .ForMember(s => s.Customer.CompanyName, d => d.CustomerName, true);
 
             Mapper.CreateMap<OrderDetail, OrderDetailModel>();
-            //Important
+
+            //Exemple with Ioc
+            Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
+            Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator();
+            Mapper.CreateMap<IExempleProduct,ProductModel>();
+            //Other exemple
+            Mapper.CreateMap<Product, ProductModel>();
+            //Important!!!
             Mapper.Initialize();
         }
     }

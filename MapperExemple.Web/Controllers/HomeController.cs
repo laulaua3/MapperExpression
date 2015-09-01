@@ -7,6 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MapperExpression.Extensions;
+using Microsoft.Practices.ServiceLocation;
+using MapperExemple.Entity.Interface;
+
 namespace MapperExemple.Web.Controllers
 {
     //see  MappingConfig class in App_Start for create the mapping
@@ -16,8 +19,8 @@ namespace MapperExemple.Web.Controllers
 
         public ActionResult Index()
         {
-           
-            ExempleEntity exemple1 = new ExempleEntity();
+
+            ExempleCustomer exemple1 = new ExempleCustomer();
 
             Customer result = exemple1.GetFirstCustomer();
             //exemple to Map a object
@@ -33,7 +36,7 @@ namespace MapperExemple.Web.Controllers
         {
             ViewBag.Message = "Mapping a List";
             //this exemple show how map a list of customer to customerModel
-            ExempleEntity exemple2 = new ExempleEntity();
+            ExempleCustomer exemple2 = new ExempleCustomer();
 
             var result = exemple2.GetCustomersList();
             //Map to list
@@ -45,13 +48,13 @@ namespace MapperExemple.Web.Controllers
         {
             ViewBag.Message = "Mapping a IQueryable";
             //this exemple show how map a IQueryable of customer to List of customerModel
-            ExempleEntity exemple3 = new ExempleEntity();
+            ExempleCustomer exemple3 = new ExempleCustomer();
 
             var result = exemple3.GetCustomers();
             //Map to list with using the select extention of the mapper
             var model = result.Select<Customer, CustomerModel>().ToList();
 
-            return View( model);
+            return View(model);
         }
 
         [HttpGet]
@@ -60,7 +63,7 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Exemple for OrderBy extentions";
             //this exemple show how map a IQueryable of customer to List of customerModel
-            ExempleEntity exemple4 = new ExempleEntity();
+            ExempleCustomer exemple4 = new ExempleCustomer();
 
             var result = exemple4.GetCustomers();
 
@@ -70,12 +73,13 @@ namespace MapperExemple.Web.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Exemple4(SortedCustomerModel model)
         {
             ViewBag.Message = "Exemple for OrderBy extentions";
             //this exemple show how map a IQueryable of customer with the OrderBy extention
-            ExempleEntity exemple4 = new ExempleEntity();
+            ExempleCustomer exemple4 = new ExempleCustomer();
 
             var result = exemple4.GetCustomers();
             if (model.SortDirection == "ascending")
@@ -106,7 +110,7 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Exemple for custom mapping";
             //this exemple show the map with custom mapping
-            ExempleEntity exemple5 = new ExempleEntity();
+            ExempleOrder exemple5 = new ExempleOrder();
 
             var result = exemple5.GetFirstOrder();
 
@@ -118,17 +122,79 @@ namespace MapperExemple.Web.Controllers
         {
             //Default page
             ViewBag.Message = "Exemple for custom mapping";
-            //this exemple show how map a IQueryable to List  With custom mapping
-            ExempleEntity exemple6 = new ExempleEntity();
+            //this exemple show how map a IQueryable to List  with custom mapping
+            ExempleOrder exemple6 = new ExempleOrder();
 
             var result = exemple6.GetOrders();
             //see sql request in console output
-            var model = result.Select<Order, OrderModel>().ToList(); 
+            var model = result.Select<Order, OrderModel>().ToList();
 
             return View(model);
         }
 
         #endregion
+
+        #region Ioc
+
+        public ActionResult Exemple7()
+        {
+            //Default page
+            ViewBag.Message = "Exemple with ioc";
+            //this exemple show the map  with ioc
+            IExempleProduct exemple7 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+
+            var result = exemple7.GetFirstProduct();
+
+            var model = Mapper.Map<IExempleProduct, ProductModel>(result);
+
+            return View(model);
+        }
+
+        public ActionResult Exemple8()
+        {
+            //Default page
+            ViewBag.Message = "Exemple map a list with ioc";
+
+            IExempleProduct exemple8 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            //Exemple map a list with ioc
+            var result = exemple8.GetProductsList();
+
+            var model = result.Select(Mapper.GetQuery<IExempleProduct, ProductModel>());
+
+            return View(model);
+        }
+
+        public ActionResult Exemple9()
+        {
+            //Default page
+            ViewBag.Message = "Exemple map a IQueryable with ioc";
+
+            IExempleProduct exemple9 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            //Exemple map a IQueryable with ioc
+            var result = exemple9.GetProducts();
+
+            var model = result.Select<IExempleProduct, ProductModel>().ToList();
+
+            return View(model);
+        }
+        public ActionResult Exemple10()
+        {
+            //Default page
+            ViewBag.Message = "Other exemple map a IQueryable";
+
+            IExempleProduct exemple10 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            //Exemple map a IQueryable 
+            //Mapper.CreateMap<Product, ProductModel>();
+            var result = exemple10.GetProducts2(Mapper.GetQueryExpression<Product, ProductModel>());
+
+
+            var model = result;
+
+            return View(model);
+        }
+
+        #endregion
+
         public ActionResult About()
         {
 

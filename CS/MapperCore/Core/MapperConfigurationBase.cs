@@ -339,7 +339,7 @@ namespace MapperExpression.Core
 
         protected void CreateCheckIfNull(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)
         {
-            Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null));
+            Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null, memberSource.PropertyType));
 
             //Création de la nouvelle class de destination
             NewExpression newClassDest  = Expression.New(mapperExterne.GetDestinationType());

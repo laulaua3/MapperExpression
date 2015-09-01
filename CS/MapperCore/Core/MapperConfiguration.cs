@@ -115,9 +115,8 @@ namespace MapperExpression.Core
         /// <returns>the new Mapper</returns>
         public MapperConfiguration<TDest, TSource> ReverseMap()
         {
-            //On recherche le mapper inverse
             MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false) as MapperConfiguration<TDest, TSource>;
-            //on lève un exception si celui existe déjà
+            
             if (map != null)
             {
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
