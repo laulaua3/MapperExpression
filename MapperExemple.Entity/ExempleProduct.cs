@@ -26,14 +26,13 @@ namespace MapperExemple.Entity
 
         public IExempleProduct GetFirstProduct()
         {
-            Product result = null;
+            IExempleProduct result = null;
             using (ExempleDbContext context = new ExempleDbContext())
             {
                 context.Database.Log = x => Debug.WriteLine(x);
-                result = (from c in context.Products
-                          select c).FirstOrDefault();
+                result = context.Products.Select<Product, IExempleProduct>().FirstOrDefault();
             }
-            return Mapper.Map<Product, IExempleProduct>(result);
+            return result;
         }
 
         public IList<IExempleProduct> GetProductsList()

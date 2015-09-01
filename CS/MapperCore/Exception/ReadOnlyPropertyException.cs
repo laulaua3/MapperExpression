@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 
 namespace MapperExpression.Exception
@@ -9,7 +8,7 @@ namespace MapperExpression.Exception
     {
 
         public ReadOnlyPropertyException(PropertyInfo property)
-            : base("La propriété '" + property.Name + "' de destination est en lecture seule")
+            : base("The destination property  '" + property.Name + "' is read-only")
         {
 
         }

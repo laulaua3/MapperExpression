@@ -8,7 +8,7 @@ namespace MapperExpression.Exception
     {
 
         public MapperExistException(Type source,Type dest)
-            : base("Un mappeur existe déjà pour le type source '" + source.FullName + "' et le type de destination '" + dest.FullName + "'")
+            : base("A mapper already exists for the type of source '" + source.FullName + "' and the type of destination '" + dest.FullName + "'")
         {
 
         }

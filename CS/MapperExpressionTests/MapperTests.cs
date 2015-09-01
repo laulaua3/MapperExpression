@@ -123,6 +123,5 @@ namespace MapperExpression.Tests.Units
             ClassDest2 actual = null;
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
-
     }
 }

@@ -1,7 +1,4 @@
-﻿
-
-using MapperExpression;
-using MapperExpression.Core;
+﻿using MapperExpression.Core;
 using MapperExpression.Exception;
 using MapperExpression.Tests.Units.ClassTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

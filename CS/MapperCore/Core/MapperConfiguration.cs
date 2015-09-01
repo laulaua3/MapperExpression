@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using MapperExpression.Exception;
@@ -9,10 +8,10 @@ namespace MapperExpression.Core
 {
 
     /// <summary>
-    /// Mappeur principal
+    /// Principal mapper
     /// </summary>
-    /// <typeparam name="TSource">Le type de la source.</typeparam>
-    /// <typeparam name="TDest">Le type de la destination.</typeparam>
+    /// <typeparam name="TSource">The type of source.</typeparam>
+    /// <typeparam name="TDest">Type of destination.</typeparam>
     public class MapperConfiguration<TSource, TDest>
         : MapperConfigurationBase
     {
@@ -25,7 +24,7 @@ namespace MapperExpression.Core
         #region Constructeur
 
         /// <summary>
-        /// Instancie un nouvelle instance de <see cref="MapperConfiguration{TSource, TDest}"/> class.
+        /// Instantiates a new instance of<see cref="MapperConfiguration{TSource, TDest}"/> class.
         /// </summary>
         internal MapperConfiguration()
             : base(typeof(TSource), typeof(TDest))
@@ -37,7 +36,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Méthodes publiques
+        #region Public methods
 
         /// <summary>
         /// Gets the lambda expression.
@@ -86,7 +85,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Action à exécuter après le mapping
+        /// Action to perform after the mapping
         /// </summary>
         /// <param name="actionAfterMap">Action a réalisée</param>
         /// <returns></returns>
@@ -122,12 +121,12 @@ namespace MapperExpression.Core
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
             map = new MapperConfiguration<TDest, TSource>();
-            //On parcours les propriétés de mapping de l'existant et on crée les relations inverses
+            //Path is the mapping of existing properties and inverse relationships are created
             for (int i = 0; i < propertiesMapping.Count; i++)
             {
                 Tuple<LambdaExpression, LambdaExpression, bool> item = propertiesMapping[i];
                 PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
-                //Si la propriété de destination n'est pas en lecture seul
+                //If the destination property is not read-only
                 if (propertyDest.CanWrite)
                     map.ForMember(item.Item2, item.Item1, item.Item3);
             }
@@ -136,7 +135,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Indique si l'on utilise le service d'injection
+        /// Indicates whether one uses the service injection
         /// </summary>
         public MapperConfiguration<TSource, TDest> ConstructUsingServiceLocator()
         {
@@ -146,13 +145,13 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Méthodes privées
+        #region Private methods
 
         internal override void CreateMappingExpression(Func<Type, object> constructor)
         {
             if (!isInitialized)
             {
-                //on le met avant le traitement pour éviter les boucles récursives
+                //it is put before treatment to avoid recursive loops
                 isInitialized = true;
                 constructorFunc = constructor;
                 CreateCommonMember();
@@ -161,12 +160,12 @@ namespace MapperExpression.Core
                 {
                     LambdaExpression getPropertySource = propertiesMapping[i].Item1;
                     LambdaExpression getPropertyDest = propertiesMapping[i].Item2;
-                    //On va chercher les propriétés choisies
+                    //We will search the selected properties
                     PropertyInfo memberSource = GetPropertyInfo(getPropertySource);
                     PropertyInfo memberDest = GetPropertyInfo(getPropertyDest);
                     CreateMemberAssignement(memberSource, memberDest);
                 }
-                //création du delegate
+                //creation of delegate
                 GetFuncDelegate();
             }
         }

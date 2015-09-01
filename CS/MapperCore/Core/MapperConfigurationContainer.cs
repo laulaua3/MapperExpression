@@ -5,7 +5,7 @@ using System.Linq;
 namespace MapperExpression.Core
 {
     /// <summary>
-    /// Singleton du stockage des mappeurs
+    /// Singleton storage mappers
     /// </summary>
     internal class MapperConfigurationContainer : List<MapperConfigurationBase>
     {

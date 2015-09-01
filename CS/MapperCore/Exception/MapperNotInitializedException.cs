@@ -6,7 +6,7 @@ namespace MapperExpression.Exception
     public  class MapperNotInitializedException :System.Exception
     {
       public MapperNotInitializedException(Type typeSource, Type typeDest)
-          : base("Le mappeur pour le type source '" + typeSource.FullName + "' et le type de destination '" + typeDest.FullName + "' n'est pas initialisé (appelé Mapper.Initialise()")
+          : base("Mapper for the source type '" + typeSource.FullName + "' and the type of destination '" + typeDest.FullName + "' is not initialized (called Mapper.Initialise())")
       {
 
       }

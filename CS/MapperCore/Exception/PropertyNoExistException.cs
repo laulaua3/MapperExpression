@@ -1,7 +1,5 @@
 ﻿using System;
 
-using System.Reflection;
-
 namespace MapperExpression.Exception
 {
     [Serializable]
@@ -9,7 +7,7 @@ namespace MapperExpression.Exception
     {
         
         public PropertyNoExistException(string propertyName,Type typeObject)
-            : base("La propriété '" + propertyName + "' n'existe pas pour le type '" + typeObject.ToString() + "'")
+            : base("The property '" + propertyName + "' does not exist for the type'" + typeObject.ToString() + "'")
         {
         
         }

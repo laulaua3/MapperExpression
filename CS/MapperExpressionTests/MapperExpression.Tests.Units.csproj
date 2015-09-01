@@ -80,10 +80,8 @@
   <ItemGroup>
     <Compile Include="ClassTests\ClassDest2.cs" />
     <Compile Include="ClassTests\ClassDest.cs" />
-    <Compile Include="ClassTests\ClassSourceEntityBase.cs" />
     <Compile Include="ClassTests\ClassSource2.cs" />
     <Compile Include="ClassTests\ClassSource.cs" />
-    <Compile Include="ClassTests\EntityBase.cs" />
     <Compile Include="ClassTests\MapperConfigurationTestContainer.cs" />
     <Compile Include="ClassTests\QueryableImplTest.cs" />
     <Compile Include="Core\MapperConfigurationBaseTests.cs" />

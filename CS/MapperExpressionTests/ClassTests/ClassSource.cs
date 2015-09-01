@@ -12,7 +12,7 @@ namespace MapperExpression.Tests.Units.ClassTests
 
         public List<ClassSource2> ListProp { get; set; }
 
-        public ClassSourceEntityBase ClassSourceEntityBase { get; set; }
+       
 
         public ClassSource Same { get; set; }
 

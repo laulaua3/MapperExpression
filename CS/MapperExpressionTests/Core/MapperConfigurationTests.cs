@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MapperExpression.Tests.Units.ClassTests;
 using MapperExpression.Core;
-using MapperExpression;
 using MapperExpression.Exception;
 using System.Linq.Expressions;
 using System.Reflection;

@@ -18,7 +18,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Constructeur
+        #region Builder
 
         // <summary>
         // Initialise une nouvelle instance de  <see cref="MapperExpressionVisitor"/> classe.
@@ -34,14 +34,14 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Méthodes surchargées
+        #region Overloaded methods
 
         /// <summary>
-        /// Distribue l'expression à l'une des méthodes de visite les plus spécialisées dans cette classe.
+        /// Distributes the expression one of the more specialized visit methods in this class.
         /// </summary>
-        /// <param name="node">Expression à visiter.</param>
+        /// <param name="node">Expression to visit.</param>
         /// <returns>
-        /// Expression modifiée, si celle-ci ou toute sous-expression a été modifiée ; sinon, retourne l'expression d'origine.
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
         /// </returns>
         public override Expression Visit(Expression node)
         {
@@ -49,7 +49,7 @@ namespace MapperExpression.Core
                 return node;
             if (checkNull)
             {
-                //On traite que nos cas
+                //Treated our case
                 switch (node.NodeType)
                 {
                     case ExpressionType.MemberAccess:
@@ -68,30 +68,30 @@ namespace MapperExpression.Core
 
                 }
                 bool isFirst = true;
-                //Nous voulons tester tout les sous objets avant d'affecter la valeur
-                //Ex: source.SubClass.SubClass2.MaPropriete
-                //Ce qui donnera
-                //source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MaPropriete :null :null
+                //We want to test all the sub objects before assigning the value
+                //Ex: source.SubClass.SubClass2.MyProperty
+                //Which will give
+                //source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :null :null
                 foreach (MemberExpression item in membersTocheck)
                 {
 
-                    if (!isFirst) //Pour ne pas tester la valeur de la propriété de retour
+                    if (!isFirst) //Not to test the value of the property back
                     {
                         object defaultValue = GetDefaultValue(item.Type);
 
-                        //Création de la vérification de la nullité
+                        //Creating verification of nullity
                         Expression notNull = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
                         Expression conditional = null;
-                        //On crée une condition qui inclue la condition précédente
+                        //It creates a condition that includes the above condition
                         if (previousMember != null)
                         {
                             object defaultPreviousValue = GetDefaultValue(previousMember.Type);
                             conditional = Expression.Condition(notNull, previousMember, Expression.Constant(defaultPreviousValue, previousMember.Type));
                         }
-                        //On affecte la condition nouvellement crée qui deviendra la précédente
+                        //It affects the newly created conditions that will become the previous
                         previousMember = conditional;
                     }
-                    else //là la propriété demandée
+                    else //here the requested property
                     {
                         previousMember = item;
                         isFirst = false;
@@ -101,8 +101,8 @@ namespace MapperExpression.Core
             }
             else
             {
-                //retour par défaut (avec changement du paramètre)
-                //pour supprimer la validation de l'expression lambda
+                //return by default (with change of the parameter)
+                //to remove validation of the lambda expression
                 if ((node.NodeType == ExpressionType.Lambda))
                 {
                     return base.Visit((node as LambdaExpression).Body);
@@ -115,24 +115,24 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Visite <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+        /// Visit <see cref="T:System.Linq.Expressions.ParameterExpression" />.
         /// </summary>
-        /// <param name="node">Expression à visiter.</param>
+        /// <param name="node">Expression to visit.</param>
         /// <returns>
-        /// Expression modifiée, si celle-ci ou toute sous-expression a été modifiée ; sinon, retourne l'expression d'origine.
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
         /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
-            //Pour changer de paramètre
+            //To change parameter
             return paramSource;
         }
 
         /// <summary>
-        /// Visite les enfants de <see cref="T:System.Linq.Expressions.MemberExpression" />.
+        /// Visit the children of <see cref="T:System.Linq.Expressions.MemberExpression" />.
         /// </summary>
-        /// <param name="node">Expression à visiter.</param>
+        /// <param name="node">Expression to visit.</param>
         /// <returns>
-        /// Expression modifiée, si celle-ci ou toute sous-expression a été modifiée ; sinon, retourne l'expression d'origine.
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
         /// </returns>
         protected override Expression VisitMember(MemberExpression node)
         {
@@ -141,30 +141,30 @@ namespace MapperExpression.Core
             //Pour traiter plus tard
             if (memberAccessExpression != null && checkNull)
             {
-                //Sachant que l'on visite le premier membre en premier et que l'on descend à chaque fois
-                //on insert notre membre courant à la première ligne de la liste pour inverser l'ordre
+                // Knowing that the first member is in the first visit and as we descend each time 
+                //our current insert member is in the first line of the list to change the order
                 //exemple :
-                //source.SubClass.SubClass2.MaPropriete
-                //la liste serait:
-                //MaList(0) = SubClass
-                //MaList(1) = SubClass2
-                //MaList(2) = MaPropriete
+                //source.SubClass.SubClass2.MyProperty
+                //the list would be:
+                //MyList[0] = SubClass
+                //MyList[1] = SubClass2
+                //MyList[2] = MyProperty
                 //
-                //mais nous voulons
-                //MaList(0) = MaPropriete
-                //MaList(1) = SubClass2
-                //MaList(2) = SubClass
+                //but we want
+                //MyList[0] = MyProperty
+                //MyList[1] = SubClass2
+                //MyList[2] = SubClass
                 membersTocheck.Insert(0, memberAccessExpression);
             }
             return memberAccessExpression;
         }
 
         /// <summary>
-        /// Visite les enfants de <see cref="T:System.Linq.Expressions.UnaryExpression" />.
+        ///  Visit the children of <see cref="T:System.Linq.Expressions.UnaryExpression" />.
         /// </summary>
-        /// <param name="node">Expression à visiter.</param>
+        /// <param name="node">Expression to visit.</param>
         /// <returns>
-        /// Expression modifiée, si celle-ci ou toute sous-expression a été modifiée ; sinon, retourne l'expression d'origine.
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
         /// </returns>
         protected override Expression VisitUnary(UnaryExpression node)
         {
@@ -174,7 +174,7 @@ namespace MapperExpression.Core
         private object GetDefaultValue(Type typeObject)
         {
             object defaultValue = null;
-            //Dans le cas de type valeur (ex :Integer), il faut instancier l'objet pour avoir sa valeur par défaut
+            //In the case of value types (eg Integer), you must instantiate the object to have its default value
             if (typeObject.IsValueType)
             {
                 NewExpression exp = Expression.New(typeObject);

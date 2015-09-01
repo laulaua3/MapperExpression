@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Data.Linq;
 using System.Linq.Expressions;
 using MapperExpression.Core;
 using MapperExpression.Exception;
-using System.Linq;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace MapperExpression
 {

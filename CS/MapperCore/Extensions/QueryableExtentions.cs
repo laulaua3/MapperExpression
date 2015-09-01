@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MapperExpression.Core;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,12 +11,12 @@ namespace MapperExpression.Extensions
         #region Extentions IQueryable
 
         /// <summary>
-        ///  Trie les éléments d'une séquence dans l'ordre croissant selon une clé.
+        ///  Sorts the elements of a sequence in ascending order according to a key.
         /// </summary>
-        /// <typeparam name="TSource">type de la source</typeparam>
-        /// <typeparam name="TDest">type de destination</typeparam>
-        /// <param name="query">Séquence de valeurs à classer.</param>
-        /// <param name="sortedPropertyDestName">Nom de la colonne de destination</param>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="sortedPropertyDestName">Name of the destination property</param>
         /// <returns></returns>
         public static IOrderedQueryable<TSource> OrderBy<TSource, TDest>(this IQueryable<TSource> query, string sortedPropertyDestName)
             where TSource : class
@@ -28,12 +26,12 @@ namespace MapperExpression.Extensions
         }
 
         /// <summary>
-        ///  Trie les éléments d'une séquence dans l'ordre décroissant selon une clé.
+        /// Sorts the elements of a sequence in descending order according to a key.
         /// </summary>
-        /// <typeparam name="TSource">type de la source</typeparam>
-        /// <typeparam name="TDest">type de destination</typeparam>
-        /// <param name="query">Séquence de valeurs à classer.</param>
-        /// <param name="sortedPropertyDestName">Nom de la colonne de destination</param>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="sortedPropertyDestName">Name of the destination property</param>
         /// <returns></returns>
         public static IOrderedQueryable<TSource> OrderByDescending<TSource, TDest>(this IQueryable<TSource> query, string sortedPropertyDestName)
             where TSource : class
@@ -44,12 +42,12 @@ namespace MapperExpression.Extensions
 
 
         /// <summary>
-        ///  Trie les éléments d'une séquence dans l'ordre croissant selon une clé.
+        ///  Sorts the elements of a sequence in ascending order according to a key.
         /// </summary>
-        /// <typeparam name="TSource">type de la source</typeparam>
-        /// <typeparam name="TDest">type de destination</typeparam>
-        /// <param name="query">Séquence de valeurs à classer.</param>
-        /// <param name="sortedPropertyDestName">Nom de la colonne de destination</param>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="sortedPropertyDestName">Name of the destination property</param>
         /// <returns></returns>
         public static IOrderedQueryable<TSource> ThenBy<TSource, TDest>(this IQueryable<TSource> query, string sortedPropertyDestName)
             where TSource : class
@@ -59,12 +57,12 @@ namespace MapperExpression.Extensions
         }
 
         /// <summary>
-        ///  Trie les éléments d'une séquence dans l'ordre décroissant selon une clé.
+        /// Sorts the elements of a sequence in descending order according to a key.
         /// </summary>
-        /// <typeparam name="TSource">type de la source</typeparam>
-        /// <typeparam name="TDest">type de destination</typeparam>
-        /// <param name="query">Séquence de valeurs à classer.</param>
-        /// <param name="sortedPropertyDestName">Nom de la colonne de destination</param>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="sortedPropertyDestName">Name of the destination property</param>
         /// <returns></returns>
         public static IOrderedQueryable<TSource> ThenByDescending<TSource, TDest>(this IQueryable<TSource> query, string sortedPropertyDestName)
             where TSource : class
@@ -75,11 +73,11 @@ namespace MapperExpression.Extensions
         }
 
         /// <summary>
-        /// Projette chaque élément d'une séquence dans un nouveau formulaire en incorporant l'objet de destination
+        ///Projects each element of a sequence into a new form by incorporating the destination object
         /// </summary>
-        /// <typeparam name="TSource">type de la source</typeparam>
-        /// <typeparam name="TDest">type de destination</typeparam>
-        /// <param name="query">Séquence de valeurs à classer.</param>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
         /// <returns></returns>
         public static IQueryable<TDest> Select<TSource, TDest>(this IQueryable<TSource> query)
             where TSource : class
@@ -93,15 +91,13 @@ namespace MapperExpression.Extensions
         //    where TSource : class
         //    where TDest : class
         //{
-        //    var mapper = GetMapper<TSource, TDest>();
-        //    mapper.GetSortedExpression("");
-        //    MapperExpressionVisitor visitor = new MapperExpressionVisitor(false, mapper.);
+        //   TODO
         //}
-        
-    
+
+
         #endregion
 
-        #region Méthodes privées
+        #region Private methods
 
         private static TQueryable CreateMethodCall<TSource, TDest,TQueryable>(IQueryable<TSource> query, string methodName, string sortedPropertySourceName)
             where TSource : class

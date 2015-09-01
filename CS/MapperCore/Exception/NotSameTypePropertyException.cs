@@ -7,7 +7,7 @@ namespace MapperExpression.Exception
     {
        
         public NotSameTypePropertyException(Type typeSource, Type typeDest)
-            : base("Les propriétés source et de destination ne sont pas du même type(source est de type " + typeSource.Name + " et destination est de type " + typeDest.Name + ")")
+            : base("The source and destination properties are not the same type (source type " + typeSource.Name + " destination and type " + typeDest.Name + ")")
         {
 
         }

@@ -7,7 +7,7 @@ namespace MapperExpression.Exception
     {
 
         public NoFoundMapperException(Type source, Type dest)
-            : base("Le mapping pour les types '" + source.Name + "' et '" + dest.Name + "' ne sont pas configurés")
+            : base("The mapping for the types '" + source.Name + "' et '" + dest.Name + "' are not configured")
         {
 
         }        

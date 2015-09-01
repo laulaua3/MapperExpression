@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MapperExpression.Tests.Units.ClassTests
 {
-   public class ClassDest
+    public class ClassDest
     {
 
         public int PropInt1 { get; set; }
