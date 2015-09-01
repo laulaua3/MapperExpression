@@ -24,7 +24,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Proprietes
+        #region Properties
 
         /// <summary>
         /// Indicates whether one uses the service injection
@@ -48,7 +48,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Builder
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapperConfigurationBase"/> class.
@@ -65,7 +65,7 @@ namespace MapperExpression.Core
       
         #endregion
 
-        #region Méthodes publiques
+        #region Publics methods
 
        
 
@@ -349,10 +349,10 @@ namespace MapperExpression.Core
             //Initialize the allocation of properties of the destination object
             Expression exp = Expression.MemberInit(newClassDest, newMembers);
 
-            //Création de la condition de test
+            //Creating the test condition
             Expression expCondition = Expression.Condition(checkIfNull, exp, Expression.Constant(null, memberDest.PropertyType));
 
-            //Creating the test condition
+            //Assigned members
             MemberAssignment expBind = Expression.Bind(memberDest, expCondition);
             MemberToMap.Add(expBind);
         }

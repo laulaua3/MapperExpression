@@ -21,7 +21,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Constructeur
+        #region Constructor
 
         /// <summary>
         /// Instantiates a new instance of<see cref="MapperConfiguration{TSource, TDest}"/> class.

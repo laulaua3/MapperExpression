@@ -18,7 +18,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Builder
+        #region Constructor
 
         // <summary>
         // Initialise une nouvelle instance de  <see cref="MapperExpressionVisitor"/> classe.
