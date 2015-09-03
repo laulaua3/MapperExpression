@@ -60,6 +60,7 @@ namespace MapperExemple.Entity
 
         public IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery)
         {
+           
             IList<TResult> result = null;
             using (ExempleDbContext context = new ExempleDbContext())
             {

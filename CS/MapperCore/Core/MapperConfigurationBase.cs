@@ -104,7 +104,7 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Méthodes privées
+        #region Privates methods
 
         /// <summary>
         /// Changes the original source.

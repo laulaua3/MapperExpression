@@ -87,14 +87,6 @@ namespace MapperExpression.Extensions
             return query.Select(GetMapper<TSource, TDest>().GetLambdaExpression());
         }
 
-        //public static IQueryable<TSource> Where<TSource,TDest>(this IQueryable<TSource> source, Expression<Func<TDest, bool>> predicate)
-        //    where TSource : class
-        //    where TDest : class
-        //{
-        //   TODO
-        //}
-
-
         #endregion
 
         #region Private methods
