@@ -34,6 +34,20 @@ namespace MapperExemple.Web.App_Start
            
             //Important!!!
             Mapper.Initialize();
+
+
+
+            //AutoMapper
+            AutoMapper.Mapper.Initialize((cfg) =>
+            {
+                cfg.CreateMap<Customer, CustomerModel>();
+
+                cfg.CreateMap<Order, OrderModel>()
+                .ForMember((s)=>s.CustomerName, (m) => m.MapFrom(d=> d.Customer.CompanyName));
+                cfg.CreateMap<OrderDetail, OrderDetailModel>();
+
+                cfg.Seal();
+            });
         }
     }
 }
