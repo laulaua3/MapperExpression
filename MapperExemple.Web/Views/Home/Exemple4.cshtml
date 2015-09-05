@@ -1,0 +1,123 @@
+﻿@model MapperExemple.Web.Models.SortedCustomerModel
+
+@{
+    ViewBag.Title = "Exemple 4";
+}
+<script>
+    $(document).ready(function() {
+        $(".header").click(function (evt) {
+            var sortfield = $(evt.target).text();
+              if ($("#SortField").val() == sortfield){
+                 if($("#SortDirection").val()=="ascending") {
+                    $("#SortDirection").val("descending");
+                 }
+                else {
+                    $("#SortDirection").val("ascending");
+                 }
+      }
+      else  {
+         $("#SortField").val(sortfield);
+         $("#SortDirection").val("ascending");
+      }
+      evt.preventDefault();
+      $("form").submit();
+    });
+   });
+</script>
+<h2> @ViewBag.Message</h2>
+<h3>Code</h3>
+<pre class="brush: csharp">
+//this exemple show how map a IQueryable with the OrderBy extention
+ExempleEntity exemple4 = new ExempleEntity();
+var result = exemple4.GetCustomers();
+if (model.SortDirection == &quot;ascending&quot;)
+{
+    //this create a sql request include ORDER BY, see the console output to see the request.
+    model.Customers = result
+        .OrderBy&lt;Customer, CustomerModel&gt;(model.SortField)
+        .Select&lt;Customer, CustomerModel&gt;().ToList();
+}
+else
+{
+    model.Customers = result
+        .OrderByDescending&lt;Customer, CustomerModel&gt;(model.SortField)
+        .Select&lt;Customer, CustomerModel&gt;().ToList();
+}
+//ThenBy and ThenByDescending are also implemented
+</pre>
+<h3>Result</h3>
+@using (Html.BeginForm("Exemple4", "Home", FormMethod.Post))
+{
+    @Html.Hidden("SortField", Model.SortField)
+    @Html.Hidden("SortDirection", Model.SortDirection)
+<table class="table">
+<tr>
+<th>
+<a href="#" data-sorting="ascending" class="header">CompanyName</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">ContactName</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">ContactTitle</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">Address</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">City</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">Region</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">PostalCode</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">Country</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">Phone</a>
+            </th>
+<th>
+<a href="#" data-sorting="ascending" class="header">Fax</a>
+            </th>
+<th></th>
+        </tr>
+        @foreach (var item in Model.Customers)
+        {
+<tr>
+<td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.ContactName)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.ContactTitle)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+<td>
+                @Html.DisplayFor(modelItem => item.Fax)
+            </td>
+        </tr>
+        }
+    </table>
+}

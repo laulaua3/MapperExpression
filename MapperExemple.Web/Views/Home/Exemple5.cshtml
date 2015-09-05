@@ -1,0 +1,97 @@
+﻿@model MapperExemple.Web.Models.OrderModel
+
+@{
+    ViewBag.Title = "Exemple5";
+}
+
+<h2>@ViewBag.Message </h2>
+<h3>Code</h3>
+<pre class="brush: csharp">
+//this exemple show the map with custom mapping
+ExempleEntity exemple5 = new ExempleEntity();
+var result = exemple5.GetFirstOrder();
+var model = Mapper.Map&lt;Order, OrderModel&gt;(result);
+</pre>
+<h3>Result</h3>
+<div>
+<dl class="dl-horizontal">
+<dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.RequiredDate)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.RequiredDate)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShippedDate)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShippedDate)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipVia)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipVia)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipAddress)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipAddress)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipCity)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipCity)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipRegion)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipRegion)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipPostalCode)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipPostalCode)
+        </dd>
+<dt>
+            @Html.DisplayNameFor(model => model.ShipCountry)
+        </dt>
+<dd>
+            @Html.DisplayFor(model => model.ShipCountry)
+        </dd>
+<dt style="background-color:antiquewhite">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+<dd style="background-color:antiquewhite">
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+    </dl>
+</div>

@@ -1,0 +1,64 @@
+﻿@model MapperExemple.Web.Models.CustomerModel
+@{
+    ViewBag.Title = "Exemple 1";
+}
+
+<div class="jumbotron">
+    <h1>MapperExpression Exemples</h1>
+    <h2>Configuration at boot application</h2>
+    <pre class="brush: csharp">
+//Create a simple mapping
+Mapper.CreateMap&lt;Customer, CustomerModel&gt;();
+//Create a mapping with custom mapping
+Mapper.CreateMap&lt;Order, OrderModel&gt;()
+    //Custom mapping with true to test if the sub class is null
+    .ForMember(s =&gt; s.Customer.CompanyName, d =&gt; d.CustomerName, true);
+
+//Important !!!
+Mapper.Initialize();
+</pre>
+    <h2>Use</h2>
+    <pre class="brush: csharp">
+ExempleEntity exemple1 = new ExempleEntity();
+Customer result = exemple1.GetFirstCustomer();
+//exemple to Map a object
+var model = Mapper.Map&lt;Customer, CustomerModel&gt;(result);
+</pre>
+</div>
+<h3>Result</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            @Html.LabelFor(m => m.CompanyName)
+            @Html.DisplayTextFor(m => m.CompanyName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address)
+            @Html.DisplayTextFor(m => m.Address)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.City)
+            @Html.DisplayTextFor(m => m.City)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Phone)
+            @Html.DisplayTextFor(m => m.Phone)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Fax)
+            @Html.DisplayTextFor(m => m.Fax)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactTitle)
+            @Html.DisplayTextFor(m => m.ContactTitle)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactName)
+            @Html.DisplayTextFor(m => m.ContactName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Country)
+            @Html.DisplayTextFor(m => m.Country)
+        </div>
+    </div>
+</div>
