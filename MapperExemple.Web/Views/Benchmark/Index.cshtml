@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+
+    $(function () {
+
+        $.ajaxSetup({
+            cache: false
+        });
+
+        $("button").click(function () {
+            call();
+        });
+        call();
+    });
+    function call() {
+        var count = $("#count").val();
+        var data = {};
+        data.id = count;
+        $("#imgWait").show();
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("BenchMarkAutoMapper", "Benchmark")" ,
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                $("#time2").html(response.TimeExecuting);
+                $("#imgWait").hide();
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("BenchMarkMapperExpression", "Benchmark")",
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                $("#time1").html(response.TimeExecuting);
+
+            }
+        });
+
+    }
+</script>
+<h2>Benchmark</h2>
+<div>
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="count">Indicate the number iteration</label>
+            <input id="count" type="number" value="1000000" class="form-control">
+            <button type="button" class="btn btn-primary">Refresh</button>
+        </div>
+
+
+    </div>
+    <img id="imgWait" src="~/Content/294.gif" />
+</div>
+<h3>MapperExpression</h3>
+<pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
+Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
+Stopwatch watcher = Stopwatch.StartNew();
+for (int i = 0; i &lt; id; i++)
+{
+    var model = MapperExpression.Mapper.Map&lt;Customer, CustomerModel&gt;(source);
+}
+watcher.Stop();
+result.TimeExecuting = watcher.Elapsed.ToString();
+</pre>
+<div>
+    <label>Execution time :</label>
+    <p id="time1"  class="text-success"></p>
+</div>
+<h3>AutoMapper</h3>
+<pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
+Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
+Stopwatch watcher = Stopwatch.StartNew();
+for (int i = 0; i &lt; id; i++)
+{
+    var model = AutoMapper.Mapper.Map&lt;CustomerModel&gt;(source);
+}
+watcher.Stop();
+result.TimeExecuting = watcher.Elapsed.ToString();
+</pre>
+<div>
+    <label>Execution time :</label>
+    <p id="time2"  class="text-success"></p>
+</div>
