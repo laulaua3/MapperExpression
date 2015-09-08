@@ -20,6 +20,8 @@
         var data = {};
         data.id = count;
         $("#imgWait").show();
+        $("#time2").hide();
+        $("#time1").hide();
         $.ajax({
             type: "GET",
             url: "@Url.Action("BenchMarkAutoMapper", "Benchmark")" ,
@@ -28,6 +30,7 @@
             success: function (response) {
                 $("#time2").html(response.TimeExecuting);
                 $("#imgWait").hide();
+                $("#time2").show();
             }
         });
         $.ajax({
@@ -37,6 +40,7 @@
             dataType: "json",
             success: function (response) {
                 $("#time1").html(response.TimeExecuting);
+                $("#time1").show();
 
             }
         });

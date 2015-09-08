@@ -60,12 +60,23 @@ namespace MapperExemple.Entity
 
         public IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery)
         {
-           
+            return GetEntities(selectQuery);
+        }
+        /// <summary>
+        /// Exemple to make a generic method
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="selectQuery"></param>
+        /// <returns></returns>
+        public IList<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
+            where TEntity : class
+        {
             IList<TResult> result = null;
             using (ExempleDbContext context = new ExempleDbContext())
             {
                 context.Database.Log = x => Debug.WriteLine(x);
-                result = context.Products.Select(selectQuery).ToList();
+                result = context.Set<TEntity>().Select(selectQuery).ToList();
             }
             return result;
         }

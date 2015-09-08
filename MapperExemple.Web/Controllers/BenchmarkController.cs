@@ -34,7 +34,7 @@ namespace MapperExemple.Web.Controllers
             result.TimeExecuting = watcher.Elapsed.ToString();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-       
+ 
         public ActionResult BenchMarkAutoMapper(int id)
         {
             BenchmarkModel result = new BenchmarkModel();

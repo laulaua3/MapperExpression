@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using MapperExpression.Exception;
+using System.Diagnostics.Contracts;
 
 namespace MapperExpression.Core
 {
@@ -172,6 +173,7 @@ namespace MapperExpression.Core
   
         internal LambdaExpression GetSortedExpression(string propertySource)
         {
+            Contract.Assert(!string.IsNullOrEmpty(propertySource));
             Expression result = null;
             var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
             if (exp == null)
@@ -187,6 +189,7 @@ namespace MapperExpression.Core
 
         internal PropertyInfo GetPropertyInfoSource(string propertyName)
         {
+            Contract.Assert(!string.IsNullOrEmpty(propertyName));
             var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertyName);
             if (exp == null)
             {
