@@ -81,9 +81,12 @@ namespace MapperExemple.Web.Controllers
             ViewBag.Message = "Exemple for OrderBy extentions";
             //this exemple show how map a IQueryable of customer with the OrderBy extention
             ExempleCustomer exemple4 = new ExempleCustomer();
-         
+            model.PageIndex = model.PageIndex == 0 ? 0 : model.PageIndex - 1;
             var result = exemple4.GetCustomers();
-             //ThenBy and ThenByDescending are also implemented
+            var skipValue = model.PageIndex * nbItemPerPage;
+            if (skipValue < 0)
+                skipValue = nbItemPerPage;
+            //ThenBy and ThenByDescending are also implemented
             model.NumberOfPage = Math.Round(Convert.ToDouble(result.Count() / nbItemPerPage));
             if (!string.IsNullOrEmpty(model.SortDirection))
             {
@@ -92,18 +95,18 @@ namespace MapperExemple.Web.Controllers
                     //this create a sql request include ORDER BY, see the console output to see the request.
                     model.Customers = result
                         .OrderBy<Customer, CustomerModel>(model.SortField)
-                        .Select<Customer, CustomerModel>()
+                        .Skip(skipValue)
                         .Take(nbItemPerPage)
-                        .Skip(model.PageIndex)
+                        .Select<Customer, CustomerModel>()
                         .ToList();
                 }
                 else
                 {
                     model.Customers = result
                         .OrderByDescending<Customer, CustomerModel>(model.SortField)
-                        .Select<Customer, CustomerModel>()
+                        .Skip(skipValue)
                         .Take(nbItemPerPage)
-                        .Skip(model.PageIndex)
+                        .Select<Customer, CustomerModel>()
                         .ToList();
                 }
             }
@@ -111,14 +114,14 @@ namespace MapperExemple.Web.Controllers
             {
                 model.Customers = result
                         .OrderBy(x => x.CustomerId)
+                        .Skip(skipValue)
                         .Take(nbItemPerPage)
-                        .Skip(model.PageIndex)
                         .Select<Customer, CustomerModel>()
                         .ToList();
             }
-            
 
-           
+
+
             return View(model);
         }
 

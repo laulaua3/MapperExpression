@@ -24,7 +24,7 @@
         });
         $(".pagination a").click(function (evt) {
             var pageIndex = $(evt.target).text();
-            $("#PageIndex").val(pageIndex -1);
+            $("#PageIndex").val(pageIndex);
             evt.preventDefault();
             $("form").submit();
         });
@@ -135,13 +135,13 @@ else
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            @for (int i = 1; i < Model.NumberOfPage - 1; i++)
+            @for (int i = 0; i < Model.NumberOfPage; i++)
             {
-                if (Model.PageIndex + 1 == i)
+                if (Model.PageIndex  == i)
                 {
                     <li class="active">
                         <a href="#">
-                            @i
+                            @(i+1)
                         </a>
                     </li>
                 }
@@ -149,7 +149,7 @@ else
                 {
                     <li>
                         <a href="#">
-                            @i
+                            @(i + 1)
                         </a>
                     </li>
                 }
