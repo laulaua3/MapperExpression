@@ -13,7 +13,7 @@ namespace MapperExpression
     {
         #region Variables
 
-        private static MapperConfigurationBase current;
+       
         private static Func<Type, object> constructorFunc;
 
         #endregion
@@ -38,16 +38,16 @@ namespace MapperExpression
                 Func<TSource, TDest> query = mapper.GetFuncDelegate();
                 if (query != null)
                 {
-                     result = query(source);
+                    result = query(source);
                     //Action à exécutées après le mapping
                     mapper.ExecuteAfterActions(source, result);
-                    
+
                 }
             }
-            catch (System.Exception )
+            catch (System.Exception)
             {
 
-                throw ;
+                throw;
             }
             return result;
         }
@@ -135,10 +135,8 @@ namespace MapperExpression
             where TSource : class
             where TDest : class
         {
-            if (current == null || (current != null && current.TypeDest.FullName != typeof(TDest).FullName || current.TypeSource.FullName != typeof(TSource).FullName))
-                current = GetMapper(typeof(TSource), typeof(TDest));
-
-            return (current as MapperConfiguration<TSource, TDest>);
+          
+            return (GetMapper(typeof(TSource), typeof(TDest)) as MapperConfiguration<TSource, TDest>);
 
         }
 
@@ -155,7 +153,9 @@ namespace MapperExpression
             }
         }
 
-     
+       
+
+
 
         #endregion
     }

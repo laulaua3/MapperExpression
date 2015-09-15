@@ -51,27 +51,222 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\AlphabeticalListOfProduct.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\AlphabeticalListOfProductConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Category.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CategoryConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CategorySalesFor1997.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CategorySalesFor1997Configuration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CurrentProductList.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CurrentProductListConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Customer.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomerAndSuppliersByCity.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomerAndSuppliersByCityConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomerConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomerDemographic.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomerDemographicConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustOrderHistReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustOrdersDetailReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustOrdersOrdersReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Employee.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\EmployeeConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\EmployeeSalesByCountryReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExempleCustomer.cs" />
+    <Compile Include="EF\ExempleDbContext.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExempleOrder.cs" />
     <Compile Include="ExempleProduct.cs" />
+    <Compile Include="EF\FakeDbSet.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\FakeExempleDbContext.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\IExempleDbContext.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Interface\IExempleProduct.cs" />
-    <Compile Include="NorthwingContext.cs">
+    <Compile Include="EF\Invoice.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\InvoiceConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\NorthwingContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Order.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderDetail.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderDetailConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderDetailsExtended.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderDetailsExtendedConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrdersQry.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrdersQryConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderSubtotal.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderSubtotalConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Product.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductsAboveAveragePrice.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductsAboveAveragePriceConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductSalesFor1997.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductSalesFor1997Configuration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductsByCategory.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductsByCategoryConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EF\Region.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\RegionConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesByCategory.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesByCategoryConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesByCategoryReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesByYearReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesTotalsByAmount.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SalesTotalsByAmountConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Shipper.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ShipperConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SummaryOfSalesByQuarter.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SummaryOfSalesByQuarterConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SummaryOfSalesByYear.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SummaryOfSalesByYearConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Supplier.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SupplierConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Sysdiagram.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SysdiagramConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TenMostExpensiveProductsReturnModel.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Territory.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TerritoryConfiguration.cs">
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NorthwingContext.tt">
+    <Content Include="EF\NorthwingContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>NorthwingContext.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="EF.Reverse.POCO.Core.ttinclude" />
-    <None Include="EF.Reverse.POCO.ttinclude" />
+    <None Include="EF\EF.Reverse.POCO.Core.ttinclude" />
+    <None Include="EF\EF.Reverse.POCO.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

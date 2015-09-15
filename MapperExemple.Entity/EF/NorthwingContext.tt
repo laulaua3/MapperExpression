@@ -14,7 +14,7 @@
     ConfigurationClassName = "Configuration"; // Configuration, Mapping, Map, etc. This is appended to the Poco class name to configure the mappings.
     ConfigFilenameSearchOrder = new[] { "app.config", "web.config", "app.config.transform", "web.config.transform" }; // Add more here if required. The config files are searched for in the local project first, then the whole solution second.
     MakeClassesPartial = false;
-    GenerateSeparateFiles = false;
+    GenerateSeparateFiles = true;
     UseCamelCase = true;    // This will rename the tables & fields to use CamelCase. If false table & field names will be left alone.
     IncludeComments = true; // Adds comments to the generated code
     IncludeExtendedPropertyComments = ExtendedPropertyCommentsStyle.AtEndOfField; // Adds extended properties as comments to the generated code
@@ -33,8 +33,8 @@
     // Migrations *************************************************************************************************************************
     MigrationConfigurationFileName = ""; // null or empty to not create migrations
     MigrationStrategy = "MigrateDatabaseToLatestVersion"; // MigrateDatabaseToLatestVersion, CreateDatabaseIfNotExists or DropCreateDatabaseIfModelChanges
-    AutomaticMigrationsEnabled = true;
-    AutomaticMigrationDataLossAllowed = true; // if true, can drop fields and lose data during automatic migration
+    AutomaticMigrationsEnabled = false;
+    AutomaticMigrationDataLossAllowed = false; // if true, can drop fields and lose data during automatic migration
 
     // Pluralization **********************************************************************************************************************
     // To turn off pluralization, use:
@@ -74,10 +74,10 @@
     //      UnitOfWorkNamespace = "YourProject.Context";	
     //      PocoConfigurationNamespace = "YourProject.Maps";
     // You also need to set the following to the namespace where they now live:
-    PocoNamespace = "";
-    ContextNamespace = "";
-    UnitOfWorkNamespace = "";	
-    PocoConfigurationNamespace = "";
+    PocoNamespace = "MapperExemple.Entity.Poco";
+    ContextNamespace = "MapperExemple.Entity.Contect";
+    UnitOfWorkNamespace = "MapperExemple.Entity.Test";	
+    PocoConfigurationNamespace = "MapperExemple.Entity.Mapping";
 
     
     // Schema *****************************************************************************************************************************

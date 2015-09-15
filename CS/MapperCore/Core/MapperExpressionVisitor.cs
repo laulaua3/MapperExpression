@@ -61,7 +61,6 @@ namespace MapperExpression.Core
                     case ExpressionType.Lambda:
                         base.Visit((node as LambdaExpression).Body);
                         break;
-
                     default:
                         base.Visit(node);
                         break;
@@ -138,7 +137,7 @@ namespace MapperExpression.Core
         {
             MemberExpression memberAccessExpression = (MemberExpression)base.VisitMember(node);
 
-            //Pour traiter plus tard
+            //To treat later
             if (memberAccessExpression != null && checkNull)
             {
                 // Knowing that the first member is in the first visit and as we descend each time 

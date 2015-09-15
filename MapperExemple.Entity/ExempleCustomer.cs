@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MapperExemple.Entity.EF;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -12,6 +13,7 @@ namespace MapperExemple.Entity
         {
             using (ExempleDbContext context = new ExempleDbContext())
             {
+               
                 context.Database.Log = x => Debug.WriteLine(x);
                 var result = from c in context.Customers
                              select c;

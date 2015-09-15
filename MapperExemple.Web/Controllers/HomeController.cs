@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MapperExpression.Extensions;
 using Microsoft.Practices.ServiceLocation;
 using MapperExemple.Entity.Interface;
+using MapperExemple.Entity.EF;
 
 namespace MapperExemple.Web.Controllers
 {

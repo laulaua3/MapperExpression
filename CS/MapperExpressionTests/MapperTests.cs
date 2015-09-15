@@ -33,7 +33,10 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("CreateMap")]
         public void Mapper_CreateMap_NotExist_ContainerCount1()
         {
-            //No action because the init method create the map.
+            Clean();
+            //Create the default map for the test
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.PropString1, d => d.PropString2);
 
             Assert.AreEqual(MapperConfigurationContainer.Instance.Count, 1);
         }
@@ -67,11 +70,15 @@ namespace MapperExpression.Tests.Units
         public void Map_MapperNotInitialise_Exception()
         {
 
+            Mapper.CreateMap<ClassSource, ClassDest>()
+               .ForMember(s => s.PropString1, d => d.PropString2);
             ClassDest actual = null;
             ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1, PropString1 = "test" };
             using (ShimsContext.Create())
             {
-                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => { throw new MapperNotInitializedException(typeof(ClassSource), typeof(ClassDest)); };
+                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => {
+                    throw new MapperNotInitializedException(typeof(ClassSource), typeof(ClassDest));
+                };
 
                 actual = Mapper.Map<ClassSource, ClassDest>(expected);
             }

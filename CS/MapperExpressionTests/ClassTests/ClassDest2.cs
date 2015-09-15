@@ -7,6 +7,7 @@
         public int PropInt2 { get; set; }
         public string PropString2 { get; set; }
 
+        public ClassSource ClassSourceProp { get; set; }
 
     }
 }

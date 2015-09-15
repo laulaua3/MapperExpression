@@ -1,11 +1,11 @@
 ﻿
+using MapperExemple.Entity.EF;
+using MapperExemple.Entity.Interface;
+using MapperExpression.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using MapperExemple.Entity.Interface;
 using System.Diagnostics;
-using MapperExpression;
-using MapperExpression.Extensions;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace MapperExemple.Entity

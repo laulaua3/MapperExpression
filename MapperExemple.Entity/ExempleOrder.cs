@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using MapperExemple.Entity.EF;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MapperExemple.Entity
