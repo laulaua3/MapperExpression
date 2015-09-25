@@ -8,7 +8,7 @@ namespace MapperExpression.Extensions
 {
     public static class QueryableExtentions
     {
-        #region Extentions IQueryable
+        #region IQueryable Extentions 
 
         /// <summary>
         ///  Sorts the elements of a sequence in ascending order according to a key.

@@ -7,7 +7,7 @@ using System.Reflection;
 namespace MapperExpression.Tests.Units.ClassTests
 {
     /// <summary>
-    ///Need to create a derived class for test the protected properties
+    ///Need to create a derived class for test the protected properties/Methods
     /// </summary>
     public class MapperConfigurationTestContainer : MapperConfiguration<ClassSource, ClassDest>
     {

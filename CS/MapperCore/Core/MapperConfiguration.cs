@@ -68,7 +68,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember(Expression<Func<TSource, object>> getPropertySource, Expression<Func<TDest, object>> getPropertyDest, bool checkIfNull = false)
         {
-            //Ajout dans la liste pour le traitement ultérieur
+            //Adding in the list for further processing
             ForMember(getPropertySource as LambdaExpression, getPropertyDest as LambdaExpression, checkIfNull);
             return this;
         }

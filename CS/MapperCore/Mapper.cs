@@ -39,14 +39,12 @@ namespace MapperExpression
                 if (query != null)
                 {
                     result = query(source);
-                    //Action à exécutées après le mapping
+                    //Action performed after the mapping
                     mapper.ExecuteAfterActions(source, result);
-
                 }
             }
             catch (System.Exception)
             {
-
                 throw;
             }
             return result;

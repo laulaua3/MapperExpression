@@ -62,12 +62,10 @@ namespace MapperExpression.Core
             paramClassSource = Expression.Parameter(source, "source");
             MemberToMap = new List<MemberAssignment>();
         }
-      
+
         #endregion
 
         #region Publics methods
-
-       
 
         /// <summary>
         /// Gets the delegate of mapping.
@@ -106,12 +104,6 @@ namespace MapperExpression.Core
 
         #region Privates methods
 
-        /// <summary>
-        /// Changes the original source.
-        /// </summary>
-        /// <param name="property">The property.</param>
-        /// <param name="paramSource">The parameter source.</param>
-        /// <returns></returns>
         protected List<MemberAssignment> ChangeSource(PropertyInfo property, ParameterExpression paramSource)
         {
             if (!isInitialized)
@@ -148,11 +140,11 @@ namespace MapperExpression.Core
             return mapperExterne;
         }
 
-        protected  void CreateCommonMember()
+        protected void CreateCommonMember()
         {
             PropertyInfo[] propertiesSource = TypeSource.GetProperties();
             ParameterExpression paramDest = Expression.Parameter(TypeDest, "d");
-         
+
             foreach (PropertyInfo propSource in propertiesSource)
             {
                 PropertyInfo propDest = TypeDest.GetProperty(propSource.Name);
@@ -273,7 +265,7 @@ namespace MapperExpression.Core
                     }
                 }
             }
-            
+
         }
 
         protected bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
@@ -318,9 +310,9 @@ namespace MapperExpression.Core
                 }
                 //We create the call to the Select method
                 Expression select = Expression.Call(selectMethod.MakeGenericMethod(sourceTypeList, destTypeList),
-                    new Expression[] 
-                    { 
-                        Expression.Property(paramClassSource, memberSource), expMappeur 
+                    new Expression[]
+                    {
+                        Expression.Property(paramClassSource, memberSource), expMappeur
                     });
                 //We create the call to ToList method
                 Expression toList = Expression.Call(typeof(Enumerable).GetMethod("ToList").MakeGenericMethod(destTypeList), select);
@@ -341,7 +333,7 @@ namespace MapperExpression.Core
             Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null, memberSource.PropertyType));
 
             //Creation of the new class destination
-            NewExpression newClassDest  = Expression.New(mapperExterne.GetDestinationType());
+            NewExpression newClassDest = Expression.New(mapperExterne.GetDestinationType());
 
             //We create the new assignment of the properties with the source
             List<MemberAssignment> newMembers = mapperExterne.ChangeSource(memberSource, paramClassSource);

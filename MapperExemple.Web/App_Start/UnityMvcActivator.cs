@@ -17,8 +17,8 @@ namespace MapperExemple.Web.App_Start
         {
             var container = UnityConfig.GetConfiguredContainer();
 
-            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
+            //FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+            //FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
             //DependencyResolver.SetResolver(new UnityDependencyResolver(container));
            

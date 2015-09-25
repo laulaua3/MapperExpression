@@ -62,6 +62,7 @@ namespace MapperExemple.Entity
         {
             return GetEntities(selectQuery);
         }
+       
         /// <summary>
         /// Exemple to make a generic method
         /// </summary>

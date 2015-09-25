@@ -14,7 +14,7 @@ namespace MapperExpression.Core
 
         private readonly ParameterExpression paramSource;
 
-        private readonly List<MemberExpression> membersTocheck;
+        private readonly List<MemberExpression> membersToCheck;
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace MapperExpression.Core
         {
             checkNull = checkIfNull;
             paramSource = paramClassSource;
-            membersTocheck = new List<MemberExpression>();
+            membersToCheck = new List<MemberExpression>();
         }
 
         #endregion
@@ -71,7 +71,7 @@ namespace MapperExpression.Core
                 //Ex: source.SubClass.SubClass2.MyProperty
                 //Which will give
                 //source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :null :null
-                foreach (MemberExpression item in membersTocheck)
+                foreach (MemberExpression item in membersToCheck)
                 {
 
                     if (!isFirst) //Not to test the value of the property back
@@ -153,7 +153,7 @@ namespace MapperExpression.Core
                 //MyList[0] = MyProperty
                 //MyList[1] = SubClass2
                 //MyList[2] = SubClass
-                membersTocheck.Insert(0, memberAccessExpression);
+                membersToCheck.Insert(0, memberAccessExpression);
             }
             return memberAccessExpression;
         }
