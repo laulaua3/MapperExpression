@@ -45,3 +45,4 @@ Temporary Items
 bin/
 obj/
 *.dll
+.vs/MapperExpression/v14/.suo
