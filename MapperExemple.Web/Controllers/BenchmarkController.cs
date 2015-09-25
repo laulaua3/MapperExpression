@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using MapperExemple.Entity;
+using MapperExemple.Entity.EF;
 using MapperExemple.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace MapperExemple.Web.Controllers
             result.TimeExecuting = watcher.Elapsed.ToString();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-       
+ 
         public ActionResult BenchMarkAutoMapper(int id)
         {
             BenchmarkModel result = new BenchmarkModel();

@@ -9,12 +9,14 @@ using System.Web.Mvc;
 using MapperExpression.Extensions;
 using Microsoft.Practices.ServiceLocation;
 using MapperExemple.Entity.Interface;
+using MapperExemple.Entity.EF;
 
 namespace MapperExemple.Web.Controllers
 {
     //see  MappingConfig class in App_Start for create the mapping
     public class HomeController : Controller
     {
+        private const int nbItemPerPage = 10;
         #region Simple Mapping
 
         public ActionResult Index()
@@ -67,36 +69,60 @@ namespace MapperExemple.Web.Controllers
 
             var result = exemple4.GetCustomers();
 
-            SortedCustomerModel model = new SortedCustomerModel();
-
-            model.Customers = result.Select<Customer, CustomerModel>().ToList();
-
+            SortedAndPagingCustomerModel model = new SortedAndPagingCustomerModel();
+            model.PageIndex = 0;
+            model.Customers = result.Select<Customer, CustomerModel>().Take(nbItemPerPage).ToList();
+            model.NumberOfPage = Math.Round(Convert.ToDouble(result.Count() / nbItemPerPage));
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Exemple4(SortedCustomerModel model)
+        public ActionResult Exemple4(SortedAndPagingCustomerModel model)
         {
             ViewBag.Message = "Exemple for OrderBy extentions";
             //this exemple show how map a IQueryable of customer with the OrderBy extention
             ExempleCustomer exemple4 = new ExempleCustomer();
-
+            model.PageIndex = model.PageIndex == 0 ? 0 : model.PageIndex - 1;
             var result = exemple4.GetCustomers();
-            if (model.SortDirection == "ascending")
+            var skipValue = model.PageIndex * nbItemPerPage;
+            if (skipValue < 0)
+                skipValue = nbItemPerPage;
+            //ThenBy and ThenByDescending are also implemented
+            model.NumberOfPage = Math.Round(Convert.ToDouble(result.Count() / nbItemPerPage));
+            if (!string.IsNullOrEmpty(model.SortDirection))
             {
-                //this create a sql request include ORDER BY, see the console output to see the request.
-                model.Customers = result
-                    .OrderBy<Customer, CustomerModel>(model.SortField)
-                    .Select<Customer, CustomerModel>().ToList();
+                if (model.SortDirection == "ascending")
+                {
+                    //this create a sql request include ORDER BY, see the console output to see the request.
+                    model.Customers = result
+                        .OrderBy<Customer, CustomerModel>(model.SortField)
+                        .Skip(skipValue)
+                        .Take(nbItemPerPage)
+                        .Select<Customer, CustomerModel>()
+                        .ToList();
+                }
+                else
+                {
+                    model.Customers = result
+                        .OrderByDescending<Customer, CustomerModel>(model.SortField)
+                        .Skip(skipValue)
+                        .Take(nbItemPerPage)
+                        .Select<Customer, CustomerModel>()
+                        .ToList();
+                }
             }
             else
             {
                 model.Customers = result
-                    .OrderByDescending<Customer, CustomerModel>(model.SortField)
-                    .Select<Customer, CustomerModel>().ToList();
+                        .OrderBy(x => x.CustomerId)
+                        .Skip(skipValue)
+                        .Take(nbItemPerPage)
+                        .Select<Customer, CustomerModel>()
+                        .ToList();
             }
 
-            //ThenBy and ThenByDescending are also implemented
+
+
             return View(model);
         }
 

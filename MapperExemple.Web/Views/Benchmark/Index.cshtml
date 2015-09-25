@@ -5,9 +5,11 @@
 <script>
 
     $(function () {
+
         $.ajaxSetup({
             cache: false
         });
+
         $("button").click(function () {
             call();
         });
@@ -18,6 +20,8 @@
         var data = {};
         data.id = count;
         $("#imgWait").show();
+        $("#time2").hide();
+        $("#time1").hide();
         $.ajax({
             type: "GET",
             url: "@Url.Action("BenchMarkAutoMapper", "Benchmark")" ,
@@ -26,7 +30,8 @@
             success: function (response) {
                 $("#time2").html(response.TimeExecuting);
                 $("#imgWait").hide();
-            },
+                $("#time2").show();
+            }
         });
         $.ajax({
             type: "GET",
@@ -35,8 +40,11 @@
             dataType: "json",
             success: function (response) {
                 $("#time1").html(response.TimeExecuting);
+                $("#time1").show();
+
             }
         });
+
     }
 </script>
 <h2>Benchmark</h2>
@@ -47,6 +55,8 @@
             <input id="count" type="number" value="1000000" class="form-control">
             <button type="button" class="btn btn-primary">Refresh</button>
         </div>
+
+
     </div>
     <img id="imgWait" src="~/Content/294.gif" />
 </div>

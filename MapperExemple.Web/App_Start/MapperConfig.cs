@@ -1,12 +1,8 @@
-﻿using MapperExemple.Entity;
+﻿using MapperExemple.Entity.EF;
 using MapperExemple.Entity.Interface;
 using MapperExemple.Web.Models;
 using MapperExpression;
 using Microsoft.Practices.ServiceLocation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MapperExemple.Web.App_Start
 {
@@ -40,11 +36,21 @@ namespace MapperExemple.Web.App_Start
             //AutoMapper
             AutoMapper.Mapper.Initialize((cfg) =>
             {
+                //For simple exemple
                 cfg.CreateMap<Customer, CustomerModel>();
 
+                //For exemple with custom mapping
                 cfg.CreateMap<Order, OrderModel>()
-                .ForMember((s)=>s.CustomerName, (m) => m.MapFrom(d=> d.Customer.CompanyName));
+                    .ForMember((s)=>s.CustomerName, (m) => m.MapFrom(d=> d.Customer.CompanyName));
+
                 cfg.CreateMap<OrderDetail, OrderDetailModel>();
+
+                //Exemple with Ioc
+                cfg.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
+                cfg.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator();
+                cfg.CreateMap<IExempleProduct, ProductModel>();
+                //Other exemple
+                cfg.CreateMap<Product, ProductModel>();
 
                 cfg.Seal();
             });

@@ -47,7 +47,9 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod, TestCategory("Extentions")]
         public void ThenBy_Success()
         {
-          
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.PropString1, d => d.PropString2);
+            Mapper.Initialize();
             IQueryable<ClassSource> actual = null;
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();

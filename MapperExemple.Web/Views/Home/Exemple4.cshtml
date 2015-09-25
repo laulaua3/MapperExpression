@@ -1,28 +1,34 @@
-﻿@model MapperExemple.Web.Models.SortedCustomerModel
+﻿@model MapperExemple.Web.Models.SortedAndPagingCustomerModel
 
 @{
     ViewBag.Title = "Exemple 4";
 }
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".header").click(function (evt) {
             var sortfield = $(evt.target).text();
-              if ($("#SortField").val() == sortfield){
-                 if($("#SortDirection").val()=="ascending") {
+            if ($("#SortField").val() == sortfield) {
+                if ($("#SortDirection").val() == "ascending") {
                     $("#SortDirection").val("descending");
-                 }
+                }
                 else {
                     $("#SortDirection").val("ascending");
-                 }
-      }
-      else  {
-         $("#SortField").val(sortfield);
-         $("#SortDirection").val("ascending");
-      }
-      evt.preventDefault();
-      $("form").submit();
+                }
+            }
+            else {
+                $("#SortField").val(sortfield);
+                $("#SortDirection").val("ascending");
+            }
+            evt.preventDefault();
+            $("form").submit();
+        });
+        $(".pagination a").click(function (evt) {
+            var pageIndex = $(evt.target).text();
+            $("#PageIndex").val(pageIndex);
+            evt.preventDefault();
+            $("form").submit();
+        });
     });
-   });
 </script>
 <h2> @ViewBag.Message</h2>
 <h3>Code</h3>
@@ -46,78 +52,115 @@ else
 //ThenBy and ThenByDescending are also implemented
 </pre>
 <h3>Result</h3>
-@using (Html.BeginForm("Exemple4", "Home", FormMethod.Post))
+@using (Html.BeginForm("Exemple4", "Home"))
 {
-    @Html.Hidden("SortField", Model.SortField)
-    @Html.Hidden("SortDirection", Model.SortDirection)
-<table class="table">
-<tr>
-<th>
-<a href="#" data-sorting="ascending" class="header">CompanyName</a>
+    @Html.HiddenFor(x => x.SortField)
+    @Html.HiddenFor(x => x.SortDirection)
+    @Html.HiddenFor(x => x.PageIndex)
+
+    <table id="table" class="table">
+        <tr>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">CompanyName</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">ContactName</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">ContactName</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">ContactTitle</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">ContactTitle</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">Address</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">Address</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">City</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">City</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">Region</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">Region</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">PostalCode</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">PostalCode</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">Country</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">Country</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">Phone</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">Phone</a>
             </th>
-<th>
-<a href="#" data-sorting="ascending" class="header">Fax</a>
+            <th>
+                <a href="#" data-sorting="ascending" class="header">Fax</a>
             </th>
-<th></th>
+            <th></th>
         </tr>
         @foreach (var item in Model.Customers)
         {
-<tr>
-<td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.ContactName)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.ContactTitle)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.Region)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-<td>
-                @Html.DisplayFor(modelItem => item.Fax)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fax)
+                </td>
+            </tr>
         }
     </table>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 0; i < Model.NumberOfPage; i++)
+            {
+                if (Model.PageIndex  == i)
+                {
+                    <li class="active">
+                        <a href="#">
+                            @(i+1)
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#">
+                            @(i + 1)
+                        </a>
+                    </li>
+                }
+
+            }
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 }
+
