@@ -30,7 +30,6 @@ namespace MapperExpression.Core
             return paramClassSource;
         }
 
-
         public override Expression Visit(Expression node)
         {
             switch (node.NodeType)
@@ -47,13 +46,16 @@ namespace MapperExpression.Core
         protected override Expression VisitMember(MemberExpression node)
         {
             Expression exp = base.Visit(node.Expression);
+            //For children class
             if (exp.NodeType == ExpressionType.MemberAccess && (exp as MemberExpression).Member.DeclaringType.IsClass)
             {
-                    var subMapper = Mapper.GetMapper(node.Member.ReflectedType, exp.Type);
-                    MethodInfo methodeGetExpression = subMapper.GetType().GetMethod("GetPropertyInfoDest", BindingFlags.NonPublic | BindingFlags.Instance);
-
-                    PropertyInfo expMappeur = methodeGetExpression.Invoke(subMapper, new object[] { node.Member.Name }) as PropertyInfo;
-                    return Expression.MakeMemberAccess(exp, expMappeur);
+                var subMapper = Mapper.GetMapper(node.Member.ReflectedType, exp.Type);
+                //Need to call dynamicaly the methode because it inside the class MapperConfiguration<>
+                MethodInfo methodGetPropertyInfoDest = subMapper.GetType().GetMethod("GetPropertyInfoDest", BindingFlags.NonPublic | BindingFlags.Instance);
+                //For the performances
+                Func<string, PropertyInfo> executeDelegate = (Func<string, PropertyInfo>)Delegate.CreateDelegate(typeof(Func<string, PropertyInfo>), subMapper, methodGetPropertyInfoDest);
+                PropertyInfo expMappeur = executeDelegate(node.Member.Name);
+                return Expression.MakeMemberAccess(exp, expMappeur);
             }
             else
             {
@@ -61,7 +63,7 @@ namespace MapperExpression.Core
 
                 return Expression.MakeMemberAccess(paramClassSource, property);
             }
-            
+
         }
     }
 }

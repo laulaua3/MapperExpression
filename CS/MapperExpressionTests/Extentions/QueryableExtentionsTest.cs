@@ -15,10 +15,18 @@ namespace MapperExpression.Tests.Units.Extentions
         [ClassInitialize]
         public static void Init(TestContext context)
         {
+            Clean();
             Mapper.CreateMap<ClassSource, ClassDest>()
-                .ForMember(s => s.PropString1, d => d.PropString2);
+                .ForMember(s => s.PropString1, d => d.PropString2)
+                .ReverseMap();
                 
             Mapper.Initialize();
+        }
+        [ClassCleanup]
+        public static void Clean()
+        {
+            //Remove all map after test
+            Mapper.Reset();
         }
         [TestMethod,TestCategory("Extentions")]
         public void OrderBy_Success()
@@ -74,13 +82,27 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod, TestCategory("Extentions")]
         public void Select_Success()
         {
-
+            Init(null);
             IQueryable<ClassDest> actual = null;
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
 
             actual = expected.Select<ClassSource, ClassDest>();
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, "Select"));
+
+        }
+
+        [TestMethod, TestCategory("Extentions")]
+        public void Where_Success()
+        {
+
+            IQueryable<ClassSource> actual = null;
+
+            QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
+            Expression<Func<ClassDest, bool>> criterias = x => x.PropInt1 == 1;
+            actual = expected.Where(criterias);
+            Assert.IsTrue(CheckExpressionMethod(actual.Expression, "Where"));
+           
 
         }
         private bool CheckExpressionMethod(Expression expression,string methodeName)

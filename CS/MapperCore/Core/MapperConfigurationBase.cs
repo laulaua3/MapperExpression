@@ -13,13 +13,30 @@ namespace MapperExpression.Core
     /// </summary>
     public abstract class MapperConfigurationBase
     {
-        #region Variables
-
+        #region Variables        
+        /// <summary>
+        /// The parameter class source
+        /// </summary>
         protected ParameterExpression paramClassSource;
+        /// <summary>
+        /// The delegate call
+        /// </summary>
         protected Delegate delegateCall;
+        /// <summary>
+        /// The constructor function
+        /// </summary>
         protected Func<Type, object> constructorFunc;
+        /// <summary>
+        /// The is initialized
+        /// </summary>
         protected bool isInitialized = false;
+        /// <summary>
+        /// The properties mapping
+        /// </summary>
         protected List<Tuple<LambdaExpression, LambdaExpression, bool>> propertiesMapping;
+        /// <summary>
+        /// The properties to ignore
+        /// </summary>
         protected List<PropertyInfo> propertiesToIgnore;
 
         #endregion
@@ -102,8 +119,13 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Privates methods
-
+        #region Privates methods        
+        /// <summary>
+        /// Changes the source.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <param name="paramSource">The parameter source.</param>
+        /// <returns></returns>
         protected List<MemberAssignment> ChangeSource(PropertyInfo property, ParameterExpression paramSource)
         {
             if (!isInitialized)
@@ -128,6 +150,14 @@ namespace MapperExpression.Core
             });
             return membersTransformed;
         }
+        /// <summary>
+        /// Gets the mapper.
+        /// </summary>
+        /// <param name="tSource">The t source.</param>
+        /// <param name="tDest">The t dest.</param>
+        /// <param name="throwExceptionOnNoFound">if set to <c>true</c> [throw exception on no found].</param>
+        /// <returns></returns>
+        /// <exception cref="NoFoundMapperException"></exception>
         protected MapperConfigurationBase GetMapper(Type tSource, Type tDest, bool throwExceptionOnNoFound = true)
         {
             MapperConfigurationBase mapperExterne = null;
@@ -139,9 +169,12 @@ namespace MapperExpression.Core
 
             return mapperExterne;
         }
-
+        /// <summary>
+        /// Creates the common member.
+        /// </summary>
         protected void CreateCommonMember()
         {
+
             PropertyInfo[] propertiesSource = TypeSource.GetProperties();
             ParameterExpression paramDest = Expression.Parameter(TypeDest, "d");
 
@@ -150,17 +183,28 @@ namespace MapperExpression.Core
                 PropertyInfo propDest = TypeDest.GetProperty(propSource.Name);
                 if (propDest != null)
                 {
+
                     bool ignorePropDest = propertiesToIgnore.Exists(x => x.Name == propDest.Name);
                     if (propDest.CanWrite && !ignorePropDest && propDest.PropertyType == propSource.PropertyType)
                     {
-                        LambdaExpression expSource = Expression.Lambda(Expression.MakeMemberAccess(paramClassSource, propSource), paramClassSource);
-                        LambdaExpression expDest = Expression.Lambda(Expression.MakeMemberAccess(paramDest, propDest), paramDest);
-                        propertiesMapping.Add(Tuple.Create(expSource, expDest, false));
+                        //We check if already exist
+                        if (!propertiesMapping.Exists(x => GetPropertyInfo(x.Item1).Name == propSource.Name && GetPropertyInfo(x.Item2).Name == propDest.Name))
+                        {
+                            LambdaExpression expSource = Expression.Lambda(Expression.MakeMemberAccess(paramClassSource, propSource), paramClassSource);
+                            LambdaExpression expDest = Expression.Lambda(Expression.MakeMemberAccess(paramDest, propDest), paramDest);
+                            propertiesMapping.Add(Tuple.Create(expSource, expDest, false));
+                        }
                     }
                 }
             }
-        }
 
+        }
+        /// <summary>
+        /// Creates the member assignement.
+        /// </summary>
+        /// <param name="memberSource">The member source.</param>
+        /// <param name="memberDest">The member dest.</param>
+        /// <exception cref="MapperExpression.Exception.ReadOnlyPropertyException"></exception>
         protected void CreateMemberAssignement(PropertyInfo memberSource, PropertyInfo memberDest)
         {
 
@@ -180,7 +224,13 @@ namespace MapperExpression.Core
                 CheckAndConfigureMembersMapping(memberSource, memberDest);
             }
         }
-
+        /// <summary>
+        /// Checks and configure the members mapping.
+        /// </summary>
+        /// <param name="memberSource">The member source.</param>
+        /// <param name="memberDest">The member dest.</param>
+        /// <exception cref="NotSameTypePropertyException">
+        /// </exception>
         protected void CheckAndConfigureMembersMapping(PropertyInfo memberSource, PropertyInfo memberDest)
         {
             MapperConfigurationBase mapperExterne = null;
@@ -267,7 +317,12 @@ namespace MapperExpression.Core
             }
 
         }
-
+        /// <summary>
+        /// Checks  and configure the type of list.
+        /// </summary>
+        /// <param name="memberSource">The member source.</param>
+        /// <param name="memberDest">The member dest.</param>
+        /// <returns></returns>
         protected bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
         {
 
@@ -327,7 +382,12 @@ namespace MapperExpression.Core
             }
             return false;
         }
-
+        /// <summary>
+        /// Creates check if null expression.
+        /// </summary>
+        /// <param name="memberSource">The member source.</param>
+        /// <param name="memberDest">The member dest.</param>
+        /// <param name="mapperExterne">The mapper externe.</param>
         protected void CreateCheckIfNull(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)
         {
             Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null, memberSource.PropertyType));
@@ -348,7 +408,10 @@ namespace MapperExpression.Core
             MemberAssignment expBind = Expression.Bind(memberDest, expCondition);
             MemberToMap.Add(expBind);
         }
-
+        /// <summary>
+        /// Checks  and remove the member dest.
+        /// </summary>
+        /// <param name="properyName">Name of the propery.</param>
         protected void CheckAndRemoveMemberDest(string properyName)
         {
             Predicate<MemberAssignment> exp = m => m.Member.Name == properyName;
@@ -358,7 +421,10 @@ namespace MapperExpression.Core
             }
 
         }
-
+        /// <summary>
+        /// Checks and remove the member source.
+        /// </summary>
+        /// <param name="properyName">Name of the propery.</param>
         protected void CheckAndRemoveMemberSource(string properyName)
         {
             Predicate<MemberAssignment> exp = m => m.Expression is MemberExpression
@@ -368,7 +434,10 @@ namespace MapperExpression.Core
                 MemberToMap.RemoveAll(exp);
             }
         }
-
+        /// <summary>
+        /// Gets the member initialize expression.
+        /// </summary>
+        /// <returns></returns>
         protected MemberInitExpression GetMemberInitExpression()
         {
             Type typeDest = GetDestinationType();
@@ -379,7 +448,12 @@ namespace MapperExpression.Core
             MemberInitExpression exp = Expression.MemberInit(newClassDest, MemberToMap);
             return exp;
         }
-
+        /// <summary>
+        /// Creates the member assign.
+        /// </summary>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
+        /// <returns></returns>
         protected Expression CreateMemberAssign(Expression propertyExpression, bool checkIfNull)
         {
             MapperExpressionVisitor visitor = new MapperExpressionVisitor(checkIfNull, paramClassSource);
@@ -391,6 +465,13 @@ namespace MapperExpression.Core
             return result;
         }
 
+        /// <summary>
+        /// Assign the mapping for the property source to the property destination.
+        /// </summary>
+        /// <param name="getPropertySource">The get property source.</param>
+        /// <param name="getPropertyDest">The get property dest.</param>
+        /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
+        /// <returns></returns>
         protected MapperConfigurationBase ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, bool checkIfNull = false)
         {
 
@@ -398,7 +479,16 @@ namespace MapperExpression.Core
             propertiesMapping.Add(Tuple.Create(getPropertySource, getPropertyDest, checkIfNull));
             return this;
         }
-
+        /// <summary>
+        /// Gets the property information.
+        /// </summary>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException">
+        /// This type of expression is not assumed responsibility
+        /// or
+        /// This type of expression is not valid
+        /// </exception>
         protected PropertyInfo GetPropertyInfo(LambdaExpression propertyExpression)
         {
             switch (propertyExpression.Body.NodeType)

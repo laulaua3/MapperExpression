@@ -106,5 +106,27 @@ namespace MapperExpression.Tests.Units.Core
             Assert.AreEqual(((test.Right as BinaryExpression).Left as MemberExpression).Member.Name, "PropString1");
             Clean();
         }
+
+        //[TestMethod]
+        //public void VisitMember_Expression_SimpleProperty_MultiCondition_MutliSubClass_Success()
+        //{
+        //    Init(null);
+        //    ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
+
+        //    Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test" && x.SubClass.ClassSourceProp.PropInt1 > 0;
+        //    Expression actual = null;
+
+        //    actual = visitor.Visit(expected);
+
+
+        //    var test = actual as BinaryExpression;
+        //    Assert.IsNotNull(test);
+        //    Assert.IsInstanceOfType(test.Left, typeof(BinaryExpression));
+        //    Assert.IsInstanceOfType(test.Right, typeof(BinaryExpression));
+        //    Assert.AreEqual(((test.Left as BinaryExpression).Left as MemberExpression).Member.Name, "PropString1");
+        //    Assert.AreEqual(((test.Right as BinaryExpression).Left as MemberExpression).Member.Name, "PropInt1");
+        //    Clean();
+        //}
+
     }
 }

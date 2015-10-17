@@ -36,6 +36,10 @@ namespace MapperExpression.Tests.Units.Extentions
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test";
 
             actual = expected.ConvertTo<ClassDest, ClassSource>();
+            var test = actual.Body as BinaryExpression;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
+            Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
         }
     }
 }

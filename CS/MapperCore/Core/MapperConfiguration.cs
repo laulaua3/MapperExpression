@@ -16,8 +16,10 @@ namespace MapperExpression.Core
     public class MapperConfiguration<TSource, TDest>
         : MapperConfigurationBase
     {
-        #region Variables
-
+        #region Variables        
+        /// <summary>
+        /// The actions after map
+        /// </summary>
         protected readonly List<Action<TSource, TDest>> actionsAfterMap;
 
         #endregion
