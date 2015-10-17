@@ -395,7 +395,7 @@ namespace MapperExpression.Core
         {
 
             //Adding in the list for further processing
-            propertiesMapping.Add(Tuple.Create<LambdaExpression, LambdaExpression, bool>(getPropertySource, getPropertyDest, checkIfNull));
+            propertiesMapping.Add(Tuple.Create(getPropertySource, getPropertyDest, checkIfNull));
             return this;
         }
 

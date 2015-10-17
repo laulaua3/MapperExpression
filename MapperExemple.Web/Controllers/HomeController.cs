@@ -10,6 +10,7 @@ using MapperExpression.Extensions;
 using Microsoft.Practices.ServiceLocation;
 using MapperExemple.Entity.Interface;
 using MapperExemple.Entity.EF;
+using System.Linq.Expressions;
 
 namespace MapperExemple.Web.Controllers
 {
@@ -17,8 +18,14 @@ namespace MapperExemple.Web.Controllers
     public class HomeController : Controller
     {
         private const int nbItemPerPage = 10;
-        #region Simple Mapping
 
+        private IExempleProduct context;
+
+        #region Simple Mapping
+        public HomeController(IExempleProduct product)
+        {
+            context = product;
+        }
         public ActionResult Index()
         {
 
@@ -59,7 +66,6 @@ namespace MapperExemple.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
         public ActionResult Exemple4()
         {
             //Default page
@@ -167,7 +173,7 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Exemple with ioc";
             //this exemple show the map  with ioc
-            IExempleProduct exemple7 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            IExempleProduct exemple7 = context;
 
             var result = exemple7.GetFirstProduct();
 
@@ -181,7 +187,7 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Exemple map a list with ioc";
 
-            IExempleProduct exemple8 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            IExempleProduct exemple8 = context;
             //Exemple map a list with ioc
             var result = exemple8.GetProductsList();
 
@@ -195,7 +201,7 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Exemple map a IQueryable with ioc";
 
-            IExempleProduct exemple9 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            IExempleProduct exemple9 = context;
             //Exemple map a IQueryable with ioc
             var result = exemple9.GetProducts();
 
@@ -208,11 +214,24 @@ namespace MapperExemple.Web.Controllers
             //Default page
             ViewBag.Message = "Other exemple map a IQueryable";
 
-            IExempleProduct exemple10 = ServiceLocator.Current.GetInstance<IExempleProduct>();
+            IExempleProduct exemple10 = context;
             //Exemple map a IQueryable 
             //Mapper.CreateMap<Product, ProductModel>();
             var result = exemple10.GetProducts2(Mapper.GetQueryExpression<Product, ProductModel>());
 
+
+            var model = result;
+
+            return View(model);
+        }
+
+        public ActionResult Exemple11()
+        {
+            //Default page
+            ViewBag.Message = "Exemple map a expression";
+            Expression<Func<IExempleProduct, bool>> criterias = x => x.UnitsInStock > 0;
+            IExempleProduct exemple11 = context;
+            var result = exemple11.GetProductsListWithCriterias(criterias, Mapper.GetQueryExpression<Product, ProductModel>());
 
             var model = result;
 

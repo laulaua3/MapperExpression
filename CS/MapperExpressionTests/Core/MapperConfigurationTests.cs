@@ -151,6 +151,7 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("CheckAndConfigureTypeOfListTest"), ExpectedException(typeof(NoFoundMapperException))]
         public void CheckAndConfigureTypeOfListTest_IsList_NotSameType_NoMapperFound_Exception()
         {
+            Mapper.Reset();
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             PropertyInfo memberSource = typeof(ClassSource).GetProperty("ListProp");
             PropertyInfo memberDest = typeof(ClassDest).GetProperty("ListProp");

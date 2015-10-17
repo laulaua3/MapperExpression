@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ConverterExpressionVisitor.cs" />
     <Compile Include="Core\MapperConfiguration.cs" />
     <Compile Include="Core\MapperConfigurationBase.cs" />
     <Compile Include="Core\MapperConfigurationContainer.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Exception\NotSameTypePropertyException.cs" />
     <Compile Include="Exception\PropertyNoExistException.cs" />
     <Compile Include="Exception\ReadOnlyPropertyException.cs" />
+    <Compile Include="Extensions\MapperExtentions.cs" />
     <Compile Include="Extensions\QueryableExtentions.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

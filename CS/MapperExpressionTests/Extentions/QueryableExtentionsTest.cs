@@ -23,7 +23,7 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod,TestCategory("Extentions")]
         public void OrderBy_Success()
         {
-          
+            Init(null);
             IQueryable<ClassSource> actual = null;
       
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
@@ -61,7 +61,7 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod, TestCategory("Extentions")]
         public void ThenByDescending_Success()
         {
-           
+            Init(null);
             IQueryable<ClassSource> actual = null;
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();

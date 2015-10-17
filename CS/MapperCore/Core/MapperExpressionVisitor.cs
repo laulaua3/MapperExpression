@@ -70,7 +70,7 @@ namespace MapperExpression.Core
                 //We want to test all the sub objects before assigning the value
                 //Ex: source.SubClass.SubClass2.MyProperty
                 //Which will give
-                //source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :null :null
+                //source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty
                 foreach (MemberExpression item in membersToCheck)
                 {
 

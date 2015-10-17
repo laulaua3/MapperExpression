@@ -13,17 +13,18 @@ namespace MapperExemple.Web.App_Start
     public static class UnityWebActivator
     {
         /// <summary>Integrates Unity when the application starts.</summary>
-        public static void Start() 
+        public static void Start()
         {
             var container = UnityConfig.GetConfiguredContainer();
 
-            //FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            //FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
+            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
-            //DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-           
-            var locator = new UnityServiceLocator(container);
-            ServiceLocator.SetLocatorProvider(() => locator);
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
+            //var locator = new UnityServiceLocator(container);
+            //ServiceLocator.SetLocatorProvider(() => locator);
+
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
             // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }

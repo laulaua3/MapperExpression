@@ -18,9 +18,10 @@
     function call() {
         var count = $("#count").val();
         var data = {};
-        data.id = count;
+        data.nbIteration = count;
         $("#imgWait").show();
         $("#time2").hide();
+        $("#time3").hide();
         $("#time1").hide();
         $.ajax({
             type: "GET",
@@ -35,6 +36,17 @@
         });
         $.ajax({
             type: "GET",
+            url: "@Url.Action("BenchMarkValueInjecter", "Benchmark")",
+            data: data,
+        dataType: "json",
+        success: function (response) {
+            $("#time3").html(response.TimeExecuting);
+            $("#time3").show();
+
+        }
+    });
+        $.ajax({
+            type: "GET",
             url: "@Url.Action("BenchMarkMapperExpression", "Benchmark")",
             data: data,
             dataType: "json",
@@ -44,7 +56,7 @@
 
             }
         });
-
+      
     }
 </script>
 <h2>Benchmark</h2>
@@ -63,13 +75,10 @@
 <h3>MapperExpression</h3>
 <pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
 Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
-Stopwatch watcher = Stopwatch.StartNew();
 for (int i = 0; i &lt; id; i++)
 {
     var model = MapperExpression.Mapper.Map&lt;Customer, CustomerModel&gt;(source);
 }
-watcher.Stop();
-result.TimeExecuting = watcher.Elapsed.ToString();
 </pre>
 <div>
     <label>Execution time :</label>
@@ -78,15 +87,26 @@ result.TimeExecuting = watcher.Elapsed.ToString();
 <h3>AutoMapper</h3>
 <pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
 Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
-Stopwatch watcher = Stopwatch.StartNew();
 for (int i = 0; i &lt; id; i++)
 {
     var model = AutoMapper.Mapper.Map&lt;CustomerModel&gt;(source);
 }
-watcher.Stop();
-result.TimeExecuting = watcher.Elapsed.ToString();
 </pre>
 <div>
     <label>Execution time :</label>
     <p id="time2"  class="text-success"></p>
+</div>
+<h3>ValueInjecter</h3>
+<pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
+Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
+for (int i = 0; i &lt; nbIteration; i++)
+{
+    CustomerModel model = new CustomerModel();
+    model.InjectFrom(source);
+}
+</pre>
+
+<div>
+    <label>Execution time :</label>
+    <p id="time3" class="text-success"></p>
 </div>

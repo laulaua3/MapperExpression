@@ -125,6 +125,8 @@ namespace MapperExpression
         {
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
+
+       
         #endregion
 
         #region Private methods

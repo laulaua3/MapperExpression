@@ -46,6 +46,18 @@ namespace MapperExemple.Entity
             }
             return result;
         }
+        public List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct,bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
+        {
+            List<TResult> result = null;
+            using (ExempleDbContext context = new ExempleDbContext())
+            {
+                context.Database.Log = x => Debug.WriteLine(x);
+                result = context.Products
+                            .Where(criterias.ConvertTo<IExempleProduct, Product>())
+                         .Select(selectQuery).ToList();
+            }
+            return result;
+        }
 
         public IQueryable<IExempleProduct> GetProducts()
         {
@@ -70,7 +82,7 @@ namespace MapperExemple.Entity
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selectQuery"></param>
         /// <returns></returns>
-        public IList<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
+        private IList<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
             where TEntity : class
         {
             IList<TResult> result = null;

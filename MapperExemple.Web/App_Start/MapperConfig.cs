@@ -3,6 +3,7 @@ using MapperExemple.Entity.Interface;
 using MapperExemple.Web.Models;
 using MapperExpression;
 using Microsoft.Practices.ServiceLocation;
+using System.Web.Mvc;
 
 namespace MapperExemple.Web.App_Start
 {
@@ -22,8 +23,10 @@ namespace MapperExemple.Web.App_Start
             Mapper.CreateMap<OrderDetail, OrderDetailModel>();
 
             //Exemple with Ioc
-            Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
-            Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator();
+            Mapper.ConstructServicesUsing((x) => DependencyResolver.Current.GetService(x));
+            //Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
+            Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
+                .ReverseMap();
             Mapper.CreateMap<IExempleProduct,ProductModel>();
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();

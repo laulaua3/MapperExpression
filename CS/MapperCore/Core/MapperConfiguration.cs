@@ -122,6 +122,7 @@ namespace MapperExpression.Core
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
             map = new MapperConfiguration<TDest, TSource>();
+            CreateCommonMember();
             //Path is the mapping of existing properties and inverse relationships are created
             for (int i = 0; i < propertiesMapping.Count; i++)
             {
@@ -198,7 +199,17 @@ namespace MapperExpression.Core
             var property = GetPropertyInfo(exp.Item2);
             return property;
         }
-
+        internal PropertyInfo GetPropertyInfoDest(string propertyName)
+        {
+            Contract.Assert(!string.IsNullOrEmpty(propertyName));
+            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item1).Name == propertyName);
+            if (exp == null)
+            {
+                throw new PropertyNoExistException(propertyName, typeof(TSource));
+            }
+            var property = GetPropertyInfo(exp.Item2);
+            return property;
+        }
         #endregion
     }
 }
