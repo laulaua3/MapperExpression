@@ -26,5 +26,7 @@ namespace MapperExemple.Entity.Interface
         IExempleProduct GetFirstProduct();
 
         IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery);
+
+        List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery);
     }
 }

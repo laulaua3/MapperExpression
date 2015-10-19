@@ -133,11 +133,6 @@
     <Compile Include="EF\InvoiceConfiguration.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\NorthwingContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NorthwingContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\Order.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>

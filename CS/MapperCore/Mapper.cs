@@ -26,7 +26,7 @@ namespace MapperExpression
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TDest">The type of the dest.</typeparam>
         /// <param name="source">the source object.</param>
-        /// <returns></returns>
+        /// <returns>A new  object of <typeparamref name="TDest"></typeparamref>/></returns>
         public static TDest Map<TSource, TDest>(TSource source)
             where TSource : class
             where TDest : class
@@ -125,6 +125,8 @@ namespace MapperExpression
         {
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
+
+       
         #endregion
 
         #region Private methods
@@ -150,10 +152,6 @@ namespace MapperExpression
                 throw new NoFoundMapperException(tSource, tDest);
             }
         }
-
-       
-
-
 
         #endregion
     }

@@ -115,6 +115,7 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("GetQuery")]
         public void GetQuery_ReturnFunc()
         {
+            Init(null);
             Mapper.Initialize();
 
             Func<ClassSource, ClassDest> actual = null;

@@ -40,6 +40,9 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetLambdaExpression">
             <summary>Définit le shim de MapperConfiguration`2.GetLambdaExpression()</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetPropertyInfoDestString">
+            <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoDest(String propertyName)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetPropertyInfoSourceString">
             <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoSource(String propertyName)</summary>
         </member>
@@ -81,6 +84,9 @@
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.GetLambdaExpression">
             <summary>Définit le shim de MapperConfiguration`2.GetLambdaExpression()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.GetPropertyInfoDestString">
+            <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoDest(String propertyName)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.GetPropertyInfoSourceString">
             <summary>Définit le shim de MapperConfiguration`2.GetPropertyInfoSource(String propertyName)</summary>

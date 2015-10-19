@@ -76,12 +76,17 @@ namespace MapperExpression.Tests.Units
         }
 
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(PropertyNoExistException))]
-        public void PropertyNoExistException_Exception()
+        public void PropertySourceNoExistException_Exception()
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.GetPropertyInfoSource("test");
         }
-
+        [TestMethod, TestCategory("Exception"), ExpectedException(typeof(PropertyNoExistException))]
+        public void PropertyDestNoExistException_Exception()
+        {
+            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+            expected.GetPropertyInfoDest("test");
+        }
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NotSameTypePropertyException))]
         public void NotSameTypePropertyException_Exception()
         {
@@ -151,6 +156,7 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("CheckAndConfigureTypeOfListTest"), ExpectedException(typeof(NoFoundMapperException))]
         public void CheckAndConfigureTypeOfListTest_IsList_NotSameType_NoMapperFound_Exception()
         {
+            Mapper.Reset();
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             PropertyInfo memberSource = typeof(ClassSource).GetProperty("ListProp");
             PropertyInfo memberDest = typeof(ClassDest).GetProperty("ListProp");

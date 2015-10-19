@@ -3,9 +3,11 @@ using System.Linq;
 using MapperExpression.Core;
 using System.Linq.Expressions;
 using System.Reflection;
-
 namespace MapperExpression.Extensions
 {
+    /// <summary>
+    /// Extentions for the IQueryable
+    /// </summary>
     public static class QueryableExtentions
     {
         #region IQueryable Extentions 
@@ -37,7 +39,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TDest : class
         {
-            return CreateMethodCall<TSource, TDest,IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
+            return CreateMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, MethodBase.GetCurrentMethod().Name, sortedPropertyDestName);
         }
 
 
@@ -87,11 +89,24 @@ namespace MapperExpression.Extensions
             return query.Select(GetMapper<TSource, TDest>().GetLambdaExpression());
         }
 
+        /// <summary>
+        /// Filter a sequence of values based on a predicate.
+        /// </summary>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="predicate">Function to test each element with respect to a condition.</param>
+        /// <returns></returns>
+        public static IQueryable<TDest> Where<TSource, TDest>(this IQueryable<TDest> query, Expression<Func<TSource, bool>> predicate)
+        {
+            //For don't call the same method
+            return Queryable.Where(query, predicate.ConvertTo<TSource, TDest>());
+        }
         #endregion
 
         #region Private methods
 
-        private static TQueryable CreateMethodCall<TSource, TDest,TQueryable>(IQueryable<TSource> query, string methodName, string sortedPropertySourceName)
+        private static TQueryable CreateMethodCall<TSource, TDest, TQueryable>(IQueryable<TSource> query, string methodName, string sortedPropertySourceName)
             where TSource : class
             where TDest : class
             where TQueryable : class, IQueryable<TSource>
