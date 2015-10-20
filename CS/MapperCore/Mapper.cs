@@ -114,7 +114,7 @@ namespace MapperExpression
         }
 
         /// <summary>
-        /// Gets the query.
+        /// Gets the delegate of the mapping.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TDest">The type of the dest.</typeparam>
@@ -125,8 +125,7 @@ namespace MapperExpression
         {
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
-
-       
+     
         #endregion
 
         #region Private methods

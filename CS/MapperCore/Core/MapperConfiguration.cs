@@ -183,7 +183,7 @@ namespace MapperExpression.Core
             {
                 throw new PropertyNoExistException(propertySource, typeof(TDest));
             }
-            var property = GetPropertyInfo(exp.Item2);
+            //To change the parameter
             var visitor = new MapperExpressionVisitor(false, paramClassSource);
             result = visitor.Visit(exp.Item1);
             return Expression.Lambda(result, paramClassSource);
@@ -212,6 +212,7 @@ namespace MapperExpression.Core
             var property = GetPropertyInfo(exp.Item2);
             return property;
         }
+
         #endregion
     }
 }

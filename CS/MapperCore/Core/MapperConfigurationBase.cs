@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using MapperExpression.Exception;
+using System.Diagnostics.Contracts;
 
 namespace MapperExpression.Core
 {
@@ -154,18 +155,18 @@ namespace MapperExpression.Core
         /// Gets the mapper.
         /// </summary>
         /// <param name="tSource">The t source.</param>
-        /// <param name="tDest">The t dest.</param>
+        /// <param name="tTarget">The t dest.</param>
         /// <param name="throwExceptionOnNoFound">if set to <c>true</c> [throw exception on no found].</param>
         /// <returns></returns>
         /// <exception cref="NoFoundMapperException"></exception>
-        protected MapperConfigurationBase GetMapper(Type tSource, Type tDest, bool throwExceptionOnNoFound = true)
+        protected MapperConfigurationBase GetMapper(Type tSource, Type tTarget, bool throwExceptionOnNoFound = true)
         {
             MapperConfigurationBase mapperExterne = null;
 
-            mapperExterne = MapperConfigurationContainer.Instance.Find(tSource, tDest);
+            mapperExterne = MapperConfigurationContainer.Instance.Find(tSource, tTarget);
             //we threw an exception if nothing is found
             if (mapperExterne == null && throwExceptionOnNoFound)
-                throw new NoFoundMapperException(tSource, tDest);
+                throw new NoFoundMapperException(tSource, tTarget);
 
             return mapperExterne;
         }
@@ -207,10 +208,8 @@ namespace MapperExpression.Core
         /// <exception cref="MapperExpression.Exception.ReadOnlyPropertyException"></exception>
         protected void CreateMemberAssignement(PropertyInfo memberSource, PropertyInfo memberDest)
         {
-
             //It removes the old (if repeatedly call the method)
             MemberToMap.RemoveAll(m => m.Member.Name == memberSource.Name);
-
             if (!memberDest.CanWrite)
             {
                 throw new ReadOnlyPropertyException(memberDest);
@@ -326,7 +325,7 @@ namespace MapperExpression.Core
         protected bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
         {
 
-
+            //Only the implementation of 'IList' is supported
             if (memberSource.PropertyType.GetInterfaces().Count(t => t == typeof(IList)) > 0)
             {
                 MapperConfigurationBase mapperExterne = null;
@@ -343,7 +342,7 @@ namespace MapperExpression.Core
                 CheckAndRemoveMemberDest(memberDest.Name);
                 //Calling the method to recover the lambda expression to the select
                 MethodInfo methodeGetExpression = mapperExterne.GetType().GetMethod("GetLambdaExpression");
-
+                //Not need to make a delegate because it's call only one time
                 Expression expMappeur = methodeGetExpression.Invoke(mapperExterne, null) as Expression;
                 //We seek the select method
                 MethodInfo selectMethod = null;
@@ -387,7 +386,7 @@ namespace MapperExpression.Core
         /// </summary>
         /// <param name="memberSource">The member source.</param>
         /// <param name="memberDest">The member dest.</param>
-        /// <param name="mapperExterne">The mapper externe.</param>
+        /// <param name="mapperExterne">The external mapper.</param>
         protected void CreateCheckIfNull(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)
         {
             Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null, memberSource.PropertyType));
@@ -468,13 +467,12 @@ namespace MapperExpression.Core
         /// <summary>
         /// Assign the mapping for the property source to the property destination.
         /// </summary>
-        /// <param name="getPropertySource">The get property source.</param>
-        /// <param name="getPropertyDest">The get property dest.</param>
+        /// <param name="getPropertySource">The expression of property source.</param>
+        /// <param name="getPropertyDest">The expression of property dest.</param>
         /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
         /// <returns></returns>
         protected MapperConfigurationBase ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, bool checkIfNull = false)
         {
-
             //Adding in the list for further processing
             propertiesMapping.Add(Tuple.Create(getPropertySource, getPropertyDest, checkIfNull));
             return this;

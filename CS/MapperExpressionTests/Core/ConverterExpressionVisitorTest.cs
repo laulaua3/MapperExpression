@@ -108,7 +108,7 @@ namespace MapperExpression.Tests.Units.Core
         }
 
         //[TestMethod]
-        //public void VisitMember_Expression_SimpleProperty_MultiCondition_MutliSubClass_Success()
+        //public void VisitMember_Expression_SimpleProperty_MultiCondition_MultiSubClass_Success()
         //{
         //    Init(null);
         //    ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();

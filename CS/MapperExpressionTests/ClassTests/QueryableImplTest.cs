@@ -6,6 +6,10 @@ using System.Linq.Expressions;
 
 namespace MapperExpression.Tests.Units.ClassTests
 {
+    /// <summary>
+    /// Implementation of IQueryable for the extention test
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class QueryableImplTest<T> : IQueryable<T>, IOrderedQueryable<T>
     {
         private Expression _expression;
