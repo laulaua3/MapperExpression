@@ -9,7 +9,7 @@ namespace MapperExemple.Web.App_Start
 {
     public class MapperConfig
     {
-
+     
         public static void Initialise()
         {
             //For simple exemple
@@ -27,10 +27,10 @@ namespace MapperExemple.Web.App_Start
             //Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
-            Mapper.CreateMap<IExempleProduct,ProductModel>();
+            Mapper.CreateMap<IExempleProduct, ProductModel>();
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
-           
+
             //Important!!!
             Mapper.Initialize();
 
@@ -44,7 +44,7 @@ namespace MapperExemple.Web.App_Start
 
                 //For exemple with custom mapping
                 cfg.CreateMap<Order, OrderModel>()
-                    .ForMember((s)=>s.CustomerName, (m) => m.MapFrom(d=> d.Customer.CompanyName));
+                    .ForMember((s) => s.CustomerName, (m) => m.MapFrom(d => d.Customer.CompanyName));
 
                 cfg.CreateMap<OrderDetail, OrderDetailModel>();
 

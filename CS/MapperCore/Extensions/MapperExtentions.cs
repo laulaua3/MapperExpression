@@ -14,11 +14,11 @@ namespace MapperExpression.Extensions
     public static class MapperExtentions
     {
         /// <summary>
-        /// Convert a expression source to same expression dest
+        /// Convert a expression source to same expression target
         /// </summary>
         /// <typeparam name="TSource">type of source</typeparam>
-        /// <typeparam name="TDest">type of destination</typeparam>
-        /// <param name="expression">expression to converte</param>
+        /// <typeparam name="TDest">type of target</typeparam>
+        /// <param name="expression">expression to convert</param>
         /// <returns></returns>
         public static Expression<Func<TDest, bool>> ConvertTo<TSource, TDest>(this Expression<Func<TSource, bool>> expression)
         {

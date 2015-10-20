@@ -29,9 +29,9 @@ namespace MapperExpression.Core
 
         }
 
-        internal MapperConfigurationBase Find(Type source, Type destination)
+        internal MapperConfigurationBase Find(Type source, Type target)
         {
-            return this.FirstOrDefault(m => m.TypeSource == source && m.TypeDest == destination);
+            return Find(m => m.TypeSource == source && m.TypeDest == target);
         }
     }
 }
