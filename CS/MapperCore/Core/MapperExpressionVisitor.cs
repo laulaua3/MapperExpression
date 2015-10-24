@@ -20,11 +20,7 @@ namespace MapperExpression.Core
 
         #region Constructor
 
-        // <summary>
-        // Initialise une nouvelle instance de  <see cref="MapperExpressionVisitor"/> classe.
-        // </summary>
-        // <param name="checkIfNull">Indique si l'on tester la nullité des objets (récursive)</param>
-        // <param name="paramClassSource">paramètre de la source</param>
+       
         internal MapperExpressionVisitor(bool checkIfNull, ParameterExpression paramClassSource)
         {
             checkNull = checkIfNull;

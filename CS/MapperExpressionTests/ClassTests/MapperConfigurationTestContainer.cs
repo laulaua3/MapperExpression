@@ -12,7 +12,11 @@ namespace MapperExpression.Tests.Units.ClassTests
     public class MapperConfigurationTestContainer : MapperConfiguration<ClassSource, ClassDest>
     {
 
-       
+        public void SetIsInitialized(bool value)
+        {
+            isInitialized = value;
+        }
+
         public int GetIgnoreCount()
         {
             return propertiesToIgnore.Count;
@@ -66,6 +70,17 @@ namespace MapperExpression.Tests.Units.ClassTests
         public void CheckAndRemoveMemberDestTest(string propertyName)
         {
             CheckAndRemoveMemberDest(propertyName);
+        }
+
+        public PropertyInfo GetPropertyInfoDestTest(string propertyName)
+        {
+            return GetPropertyInfoDest(propertyName);
+        }
+
+
+        internal override void CreateMappingExpression(Func<Type, object> constructor)
+        {
+            base.CreateMappingExpression(constructor);
         }
     }
 }

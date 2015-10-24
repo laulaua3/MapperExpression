@@ -18,6 +18,12 @@ namespace MapperExemple.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+               name: "BenchMark",
+               url: "{controller}/{action}/{nbIteration}",
+               defaults: new { controller = "BenchMark", action = "Index" }
+           );
+
         }
     }
 }

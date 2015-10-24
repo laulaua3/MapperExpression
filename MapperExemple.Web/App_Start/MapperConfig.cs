@@ -50,7 +50,8 @@ namespace MapperExemple.Web.App_Start
 
                 //Exemple with Ioc
                 cfg.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
-                cfg.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator();
+                cfg.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
+                    .ReverseMap();
                 cfg.CreateMap<IExempleProduct, ProductModel>();
                 //Other exemple
                 cfg.CreateMap<Product, ProductModel>();

@@ -15,10 +15,8 @@ namespace MapperExpression.Core
     public abstract class MapperConfigurationBase
     {
         #region Variables        
-        /// <summary>
-        /// The parameter class source
-        /// </summary>
-        protected ParameterExpression paramClassSource;
+      
+        internal ParameterExpression paramClassSource;
         /// <summary>
         /// The delegate call
         /// </summary>
@@ -60,7 +58,7 @@ namespace MapperExpression.Core
         public Type TypeDest { get; private set; }
 
         /// <summary>
-        /// Gets the member to map.
+        /// Gets the members list to map.
         /// </summary>
         public List<MemberAssignment> MemberToMap { get; protected set; }
 
@@ -151,6 +149,7 @@ namespace MapperExpression.Core
             });
             return membersTransformed;
         }
+
         /// <summary>
         /// Gets the mapper.
         /// </summary>
@@ -170,6 +169,7 @@ namespace MapperExpression.Core
 
             return mapperExterne;
         }
+
         /// <summary>
         /// Creates the common member.
         /// </summary>
@@ -189,7 +189,7 @@ namespace MapperExpression.Core
                     if (propDest.CanWrite && !ignorePropDest && propDest.PropertyType == propSource.PropertyType)
                     {
                         //We check if already exist
-                        if (!propertiesMapping.Exists(x => GetPropertyInfo(x.Item1).Name == propSource.Name && GetPropertyInfo(x.Item2).Name == propDest.Name))
+                        if (GetLambdaDest(propSource.Name) == null)
                         {
                             LambdaExpression expSource = Expression.Lambda(Expression.MakeMemberAccess(paramClassSource, propSource), paramClassSource);
                             LambdaExpression expDest = Expression.Lambda(Expression.MakeMemberAccess(paramDest, propDest), paramDest);
@@ -200,6 +200,7 @@ namespace MapperExpression.Core
             }
 
         }
+
         /// <summary>
         /// Creates the member assignement.
         /// </summary>
@@ -223,6 +224,7 @@ namespace MapperExpression.Core
                 CheckAndConfigureMembersMapping(memberSource, memberDest);
             }
         }
+
         /// <summary>
         /// Checks and configure the members mapping.
         /// </summary>
@@ -316,6 +318,7 @@ namespace MapperExpression.Core
             }
 
         }
+
         /// <summary>
         /// Checks  and configure the type of list.
         /// </summary>
@@ -381,6 +384,7 @@ namespace MapperExpression.Core
             }
             return false;
         }
+
         /// <summary>
         /// Creates check if null expression.
         /// </summary>
@@ -407,6 +411,7 @@ namespace MapperExpression.Core
             MemberAssignment expBind = Expression.Bind(memberDest, expCondition);
             MemberToMap.Add(expBind);
         }
+
         /// <summary>
         /// Checks  and remove the member dest.
         /// </summary>
@@ -420,6 +425,7 @@ namespace MapperExpression.Core
             }
 
         }
+
         /// <summary>
         /// Checks and remove the member source.
         /// </summary>
@@ -433,6 +439,7 @@ namespace MapperExpression.Core
                 MemberToMap.RemoveAll(exp);
             }
         }
+
         /// <summary>
         /// Gets the member initialize expression.
         /// </summary>
@@ -447,6 +454,7 @@ namespace MapperExpression.Core
             MemberInitExpression exp = Expression.MemberInit(newClassDest, MemberToMap);
             return exp;
         }
+
         /// <summary>
         /// Creates the member assign.
         /// </summary>
@@ -458,11 +466,9 @@ namespace MapperExpression.Core
             MapperExpressionVisitor visitor = new MapperExpressionVisitor(checkIfNull, paramClassSource);
             //Visit the expression for its transformation
             Expression result = visitor.Visit(propertyExpression);
-
-            if (result.NodeType == ExpressionType.Lambda)
-                return (result as LambdaExpression).Body;
             return result;
         }
+
 
         /// <summary>
         /// Assign the mapping for the property source to the property destination.
@@ -477,6 +483,7 @@ namespace MapperExpression.Core
             propertiesMapping.Add(Tuple.Create(getPropertySource, getPropertyDest, checkIfNull));
             return this;
         }
+
         /// <summary>
         /// Gets the property information.
         /// </summary>
@@ -493,13 +500,17 @@ namespace MapperExpression.Core
             {
                 case ExpressionType.Convert:
                     Expression operand = (propertyExpression.Body as UnaryExpression).Operand;
-                    if (operand.NodeType == ExpressionType.MemberAccess)
+
+                    switch (operand.NodeType)
                     {
-                        return (operand as MemberExpression).Member as PropertyInfo;
-                    }
-                    else
-                    {
-                        throw new NotImplementedException("This type of expression is not assumed responsibility");
+                        case ExpressionType.MemberAccess:
+                            return (operand as MemberExpression).Member as PropertyInfo;
+                        //case ExpressionType.Call:
+                        //    return null;
+
+                        default:
+                            throw new NotImplementedException("This type of expression is not assumed responsibility");
+
                     }
                 case ExpressionType.MemberAccess:
                     return (propertyExpression.Body as MemberExpression).Member as PropertyInfo;
@@ -508,13 +519,21 @@ namespace MapperExpression.Core
             }
         }
 
+        internal Expression GetLambdaDest(string propertyName)
+        {
+            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item1).Name == propertyName);
+            if (exp != null)
+                return exp.Item2.Body;
+            return null;
+        }
+
         internal virtual void CreateMappingExpression(Func<Type, object> constructor)
         {
             if (!isInitialized)
             {
+                //it is put before treatment to avoid recursive loops
                 isInitialized = true;
-                if (UseServiceLocator)
-                    constructorFunc = constructor;
+                constructorFunc = constructor;
                 CreateCommonMember();
                 GetDelegate();
             }

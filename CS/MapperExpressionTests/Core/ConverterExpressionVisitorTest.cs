@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MapperExpression.Core;
 using System.Linq.Expressions;
 using MapperExpression.Tests.Units.ClassTests;
-
+using System.Linq;
 namespace MapperExpression.Tests.Units.Core
 {
     [TestClass]
@@ -44,6 +44,7 @@ namespace MapperExpression.Tests.Units.Core
             var test = actual as BinaryExpression;
             Assert.IsNotNull(test);
             Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
+            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource));
             Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
             Clean();
         }
@@ -61,6 +62,7 @@ namespace MapperExpression.Tests.Units.Core
             var test = actual as BinaryExpression;
             Assert.IsNotNull(test);
             Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
+            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource2));
             Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
 
         }
@@ -107,26 +109,42 @@ namespace MapperExpression.Tests.Units.Core
             Clean();
         }
 
-        //[TestMethod]
-        //public void VisitMember_Expression_SimpleProperty_MultiCondition_MultiSubClass_Success()
-        //{
-        //    Init(null);
-        //    ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
+        [TestMethod]
+        public void VisitMember_Expression_ExtentionMethod_Success()
+        {
+            Clean();
+            Mapper.CreateMap<ClassDest, ClassSource>()
+                .ForMember(s => s.PropString2, d => d.PropString1)
+                .ForMember(s => s.SubClass, d => d.SubClass)
+                .ForMember(s => s.CountListProp, d => d.ListProp.Count());
+                
+            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
 
-        //    Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test" && x.SubClass.ClassSourceProp.PropInt1 > 0;
-        //    Expression actual = null;
+            Expression<Func<ClassDest, bool>> expected = x => x.CountListProp > 0;
+            Expression actual = null;
 
-        //    actual = visitor.Visit(expected);
+            actual = visitor.Visit(expected);
 
 
-        //    var test = actual as BinaryExpression;
-        //    Assert.IsNotNull(test);
-        //    Assert.IsInstanceOfType(test.Left, typeof(BinaryExpression));
-        //    Assert.IsInstanceOfType(test.Right, typeof(BinaryExpression));
-        //    Assert.AreEqual(((test.Left as BinaryExpression).Left as MemberExpression).Member.Name, "PropString1");
-        //    Assert.AreEqual(((test.Right as BinaryExpression).Left as MemberExpression).Member.Name, "PropInt1");
-        //    Clean();
-        //}
+            var test = actual as BinaryExpression;
+            Assert.IsNotNull(test);
 
+            Clean();
+        }
+        [TestMethod]
+        public void Visit_Null_Expression_Success()
+        {
+            Init(null);
+            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
+
+            Expression<Func<ClassDest, bool>> expected = null;
+            Expression actual = null;
+
+            actual = visitor.Visit(expected);
+
+
+           
+            Assert.IsNull(actual);
+        }
     }
 }
