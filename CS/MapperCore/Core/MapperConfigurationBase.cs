@@ -505,9 +505,6 @@ namespace MapperExpression.Core
                     {
                         case ExpressionType.MemberAccess:
                             return (operand as MemberExpression).Member as PropertyInfo;
-                        //case ExpressionType.Call:
-                        //    return null;
-
                         default:
                             throw new NotImplementedException("This type of expression is not assumed responsibility");
 
