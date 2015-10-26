@@ -148,8 +148,11 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetDestinationType">
             <summary>Définit le shim de MapperConfigurationBase.GetDestinationType()</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetLambdaDestString">
+            <summary>Définit le shim de MapperConfigurationBase.GetLambdaDest(String propertyName)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMapperTypeTypeBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tDest, Boolean throwExceptionOnNoFound)</summary>
+            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tTarget, Boolean throwExceptionOnNoFound)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMemberInitExpression">
             <summary>Définit le shim de MapperConfigurationBase.GetMemberInitExpression()</summary>
@@ -232,8 +235,11 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetDestinationType">
             <summary>Définit le shim de MapperConfigurationBase.GetDestinationType()</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetLambdaDestString">
+            <summary>Définit le shim de MapperConfigurationBase.GetLambdaDest(String propertyName)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetMapperTypeTypeBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tDest, Boolean throwExceptionOnNoFound)</summary>
+            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type tSource, Type tTarget, Boolean throwExceptionOnNoFound)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetMemberInitExpression">
             <summary>Définit le shim de MapperConfigurationBase.GetMemberInitExpression()</summary>
@@ -278,7 +284,7 @@
             <summary>Définir des shims pour tous les membres des instances</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.FindTypeType">
-            <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type destination)</summary>
+            <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type target)</summary>
         </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.BehaveAsCurrent">
             <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
@@ -317,7 +323,7 @@
             <summary>Définit le shim de MapperConfigurationContainer.MapperConfigurationContainer()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.FindTypeType">
-            <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type destination)</summary>
+            <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type target)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.InstanceGet">
             <summary>Définit le shim de MapperConfigurationContainer.get_Instance()</summary>

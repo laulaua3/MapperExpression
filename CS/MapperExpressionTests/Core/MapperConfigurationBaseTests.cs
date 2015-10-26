@@ -3,6 +3,7 @@ using MapperExpression.Exception;
 using MapperExpression.Tests.Units.ClassTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Reflection;
 
 namespace MapperExpression.Tests.Units
 {
@@ -54,5 +55,16 @@ namespace MapperExpression.Tests.Units
             mapper.GetDelegate();
          
         }
+        [TestMethod, TestCategory("GetPropertyInfoDest")]
+        public void PropertyDestNoExistException_Exception()
+        {
+            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+            PropertyInfo actual = null;
+            expected.CreateCommonMemberTest();
+            actual = expected.GetPropertyInfoDest("PropInt1");
+
+            Assert.IsNotNull(actual);
+        }
+        
     }
 }

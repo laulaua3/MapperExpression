@@ -39,6 +39,7 @@ namespace MapperExpression.Tests.Units.Extentions
             var test = actual.Body as BinaryExpression;
             Assert.IsNotNull(actual);
             Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
+            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource));
             Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
         }
     }

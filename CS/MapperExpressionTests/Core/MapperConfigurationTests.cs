@@ -256,6 +256,7 @@ namespace MapperExpression.Tests.Units
             actual = expected.GetPropertyInfoTest(exp);
 
         }
+        
         [TestMethod, TestCategory("ChangeSource")]
         public void ChangeSource_Initialised()
         {

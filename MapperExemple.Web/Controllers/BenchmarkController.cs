@@ -19,7 +19,7 @@ namespace MapperExemple.Web.Controllers
         {
             return View();
         }
-        [Route("[controller]/[action]/[nbIteration]")]
+      
         public ActionResult BenchMarkMapperExpression(int nbIteration)
         {
             BenchmarkModel result = new BenchmarkModel();
@@ -35,7 +35,7 @@ namespace MapperExemple.Web.Controllers
             result.TimeExecuting = watcher.Elapsed.ToString();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        [Route("[controller]/[action]/[nbIteration]")]
+       
         public ActionResult BenchMarkAutoMapper(int nbIteration)
         {
             BenchmarkModel result = new BenchmarkModel();
@@ -52,11 +52,11 @@ namespace MapperExemple.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("[controller]/[action]/[nbIteration]")]
+        
         public ActionResult BenchMarkValueInjecter(int nbIteration)
         {
             BenchmarkModel result = new BenchmarkModel();
-            result.Mapper = "AutoMapper";
+            result.Mapper = "ValueInjecte";
             //Generate data
             Customer source = Builder<Customer>.CreateNew().Build();
             Stopwatch watcher = Stopwatch.StartNew();
@@ -64,6 +64,35 @@ namespace MapperExemple.Web.Controllers
             {
                 CustomerModel model = new CustomerModel();
                 model.InjectFrom(source);
+            }
+            watcher.Stop();
+            result.TimeExecuting = watcher.Elapsed.ToString();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+       
+        public ActionResult BenchMarkDirect(int nbIteration)
+        {
+            BenchmarkModel result = new BenchmarkModel();
+            result.Mapper = "Direct";
+            //Generate data
+            Customer source = Builder<Customer>.CreateNew().Build();
+            Stopwatch watcher = Stopwatch.StartNew();
+            for (int i = 0; i < nbIteration; i++)
+            {
+                CustomerModel model = new CustomerModel()
+                {
+                    Address = source.Address,
+                    City = source.City,
+                    CompanyName = source.ContactName,
+                    ContactName = source.ContactName,
+                    ContactTitle = source.ContactTitle,
+                    Country = source.Country,
+                    Fax = source.Fax,
+                    Phone = source.Phone,
+                    PostalCode = source.PostalCode,
+                    Region = source.Region
+                };
+
             }
             watcher.Stop();
             result.TimeExecuting = watcher.Elapsed.ToString();

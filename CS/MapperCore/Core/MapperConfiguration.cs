@@ -118,7 +118,7 @@ namespace MapperExpression.Core
         public MapperConfiguration<TDest, TSource> ReverseMap()
         {
             MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false) as MapperConfiguration<TDest, TSource>;
-            
+
             if (map != null)
             {
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
@@ -173,7 +173,7 @@ namespace MapperExpression.Core
                 GetFuncDelegate();
             }
         }
-  
+
         internal LambdaExpression GetSortedExpression(string propertySource)
         {
             Contract.Assert(!string.IsNullOrEmpty(propertySource));
@@ -213,6 +213,7 @@ namespace MapperExpression.Core
             return property;
         }
 
+       
         #endregion
     }
 }

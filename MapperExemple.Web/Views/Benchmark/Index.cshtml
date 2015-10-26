@@ -23,6 +23,8 @@
         $("#time2").hide();
         $("#time3").hide();
         $("#time1").hide();
+        $("#time4").hide();
+        
         $.ajax({
             type: "GET",
             url: "@Url.Action("BenchMarkAutoMapper", "Benchmark")" ,
@@ -56,6 +58,17 @@
 
             }
         });
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("BenchMarkDirect", "Benchmark")",
+            data: data,
+        dataType: "json",
+        success: function (response) {
+            $("#time4").html(response.TimeExecuting);
+            $("#time4").show();
+
+        }
+    });
       
     }
 </script>
@@ -110,3 +123,29 @@ for (int i = 0; i &lt; nbIteration; i++)
     <label>Execution time :</label>
     <p id="time3" class="text-success"></p>
 </div>
+<h3>Direct</h3>
+<pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
+Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
+for (int i = 0; i &lt; nbIteration; i++)
+{
+    CustomerModel model = new CustomerModel()
+    {
+        Address = source.Address,
+        City = source.City,
+        CompanyName = source.ContactName,
+        ContactName = source.ContactName,
+        ContactTitle = source.ContactTitle,
+        Country = source.Country,
+        Fax = source.Fax,
+        Phone = source.Phone,
+        PostalCode = source.PostalCode,
+        Region = source.Region
+    };
+}
+</pre>
+
+<div>
+    <label>Execution time :</label>
+    <p id="time4" class="text-success"></p>
+</div>
+

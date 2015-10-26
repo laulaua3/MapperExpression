@@ -7,7 +7,8 @@ using MapperExpression.Exception;
 using Microsoft.QualityTools.Testing.Fakes;
 using System.Linq.Expressions;
 using System;
-using System.Data.Linq;
+using System.Linq;
+using FizzWare.NBuilder;
 
 namespace MapperExpression.Tests.Units
 {
@@ -131,5 +132,26 @@ namespace MapperExpression.Tests.Units
             ClassDest2 actual = null;
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
+
+        //[TestMethod, TestCategory("Map"),ExpectedException(typeof(NotImplementedException))]
+        //public void Mapper_CreateMap_WithCountMethodInSource_Sucess()
+        //{
+        //    Clean();
+        //    int nbCount = 3;
+        //    ClassDest actual = null;
+        //    ClassSource expected = Builder<ClassSource>.CreateNew()
+        //        .With(x => x.ListProp = Builder<ClassSource2>.CreateListOfSize(nbCount).Build().ToList())
+        //        .Build();
+        //    //Create the default map for the test
+        //    Mapper.CreateMap<ClassSource, ClassDest>()
+        //        .ForMember(s => s.PropString1, d => d.PropString2)
+        //        .ForMember(s => s.ListProp.Count(), d => d.CountListProp);
+        //    Mapper.Initialize();
+
+        //    actual = Mapper.Map<ClassSource, ClassDest>(expected);
+
+        //    Assert.AreEqual(actual.CountListProp, nbCount);
+        //    Clean();
+        //}
     }
 }

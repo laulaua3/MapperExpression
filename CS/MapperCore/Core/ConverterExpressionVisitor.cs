@@ -17,12 +17,6 @@ namespace MapperExpression.Core
         private ParameterExpression paramClassSource;
         private MapperConfiguration<TSource, TDest> mapper;
 
-        /// <summary>
-        /// Gets the new parameter.
-        /// </summary>
-        /// <value>
-        /// The parameter.
-        /// </value>
         internal ParameterExpression Parameter
         {
             get
@@ -30,58 +24,87 @@ namespace MapperExpression.Core
                 return paramClassSource;
             }
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConverterExpressionVisitor{TSource, TDest}"/> class.
-        /// </summary>
+   
         internal ConverterExpressionVisitor()
         {
             mapper = Mapper.GetMapper(typeof(TSource), typeof(TDest)) as MapperConfiguration<TSource, TDest>;
             paramClassSource = Expression.Parameter(typeof(TDest), "d");
         }
+
+        /// <summary>
+        /// Visit <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+        /// </summary>
+        /// <param name="node">Expression to visit.</param>
+        /// <returns>
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
+        /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
             return paramClassSource;
         }
 
+        /// <summary>
+        /// Distributes the expression one of the more specialized visit methods in this class.
+        /// </summary>
+        /// <param name="node">Expression to visit.</param>
+        /// <returns>
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
+        /// </returns>
         public override Expression Visit(Expression node)
         {
-            switch (node.NodeType)
+            if (node != null)
             {
-                case ExpressionType.Lambda:
+                switch (node.NodeType)
+                {
+                    case ExpressionType.Lambda:
 
-                    return base.Visit((node as LambdaExpression).Body);
-                default:
+                        return base.Visit((node as LambdaExpression).Body);
 
-                    return base.Visit(node);
+                    default:
+
+                        return base.Visit(node);
+                }
             }
-
+            return node;
         }
+
+        /// <summary>
+        /// Visit the children of <see cref="T:System.Linq.Expressions.MemberExpression" />.
+        /// </summary>
+        /// <param name="node">Expression to visit.</param>
+        /// <returns>
+        /// Altered expression, if it or any subexpression was modified; otherwise, returns the original expression.
+        /// </returns>
         protected override Expression VisitMember(MemberExpression node)
         {
             Expression exp = base.Visit(node.Expression);
+            Expression result = null;
+            //this is use to only for change the parameter of the result expression :(
+            MapperExpressionVisitor changeParameterVisitor = null;
             //For children class
             if (exp.NodeType == ExpressionType.MemberAccess && (exp as MemberExpression).Member.DeclaringType.IsClass)
             {
 
                 var subMapper = Mapper.GetMapper(node.Member.ReflectedType, exp.Type);
-                //Need to call dynamicaly the method because it inside the MapperConfiguration<TSource,TDest> class 
-                MethodInfo methodGetPropertyInfoDest = subMapper.GetType()
-                                                                .GetMethod("GetPropertyInfoDest", BindingFlags.NonPublic | BindingFlags.Instance);
-                //For the performances
-                Func<string, PropertyInfo> executeDelegate = (Func<string, PropertyInfo>)Delegate.CreateDelegate(typeof(Func<string, PropertyInfo>),
-                                                                                                                 subMapper,
-                                                                                                                 methodGetPropertyInfoDest);
-                PropertyInfo property = executeDelegate(node.Member.Name);
-                //Not need test the PropertyInfo because the method 'GetPropertyInfoDest' throw a exception if the property is not found
-                return Expression.MakeMemberAccess(exp, property);
+                result = subMapper.GetLambdaDest(node.Member.Name);
+                changeParameterVisitor = new MapperExpressionVisitor(false, Expression.Parameter(subMapper.TypeDest, "d"));
             }
             else
             {
-                var property = mapper.GetPropertyInfoDest(node.Member.Name);
-                //Not need test the PropertyInfo because the method 'GetPropertyInfoDest' throw a exception if the property is not found
-                return Expression.MakeMemberAccess(paramClassSource, property);
+                result = mapper.GetLambdaDest(node.Member.Name);
+                changeParameterVisitor = new MapperExpressionVisitor(false, paramClassSource);
             }
 
+            if (result != null)
+            {
+                //Because the expression of the member is Expression<Func<T,object>> the compiler use a convert expression to cast the type of the property from object
+                //we don't need to have it
+                result = result.NodeType == ExpressionType.Convert ? (result as UnaryExpression).Operand : result;
+
+                result = changeParameterVisitor.Visit(result);
+                return result;
+            }
+            return node;
         }
     }
 }
