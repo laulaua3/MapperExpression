@@ -95,6 +95,7 @@ namespace MapperExpression
         /// <summary>
         /// Remove all mappers
         /// </summary>
+        ///<remarks>Use for your units test only</remarks>
         public static void Reset()
         {
             MapperConfigurationContainer.Instance.Clear();
@@ -103,6 +104,7 @@ namespace MapperExpression
         /// <summary>
         /// Initialise the mappers.
         /// </summary>
+        /// <remarks>Use only the application initialization</remarks>
         public static void Initialize()
         {
             MapperConfigurationContainer configRegister = MapperConfigurationContainer.Instance;

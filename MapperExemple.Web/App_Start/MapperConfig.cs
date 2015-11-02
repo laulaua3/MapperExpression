@@ -3,6 +3,7 @@ using MapperExemple.Entity.Interface;
 using MapperExemple.Web.Models;
 using MapperExpression;
 using Microsoft.Practices.ServiceLocation;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace MapperExemple.Web.App_Start
@@ -30,10 +31,11 @@ namespace MapperExemple.Web.App_Start
             Mapper.CreateMap<IExempleProduct, ProductModel>();
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
-
+            Stopwatch initWatch = Stopwatch.StartNew();
             //Important!!!
             Mapper.Initialize();
-
+            initWatch.Stop();
+            Debug.WriteLine("Init MapperExpression :" + initWatch.Elapsed.ToString());
 
 
             //AutoMapper

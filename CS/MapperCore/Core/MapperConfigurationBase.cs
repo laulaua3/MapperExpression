@@ -93,6 +93,7 @@ namespace MapperExpression.Core
             {
                 throw new MapperNotInitializedException(TypeSource, TypeDest);
             }
+            //It's here that we have the mapper's perfomances
             //Storing the delegate significantly reduces the processing time 
             //Super Perf!!! 
             //(no expression compiles every call which is very consumer)
@@ -163,7 +164,7 @@ namespace MapperExpression.Core
             MapperConfigurationBase mapperExterne = null;
 
             mapperExterne = MapperConfigurationContainer.Instance.Find(tSource, tTarget);
-            //we threw an exception if nothing is found
+            //we raise an exception if there is nothing and configured
             if (mapperExterne == null && throwExceptionOnNoFound)
                 throw new NoFoundMapperException(tSource, tTarget);
 
@@ -273,7 +274,7 @@ namespace MapperExpression.Core
             }
             else
             {
-                //If the type is different we will look if we did not Mapper
+                //If the type is different we will look if we did not mapper
                 if (memberSource.PropertyType != memberDest.PropertyType)
                 {
                     mapperExterne = GetMapper(memberSource.PropertyType, memberDest.PropertyType, false);
@@ -512,7 +513,7 @@ namespace MapperExpression.Core
                 case ExpressionType.MemberAccess:
                     return (propertyExpression.Body as MemberExpression).Member as PropertyInfo;
                 default:
-                    throw new NotImplementedException("This type of expression is not valid");
+                    throw new NotImplementedException("This type of expression is not assumed responsibility");
             }
         }
 

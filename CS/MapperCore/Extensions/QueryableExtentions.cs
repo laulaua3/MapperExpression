@@ -24,7 +24,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TDest : class
         {
-            //Do not use the MethodBase.GetCurrentMethod () method. Name because it is not efficient
+            //Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
             return CreateSortedMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, "OrderBy", sortedPropertyDestName);
         }
 
@@ -40,7 +40,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TDest : class
         {
-            //Do not use the MethodBase.GetCurrentMethod () method. Name because it is not efficient
+            //Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
             return CreateSortedMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, "OrderByDescending", sortedPropertyDestName);
         }
 
@@ -57,7 +57,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TDest : class
         {
-            //Do not use the MethodBase.GetCurrentMethod () method. Name because it is not efficient
+            //Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
             return CreateSortedMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, "ThenBy" , sortedPropertyDestName);
         }
 
@@ -73,7 +73,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TDest : class
         {
-            //Do not use the MethodBase.GetCurrentMethod () method. Name because it is not efficient
+            //Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
             return CreateSortedMethodCall<TSource, TDest, IOrderedQueryable<TSource>>(query, "ThenByDescending", sortedPropertyDestName);
         }
 

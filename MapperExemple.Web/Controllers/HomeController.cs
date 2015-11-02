@@ -153,7 +153,7 @@ namespace MapperExemple.Web.Controllers
         public ActionResult Exemple6()
         {
             //Default page
-            ViewBag.Message = "Exemple for custom mapping";
+            ViewBag.Message = "List Exemple for custom mapping";
             //this exemple show how map a IQueryable to List  with custom mapping
             ExempleOrder exemple6 = new ExempleOrder();
 
