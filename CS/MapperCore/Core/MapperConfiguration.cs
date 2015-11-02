@@ -82,7 +82,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> Ignore(Expression<Func<TDest, object>> propertyDest)
         {
-
+            //Adding in the list for further processing
             propertiesToIgnore.Add(GetPropertyInfo(propertyDest));
             return this;
         }
@@ -94,6 +94,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> AfterMap(Action<TSource, TDest> actionAfterMap)
         {
+            //Adding in the list for further processing
             actionsAfterMap.Add(actionAfterMap);
             return this;
         }

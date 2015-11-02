@@ -141,9 +141,7 @@ namespace MapperExpression.Tests.Units.Core
             Expression actual = null;
 
             actual = visitor.Visit(expected);
-
-
-           
+    
             Assert.IsNull(actual);
         }
     }

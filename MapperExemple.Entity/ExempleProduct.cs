@@ -46,8 +46,7 @@ namespace MapperExemple.Entity
             List<IExempleProduct> result = null;
 
 
-            result = (from c in _context.Products
-                      select c).Select<Product, IExempleProduct>().ToList();
+            result = _context.Products.Select<Product, IExempleProduct>().ToList();
             _context.Dispose();
             return result;
         }
@@ -117,7 +116,6 @@ namespace MapperExemple.Entity
             where TEntity : class
         {
             IQueryable<TResult> result = null;
-            _context.Database.Log = x => Debug.WriteLine(x);
             result = _context.Set<TEntity>()
                 .Where(criterias)
                 .Select(selectQuery);

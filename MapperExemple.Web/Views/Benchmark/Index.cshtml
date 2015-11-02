@@ -16,60 +16,36 @@
         call();
     });
     function call() {
-        var count = $("#count").val();
-        var data = {};
-        data.nbIteration = count;
+
         $("#imgWait").show();
         $("#time2").hide();
         $("#time3").hide();
         $("#time1").hide();
         $("#time4").hide();
-        
+        callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2",true);
+        callService("@Url.Action("BenchMarkValueInjecter", "Benchmark")", "#time3");
+        callService("@Url.Action("BenchMarkMapperExpression", "Benchmark")", "#time1" );
+        callService("@Url.Action("BenchMarkDirect", "Benchmark")", "#time4");
+
+    }
+    function callService(url, timeElement, isLast) {
+        var count = $("#count").val();
+        var data = {};
+        data.nbIteration = count;
         $.ajax({
             type: "GET",
-            url: "@Url.Action("BenchMarkAutoMapper", "Benchmark")" ,
+            url: url,
             data: data,
             dataType: "json",
             success: function (response) {
-                $("#time2").html(response.TimeExecuting);
-                $("#imgWait").hide();
-                $("#time2").show();
+                $(timeElement).html(response.TimeExecuting);
+               
+                if (isLast === true) {
+                    $("#imgWait").hide();
+                }
+                $(timeElement).show();
             }
         });
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("BenchMarkValueInjecter", "Benchmark")",
-            data: data,
-        dataType: "json",
-        success: function (response) {
-            $("#time3").html(response.TimeExecuting);
-            $("#time3").show();
-
-        }
-    });
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("BenchMarkMapperExpression", "Benchmark")",
-            data: data,
-            dataType: "json",
-            success: function (response) {
-                $("#time1").html(response.TimeExecuting);
-                $("#time1").show();
-
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("BenchMarkDirect", "Benchmark")",
-            data: data,
-        dataType: "json",
-        success: function (response) {
-            $("#time4").html(response.TimeExecuting);
-            $("#time4").show();
-
-        }
-    });
-      
     }
 </script>
 <h2>Benchmark</h2>
@@ -95,7 +71,7 @@ for (int i = 0; i &lt; id; i++)
 </pre>
 <div>
     <label>Execution time :</label>
-    <p id="time1"  class="text-success"></p>
+    <p id="time1" class="text-success"></p>
 </div>
 <h3>AutoMapper</h3>
 <pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
@@ -107,7 +83,7 @@ for (int i = 0; i &lt; id; i++)
 </pre>
 <div>
     <label>Execution time :</label>
-    <p id="time2"  class="text-success"></p>
+    <p id="time2" class="text-success"></p>
 </div>
 <h3>ValueInjecter</h3>
 <pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">

@@ -136,7 +136,7 @@ namespace MapperExpression.Core
             //To treat later
             if (memberAccessExpression != null && checkNull)
             {
-                // Knowing that the first member is in the first visit and as we descend each time 
+                //Knowing that the first member is in the first visit and as we descend each time 
                 //our current insert member is in the first line of the list to change the order
                 //exemple :
                 //source.SubClass.SubClass2.MyProperty
@@ -169,7 +169,7 @@ namespace MapperExpression.Core
         private object GetDefaultValue(Type typeObject)
         {
             object defaultValue = null;
-            //In the case of value types (eg Integer), you must instantiate the object to have its default value
+            //In the case of value types (eg Integer), you must instantiate the object to have its default value (default(T) not working for some case)
             if (typeObject.IsValueType)
             {
                 NewExpression exp = Expression.New(typeObject);

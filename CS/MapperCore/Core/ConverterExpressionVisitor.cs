@@ -56,12 +56,10 @@ namespace MapperExpression.Core
             {
                 switch (node.NodeType)
                 {
+                    //to remove validation of the lambda expression
                     case ExpressionType.Lambda:
-
                         return base.Visit((node as LambdaExpression).Body);
-
                     default:
-
                         return base.Visit(node);
                 }
             }

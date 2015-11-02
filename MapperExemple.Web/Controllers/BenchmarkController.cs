@@ -1,12 +1,7 @@
 ﻿using FizzWare.NBuilder;
-using MapperExemple.Entity;
 using MapperExemple.Entity.EF;
 using MapperExemple.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Omu.ValueInjecter;
 namespace MapperExemple.Web.Controllers
