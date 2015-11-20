@@ -15,7 +15,7 @@ namespace MapperExpression.Core
     public abstract class MapperConfigurationBase
     {
         #region Variables        
-      
+
         internal ParameterExpression paramClassSource;
         /// <summary>
         /// The delegate call
@@ -329,7 +329,7 @@ namespace MapperExpression.Core
         protected bool CheckAndConfigureTypeOfList(PropertyInfo memberSource, PropertyInfo memberDest)
         {
 
-            //Only the implementation of 'IList' is supported
+            //!!!!! Only the implementation of 'IList' is supported
             if (memberSource.PropertyType.GetInterfaces().Count(t => t == typeof(IList)) > 0)
             {
                 MapperConfigurationBase mapperExterne = null;
@@ -374,9 +374,11 @@ namespace MapperExpression.Core
                     });
                 //We create the call to ToList method
                 Expression toList = Expression.Call(typeof(Enumerable).GetMethod("ToList").MakeGenericMethod(destTypeList), select);
+                //For boxing
                 Expression asExp = Expression.TypeAs(toList, memberDest.PropertyType);
                 //test if the source property is null
                 Expression checkIfNull = Expression.NotEqual(Expression.Property(paramClassSource, memberSource), Expression.Constant(null));
+                //Create condition
                 Expression expCondition = Expression.Condition(checkIfNull, asExp, Expression.Constant(null, memberDest.PropertyType));
                 //Assigning the destination properties
                 MemberAssignment expBind = Expression.Bind(memberDest, expCondition);

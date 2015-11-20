@@ -22,13 +22,13 @@
         $("#time3").hide();
         $("#time1").hide();
         $("#time4").hide();
-        callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2",true);
+        callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2", true);
         callService("@Url.Action("BenchMarkValueInjecter", "Benchmark")", "#time3");
-        callService("@Url.Action("BenchMarkMapperExpression", "Benchmark")", "#time1" );
+        callService("@Url.Action("BenchMarkMapperExpression", "Benchmark")", "#time1");
         callService("@Url.Action("BenchMarkDirect", "Benchmark")", "#time4");
 
     }
-    function callService(url, timeElement, isLast) {
+    function callService(url, timerElement, isLast) {
         var count = $("#count").val();
         var data = {};
         data.nbIteration = count;
@@ -38,12 +38,12 @@
             data: data,
             dataType: "json",
             success: function (response) {
-                $(timeElement).html(response.TimeExecuting);
-               
+                $(timerElement).html(response.TimeExecuting);
+
                 if (isLast === true) {
                     $("#imgWait").hide();
                 }
-                $(timeElement).show();
+                $(timerElement).show();
             }
         });
     }

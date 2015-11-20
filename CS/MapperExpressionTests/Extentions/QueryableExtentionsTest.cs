@@ -10,7 +10,7 @@ namespace MapperExpression.Tests.Units.Extentions
 {
     [TestClass]
     public class QueryableExtentionsTest
-   
+
     {
         [ClassInitialize]
         public static void Init(TestContext context)
@@ -19,7 +19,7 @@ namespace MapperExpression.Tests.Units.Extentions
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2)
                 .ReverseMap();
-                
+
             Mapper.Initialize();
         }
         [ClassCleanup]
@@ -28,22 +28,22 @@ namespace MapperExpression.Tests.Units.Extentions
             //Remove all map after test
             Mapper.Reset();
         }
-        [TestMethod,TestCategory("Extentions")]
+        [TestMethod, TestCategory("Extentions")]
         public void OrderBy_Success()
         {
             Init(null);
             IQueryable<ClassSource> actual = null;
-      
+
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
 
-            actual = expected.OrderBy<ClassSource,ClassDest>("PropInt1");
+            actual = expected.OrderBy<ClassSource, ClassDest>("PropInt1");
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.OrderBy)));
-            
+
         }
         [TestMethod, TestCategory("Extentions")]
         public void OrderByDescending_Success()
         {
-          
+
             IQueryable<ClassSource> actual = null;
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
@@ -62,7 +62,8 @@ namespace MapperExpression.Tests.Units.Extentions
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
 
-            actual = expected.OrderByDescending<ClassSource, ClassDest>("PropInt1").ThenBy<ClassSource, ClassDest>("PropInt1");
+            actual = expected.OrderByDescending<ClassSource, ClassDest>("PropInt1")
+                             .ThenBy<ClassSource, ClassDest>("PropInt1");
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.ThenBy)));
 
         }
@@ -74,7 +75,8 @@ namespace MapperExpression.Tests.Units.Extentions
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
 
-            actual = expected.OrderByDescending<ClassSource, ClassDest>("PropInt1").ThenByDescending<ClassSource, ClassDest>("PropInt1");
+            actual = expected.OrderByDescending<ClassSource, ClassDest>("PropInt1")
+                             .ThenByDescending<ClassSource, ClassDest>("PropInt1");
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.ThenByDescending)));
 
         }
@@ -88,24 +90,23 @@ namespace MapperExpression.Tests.Units.Extentions
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
 
             actual = expected.Select<ClassSource, ClassDest>();
-            Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof (QueryableExtentions.Select)));
+            Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.Select)));
 
         }
 
         [TestMethod, TestCategory("Extentions")]
         public void Where_Success()
         {
-
             IQueryable<ClassSource> actual = null;
 
             QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
             Expression<Func<ClassDest, bool>> criterias = x => x.PropInt1 == 1;
             actual = expected.Where(criterias);
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.Where)));
-           
+
 
         }
-        private bool CheckExpressionMethod(Expression expression,string methodeName)
+        private bool CheckExpressionMethod(Expression expression, string methodeName)
         {
             if (expression.NodeType == ExpressionType.Call)
             {
