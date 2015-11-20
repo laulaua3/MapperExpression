@@ -8,7 +8,7 @@ namespace MapperExpression.Core
     {
         #region Variables
 
-        private Expression previousMember;
+        private Expression previousExpression;
 
         private readonly bool checkNull;
 
@@ -55,6 +55,7 @@ namespace MapperExpression.Core
                     case ExpressionType.Convert:
                         return VisitMember((node as UnaryExpression).Operand as MemberExpression);
                     case ExpressionType.Lambda:
+                        //to remove validation of the lambda expression
                         base.Visit((node as LambdaExpression).Body);
                         break;
                     default:
@@ -78,21 +79,21 @@ namespace MapperExpression.Core
                         Expression notNull = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
                         Expression conditional = null;
                         //It creates a condition that includes the above condition
-                        if (previousMember != null)
+                        if (previousExpression != null)
                         {
-                            object defaultPreviousValue = GetDefaultValue(previousMember.Type);
-                            conditional = Expression.Condition(notNull, previousMember, Expression.Constant(defaultPreviousValue, previousMember.Type));
+                            object defaultPreviousValue = GetDefaultValue(previousExpression.Type);
+                            conditional = Expression.Condition(notNull, previousExpression, Expression.Constant(defaultPreviousValue, previousExpression.Type));
                         }
                         //It affects the newly created conditions that will become the previous
-                        previousMember = conditional;
+                        previousExpression = conditional;
                     }
                     else //here the requested property
                     {
-                        previousMember = item;
+                        previousExpression = item;
                         isFirst = false;
                     }
                 }
-                return previousMember;
+                return previousExpression;
             }
             else
             {

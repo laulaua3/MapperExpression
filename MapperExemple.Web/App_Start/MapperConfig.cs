@@ -29,6 +29,7 @@ namespace MapperExemple.Web.App_Start
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
             Mapper.CreateMap<IExempleProduct, ProductModel>();
+            
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
             Stopwatch initWatch = Stopwatch.StartNew();
