@@ -32,11 +32,27 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod]
         public void ConvertTo_SimpleExpression_Success()
         {
-            Expression<Func<ClassSource, bool>> actual = null;
+            LambdaExpression actual = null;
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test";
 
-            actual = expected.ConvertTo<ClassDest, ClassSource>();
+            actual = expected.ConvertTo<ClassDest, ClassSource>() as LambdaExpression;
             var test = actual.Body as BinaryExpression;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
+            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource));
+            Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
+        }
+
+        [TestMethod]
+        public void ConvertTo_WithType()
+        {
+
+            LambdaExpression actual = null;
+            Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test";
+
+            actual = expected.ConvertTo(typeof(ClassSource)) as LambdaExpression;
+            var test = actual.Body as BinaryExpression;
+
             Assert.IsNotNull(actual);
             Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
             Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource));

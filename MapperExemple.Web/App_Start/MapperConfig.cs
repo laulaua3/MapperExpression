@@ -10,7 +10,7 @@ namespace MapperExemple.Web.App_Start
 {
     public class MapperConfig
     {
-     
+
         public static void Initialise()
         {
             //For simple exemple
@@ -29,7 +29,7 @@ namespace MapperExemple.Web.App_Start
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
             Mapper.CreateMap<IExempleProduct, ProductModel>();
-            
+
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
             Stopwatch initWatch = Stopwatch.StartNew();
@@ -50,6 +50,7 @@ namespace MapperExemple.Web.App_Start
                     .ForMember((s) => s.CustomerName, (m) => m.MapFrom(d => d.Customer.CompanyName));
 
                 cfg.CreateMap<OrderDetail, OrderDetailModel>();
+
 
                 //Exemple with Ioc
                 cfg.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));

@@ -13,7 +13,7 @@ namespace MapperExpression
     {
         #region Variables
 
-       
+
         private static Func<Type, object> constructorFunc;
 
         #endregion
@@ -24,22 +24,22 @@ namespace MapperExpression
         /// Maps the specified source.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDest">The type of the dest.</typeparam>
+        /// <typeparam name="TTarget">The type of the dest.</typeparam>
         /// <param name="source">the source object.</param>
-        /// <returns>A new  object of <typeparamref name="TDest"></typeparamref>/></returns>
-        public static TDest Map<TSource, TDest>(TSource source)
+        /// <returns>A new  object of <typeparamref name="TTarget"></typeparamref></returns>
+        public static TTarget Map<TSource, TTarget>(TSource source)
             where TSource : class
-            where TDest : class
+            where TTarget : class
         {
-            TDest result = null;
+            TTarget result = null;
             try
             {
-                MapperConfiguration<TSource, TDest> mapper = GetMapper<TSource, TDest>();
-                Func<TSource, TDest> query = mapper.GetFuncDelegate();
+                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>();
+                Func<TSource, TTarget> query = mapper.GetFuncDelegate();
                 if (query != null)
                 {
                     result = query(source);
-                    //Action performed after the mapping
+                    // Action performed after the mapping
                     mapper.ExecuteAfterActions(source, result);
                 }
             }
@@ -49,38 +49,66 @@ namespace MapperExpression
             }
             return result;
         }
+        /// <summary>
+        /// Maps the specified source.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <typeparam name="TTarget">The type of the dest.</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        public static void Map<TSource, TTarget>(TSource source, TTarget target)
+         where TSource : class
+         where TTarget : class
+        {
+            TTarget result = null;
+            try
+            {
+                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>();
+                Action<TSource, TTarget> query = mapper.GetDelegateForExistingTarget() as Action<TSource, TTarget>;
+                if (query != null)
+                {
+                    query(source, target);
+                    // Action performed after the mapping
+                    mapper.ExecuteAfterActions(source, result);
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
 
         /// <summary>
         /// Gets the query expression.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDest">The type of the dest.</typeparam>
+        /// <typeparam name="TTarget">The type of the dest.</typeparam>
         /// <returns></returns>
-        public static Expression<Func<TSource, TDest>> GetQueryExpression<TSource, TDest>()
+        public static Expression<Func<TSource, TTarget>> GetQueryExpression<TSource, TTarget>()
             where TSource : class
-            where TDest : class
+            where TTarget : class
         {
-            return GetMapper<TSource, TDest>().GetLambdaExpression();
+            return GetMapper<TSource, TTarget>().GetLambdaExpression();
         }
 
         /// <summary>
         /// Creates a mapper.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDest">The type of the dest.</typeparam>
+        /// <typeparam name="TTarget">The type of the dest.</typeparam>
         /// <returns></returns>
-        public static MapperConfiguration<TSource, TDest> CreateMap<TSource, TDest>()
+        public static MapperConfiguration<TSource, TTarget> CreateMap<TSource, TTarget>()
             where TSource : class
-            where TDest : class
+            where TTarget : class
         {
-            //We do not use the method because it GetMapper throw an exception if not found
-            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TDest));
+            // We do not use the method because it GetMapper throw an exception if not found
+            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget));
             if (map == null)
             {
-                map = new MapperConfiguration<TSource, TDest>();
+                map = new MapperConfiguration<TSource, TTarget>("s" + MapperConfigurationContainer.Instance.Count);
                 MapperConfigurationContainer.Instance.Add(map);
             }
-            return map as MapperConfiguration<TSource, TDest>;
+            return map as MapperConfiguration<TSource, TTarget>;
         }
 
         /// <summary>
@@ -112,6 +140,7 @@ namespace MapperExpression
             foreach (MapperConfigurationBase mapper in configRegister)
             {
                 mapper.CreateMappingExpression(constructorFunc);
+                mapper.CreateMemberAssignementForExistingTarget();
             }
         }
 
@@ -127,16 +156,26 @@ namespace MapperExpression
         {
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
-     
+
+        /// <summary>
+        /// Gets the mapper.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        public static MapperConfigurationBase GetMapper(Predicate<MapperConfigurationBase> predicate)
+        {
+            return MapperConfigurationContainer.Instance.Find(predicate);
+        }
+
         #endregion
 
-        #region Private methods
+        #region Internals methods
 
         internal static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>()
             where TSource : class
             where TDest : class
         {
-          
+
             return (GetMapper(typeof(TSource), typeof(TDest)) as MapperConfiguration<TSource, TDest>);
 
         }
@@ -155,5 +194,25 @@ namespace MapperExpression
         }
 
         #endregion
+    }
+    /// <summary>
+    ///Base class for each access to mapper(simplified access)
+    /// </summary>
+    /// <typeparam name="TTarget">The type of the dest.</typeparam>
+    public static class Mapper<TTarget>
+         where TTarget : class
+    {
+        /// <summary>
+        /// Maps the specified source.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        public static TTarget Map<TSource>(TSource source)
+            where TSource : class
+        {
+
+            return Mapper.Map<TSource, TTarget>(source);
+        }
     }
 }

@@ -75,18 +75,8 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationContainer.Instance.RemoveAt(1);
         }
 
-        [TestMethod, TestCategory("Exception"), ExpectedException(typeof(PropertyNoExistException))]
-        public void PropertySourceNoExistException_Exception()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            expected.GetPropertyInfoSource("test");
-        }
-        [TestMethod, TestCategory("Exception"), ExpectedException(typeof(PropertyNoExistException))]
-        public void PropertyDestNoExistException_Exception()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            expected.GetPropertyInfoDest("test");
-        }
+       
+       
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NotSameTypePropertyException))]
         public void NotSameTypePropertyException_Exception()
         {
@@ -135,107 +125,24 @@ namespace MapperExpression.Tests.Units
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.CreateMappingExpression(null);
-            int actual = expected.MemberToMap.Count;
+            int actual = expected.MemberToMapForNew.Count;
             Assert.IsTrue(actual > 0);
 
         }
-        [TestMethod, TestCategory("CheckAndConfigureTypeOfListTest")]
-        public void CheckAndConfigureTypeOfListTest_IsList_NotSameType_ReturnTrue()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("ListProp");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("ListProp");
-            Mapper.CreateMap<ClassSource2, ClassDest2>();
-            Mapper.Initialize();
+   
 
-            bool actual = expected.CheckAndConfigureTypeOfListTest(memberSource, memberDest);
-            Assert.IsTrue(actual);
-            Mapper.Reset();
-        }
-
-        [TestMethod, TestCategory("CheckAndConfigureTypeOfListTest"), ExpectedException(typeof(NoFoundMapperException))]
-        public void CheckAndConfigureTypeOfListTest_IsList_NotSameType_NoMapperFound_Exception()
-        {
-            Mapper.Reset();
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("ListProp");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("ListProp");
-            bool actual = expected.CheckAndConfigureTypeOfListTest(memberSource, memberDest);
-
-
-        }
-
-        [TestMethod, TestCategory("CheckAndConfigureMembersMapping")]
-        public void CheckAndConfigureMembersMappingTest_SameTypeOfProperty_Success()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("PropInt1");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("PropInt1");
-            expected.CheckAndConfigureMembersMappingTest(memberSource, memberDest);
-
-            Assert.IsTrue(expected.MemberToMap.Count > 0);
-
-        }
-
-        [TestMethod, TestCategory("CheckAndConfigureMembersMapping")]
-        public void CheckAndConfigureMembersMappingTest_SameDeclarativeTypeSource_OfProperty_Success()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("Same").PropertyType.GetProperty("PropInt1");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("PropInt1");
-            
-            expected.CheckAndConfigureMembersMappingTest(memberSource, memberDest);
-
-            Assert.IsTrue(expected.MemberToMap.Count > 0);
-        }
-        [TestMethod, TestCategory("CheckAndConfigureMembersMapping")]
-        public void CheckAndConfigureMembersMappingTest_SameProperty_NotSameType_WithOutMapper_Success()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("SubClass").PropertyType.GetProperty("PropInt1");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("PropInt1");
-            expected.ForMember(s => s.SubClass.PropInt1, d => d.PropInt1);
-            expected.CheckAndConfigureMembersMappingTest(memberSource, memberDest);
-
-            Assert.IsTrue(expected.MemberToMap.Count > 0);
-        }
-        [TestMethod, TestCategory("CheckAndConfigureMembersMapping")]
-        public void CheckAndConfigureMembersMappingTest_SameNameProperty_NotSameType_WithMapper_Success()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("SubClass");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("SubClass");
-            expected.ForMember(s => s.SubClass, d => d.SubClass);
-            Mapper.CreateMap<ClassSource2, ClassDest2>();
-            Mapper.Initialize();
-            expected.CheckAndConfigureMembersMappingTest(memberSource, memberDest);
-
-            Assert.IsTrue(expected.MemberToMap.Count > 0);
-        }
-        [TestMethod, TestCategory("CheckAndConfigureMembersMapping"),ExpectedException(typeof(NotSameTypePropertyException))]
-        public void CheckAndConfigureMembersMappingTest_NotSameNameProperty_NotSameType_WithOutMapper_Exception()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo memberSource = typeof(ClassSource).GetProperty("SubClass").PropertyType.GetProperty("SameParent");
-            PropertyInfo memberDest = typeof(ClassDest).GetProperty("SubClass2");
-            
-            expected.CheckAndConfigureMembersMappingTest(memberSource, memberDest);
-
-            
-        }
-       
         [TestMethod, TestCategory("GetPropertyInfo")]
         public void GetPropertyInfo_PropertyFound_Success()
         {
             PropertyInfo actual = null;
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             Expression<Func<ClassSource, object>> exp = x => x.PropInt1;
-            actual= expected.GetPropertyInfoTest(exp);
+            actual = expected.GetPropertyInfoTest(exp);
 
             Assert.AreEqual(actual.Name, "PropInt1");
 
         }
-        [TestMethod, TestCategory("GetPropertyInfo"),ExpectedException(typeof(NotImplementedException))]
+        [TestMethod, TestCategory("GetPropertyInfo"), ExpectedException(typeof(NotImplementedException))]
         public void GetPropertyInfo_PropertyNotImplementedException()
         {
             PropertyInfo actual = null;
@@ -243,7 +150,7 @@ namespace MapperExpression.Tests.Units
             Expression<Func<ClassDest, object>> exp = x => x.PropInt1 > 0;
             actual = expected.GetPropertyInfoTest(exp);
 
-           
+
 
         }
         [TestMethod, TestCategory("GetPropertyInfo"), ExpectedException(typeof(NotImplementedException))]
@@ -252,59 +159,29 @@ namespace MapperExpression.Tests.Units
             PropertyInfo actual = null;
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             Expression<Func<ClassDest, object>> exp = x => null;
-            
+
             actual = expected.GetPropertyInfoTest(exp);
 
         }
-        
-        [TestMethod, TestCategory("ChangeSource")]
-        public void ChangeSource_Initialised()
+        [TestMethod, TestCategory("CreateCommonMember")]
+        public void CreateCommonMember_FindMapper_NotList_Success()
         {
-            List<MemberAssignment> actual = null;
-            PropertyInfo test = typeof(ClassSource).GetProperty("Same");
-            ParameterExpression para = Expression.Parameter(typeof(ClassSource), "s");
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+            Mapper.Reset();
+            Mapper.CreateMap<ClassSource2, ClassDest2>();
+            
             expected.CreateMappingExpression(null);
-            actual = expected.ChangeSourceTest(test, para);
-            Assert.IsTrue(actual.Count > 0);
+            var actual = expected.GetGenericLambdaExpression();
+            Mapper.Reset();
 
         }
-        [TestMethod, TestCategory("ChangeSource")]
-        public void ChangeSource_NotInitialised()
-        {
-            List<MemberAssignment> actual = null;
-            PropertyInfo test = typeof(ClassSource).GetProperty("Same");
-            ParameterExpression para = Expression.Parameter(typeof(ClassSource), "s");
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            
-            actual = expected.ChangeSourceTest(test, para);
-            Assert.IsTrue(actual.Count > 0);
-
-        }
-        [TestMethod, TestCategory("CreateCheckIfNull")]
-        public void CreateCheckIfNull_Success()
-        {
-            List<MemberAssignment> actual = null;
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            PropertyInfo source = typeof(ClassSource).GetProperty("SubClass");
-            PropertyInfo dest = typeof(ClassDest).GetProperty("SubClass");
-       
-            
-            var mapperExt = new MapperConfiguration<ClassSource2, ClassDest2>();
-            mapperExt.CreateMappingExpression(null);
-            expected.CreateCheckIfNullTest(source, dest, mapperExt);
-            actual = expected.MemberToMap;
-            Assert.IsTrue(actual.Count > 0);
-
-        }
-
         [TestMethod, TestCategory("CreateCommonMember")]
         public void CreateCommonMember_IgnoreProperty()
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.Ignore(d => d.PropInt1);
             expected.CreateCommonMemberTest();
-            
+
         }
         [TestMethod, TestCategory("CheckAndRemoveMemberSource")]
         public void CheckAndRemoveMemberSource_PropertyExist_Remove()
@@ -312,11 +189,11 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.CreateMappingExpression(null);
 
-            int countOri = expected.MemberToMap.Count;
+            int countOri = expected.MemberToMapForNew.Count;
 
             expected.CheckAndRemoveMemberSourceTest("PropInt1");
 
-            Assert.AreNotEqual(countOri, expected.MemberToMap.Count);
+            Assert.AreNotEqual(countOri, expected.MemberToMapForNew.Count);
         }
         [TestMethod, TestCategory("CheckAndRemoveMemberDest")]
         public void CheckAndRemoveMemberDest_PropertyExist_Remove()
@@ -324,12 +201,39 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.CreateMappingExpression(null);
 
-            int countOri = expected.MemberToMap.Count;
+            int countOri = expected.MemberToMapForNew.Count;
 
             expected.CheckAndRemoveMemberDestTest("PropInt1");
 
-            Assert.AreNotEqual(countOri, expected.MemberToMap.Count);
+            Assert.AreNotEqual(countOri, expected.MemberToMapForNew.Count);
         }
+
+        //[TestMethod, TestCategory("CreateMemberAssignementForExisting")]
+        public void CreateMemberAssignementForExisting_Succes()
+        {
+            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+            MapperConfigurationContainer.Instance.Add(expected);
+            expected.ForMember(s => s.SubClass, d => d.SubClass);
+            Mapper.CreateMap<ClassSource2, ClassDest2>();
+            expected.CreateMappingExpression(null);
+
+            Assert.IsNotNull(expected.GetDelegateForExistingTargetTest());
+        }
+
+        //[TestMethod, TestCategory("CheckAndConfigureTuple")]
+        //public void CheckAndConfigureMappingTest_SameType_NoCheckIfNull_Success()
+        //{
+        //    Mapper.Reset();
+        //    MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+        //    Expression<Func<ClassSource, object>> source = s => s.PropString;
+        //    Expression<Func<ClassDest, object>> target = d => d.PropString;
+        //    Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, true);
+        //    expected.CheckAndConfigureMappingTest(tuple);
+        //    Assert.IsNotNull(expected.GetDelegate());
+
+
+        //}
+
     }
 
 }

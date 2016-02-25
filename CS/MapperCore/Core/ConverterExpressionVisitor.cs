@@ -10,26 +10,19 @@ namespace MapperExpression.Core
     /// <summary>
     /// Visitor expression that converts an expression from source to target
     /// </summary>
-    /// <typeparam name="TSource">The type of the source.</typeparam>
-    /// <typeparam name="TDest">The type of the dest.</typeparam>
-    internal class ConverterExpressionVisitor<TSource, TDest> : ExpressionVisitor
+    internal class ConverterExpressionVisitor : ExpressionVisitor
     {
-        private ParameterExpression paramClassSource;
-        private MapperConfiguration<TSource, TDest> mapper;
+        private readonly Dictionary<Expression, Expression> parameterMap;
 
-        internal ParameterExpression Parameter
+
+        internal ConverterExpressionVisitor(
+            Dictionary<Expression, Expression> parameterMap, Type typeDestination)
         {
-            get
-            {
-                return paramClassSource;
-            }
+            this.parameterMap = parameterMap;
+            this.destinationType = typeDestination;
         }
-   
-        internal ConverterExpressionVisitor()
-        {
-            mapper = Mapper.GetMapper(typeof(TSource), typeof(TDest)) as MapperConfiguration<TSource, TDest>;
-            paramClassSource = Expression.Parameter(typeof(TDest), "d");
-        }
+        private Type destinationType;
+        private MapperConfigurationBase mapper;
 
         /// <summary>
         /// Visit <see cref="T:System.Linq.Expressions.ParameterExpression" />.
@@ -40,7 +33,11 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
-            return paramClassSource;
+            //  re-map the parameter
+            Expression found;
+            if (!parameterMap.TryGetValue(node, out found))
+                found = Expression.Parameter(destinationType, "dest");
+            return found;
         }
 
         /// <summary>
@@ -54,14 +51,19 @@ namespace MapperExpression.Core
         {
             if (node != null)
             {
+                Expression expression = null;
                 switch (node.NodeType)
                 {
-                    //to remove validation of the lambda expression
+                    // to remove validation of the lambda expression.
                     case ExpressionType.Lambda:
-                        return base.Visit((node as LambdaExpression).Body);
+
+                        expression = base.Visit((node as LambdaExpression).Body);
+                        break;
                     default:
-                        return base.Visit(node);
+                        expression = base.Visit(node);
+                        break;
                 }
+                return expression;
             }
             return node;
         }
@@ -75,34 +77,55 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitMember(MemberExpression node)
         {
-            Expression exp = base.Visit(node.Expression);
-            Expression result = null;
-            //this is use to only for change the parameter of the result expression :(
-            MapperExpressionVisitor changeParameterVisitor = null;
-            //For children class
-            if (exp.NodeType == ExpressionType.MemberAccess && (exp as MemberExpression).Member.DeclaringType.IsClass)
+            var expr = Visit(node.Expression);
+            if (expr != null && expr.Type != node.Type)
             {
-
-                var subMapper = Mapper.GetMapper(node.Member.ReflectedType, exp.Type);
-                result = subMapper.GetLambdaDest(node.Member.Name);
-                changeParameterVisitor = new MapperExpressionVisitor(false, Expression.Parameter(subMapper.TypeDest, "d"));
+                if (mapper == null)
+                {
+                    mapper = Mapper.GetMapper(node.Member.DeclaringType, destinationType);
+                }
+                Expression expDest = null;
+                // We consider that the primitive class is the simple property(not a sub's object).
+                if (!expr.Type.IsValueType && expr.Type != typeof(string) && 
+                    expr.NodeType != ExpressionType.Parameter && expr.NodeType != ExpressionType.Constant)
+                {
+                    var subExp = Mapper.GetMapper(node.Member.DeclaringType, expr.Type);
+                    expDest = subExp.GetLambdaDest(node.Member.Name);
+                    return AnalyseDestExpression(expr, expDest);
+                }
+                else
+                {
+                    expDest = mapper.GetLambdaDest(node.Member.Name);
+                    if (expDest != null)
+                    {
+                        return AnalyseDestExpression(expr, expDest);
+                    }
+                }
             }
-            else
-            {
-                result = mapper.GetLambdaDest(node.Member.Name);
-                changeParameterVisitor = new MapperExpressionVisitor(false, paramClassSource);
-            }
-
-            if (result != null)
-            {
-                //Because the expression of the member is Expression<Func<T,object>> the compiler use a convert expression to cast the type of the property from object
-                //we don't need to have it
-                result = result.NodeType == ExpressionType.Convert ? (result as UnaryExpression).Operand : result;
-
-                result = changeParameterVisitor.Visit(result);
-                return result;
-            }
-            return node;
+                return base.VisitMember(node); 
         }
+
+        private Expression AnalyseDestExpression(Expression expr, Expression expDest)
+        {
+            if (expDest.NodeType == ExpressionType.MemberAccess)
+            {
+                return Expression.MakeMemberAccess(expr, (expDest as MemberExpression).Member);
+            }
+            else // Special case like Count method.
+            {
+                return base.Visit(expDest);
+            }
+        }
+
+        protected override Expression VisitMethodCall(MethodCallExpression node)
+        {
+            if(node.Object != null && node.Object.NodeType == ExpressionType.MemberAccess)
+            {
+                VisitMember(node.Object as MemberExpression);
+            }
+            return base.VisitMethodCall(node);
+        }
+
+
     }
 }

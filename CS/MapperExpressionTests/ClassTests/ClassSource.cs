@@ -10,6 +10,9 @@ namespace MapperExpression.Tests.Units.ClassTests
         public int PropSourceInt1 { get; set; }
         public string PropString1 { get; set; }
 
+        public string PropString { get; set; }
+
+        public string PropString2 { get; set; }
         public List<ClassSource2> ListProp { get; set; }
 
 

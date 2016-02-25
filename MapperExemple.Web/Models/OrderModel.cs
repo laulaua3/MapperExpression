@@ -20,7 +20,7 @@ namespace MapperExemple.Web.Models
 
         public string  CustomerName { get; set; }
 
-        public virtual List<OrderDetailModel> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetailModel> OrderDetails { get; set; }
 
       
         public virtual CustomerModel Customer { get; set; } 

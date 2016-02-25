@@ -6,8 +6,8 @@ namespace MapperExpression.Exception
     /// Exception when a mapper is already exist
     /// </summary>
     [Serializable]
-    public class MapperExistException:System.Exception
-   
+    public class MapperExistException: MapperExceptionBase
+
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MapperExistException"/> class.

@@ -8,7 +8,7 @@ namespace MapperExpression.Exception
     /// </summary>
     [Serializable]
     
-    public class ReadOnlyPropertyException :System.Exception
+    public class ReadOnlyPropertyException : MapperExceptionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadOnlyPropertyException"/> class.

@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace MapperExemple.Entity
 {
-    public class ExempleProduct : IExempleProduct
+    public class ExempleProduct : IExempleProduct,IDisposable   
 
     {
 
@@ -37,7 +37,7 @@ namespace MapperExemple.Entity
             IExempleProduct result = null;
 
             result = _context.Products.Select<Product, IExempleProduct>().FirstOrDefault();
-            _context.Dispose();
+            Dispose();
             return result;
         }
 
@@ -45,9 +45,9 @@ namespace MapperExemple.Entity
         {
             List<IExempleProduct> result = null;
 
-
             result = _context.Products.Select<Product, IExempleProduct>().ToList();
-            _context.Dispose();
+
+            Dispose();
             return result;
         }
         public List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
@@ -63,7 +63,7 @@ namespace MapperExemple.Entity
             //Or
 
             result = GetEntities(criterias, selectQuery).Take(10).ToList();
-            _context.Dispose();
+            Dispose();
             return result;
         }
 
@@ -97,8 +97,6 @@ namespace MapperExemple.Entity
         {
             IQueryable<TResult> result = null;
 
-
-
             result = _context.Set<TEntity>().Select(selectQuery);
 
             return result;
@@ -120,6 +118,30 @@ namespace MapperExemple.Entity
                 .Where(criterias)
                 .Select(selectQuery);
             return result;
+        }
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
+            
+        }
+        /// <summary>
+        ///Performs application-defined tasks associated with the release or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

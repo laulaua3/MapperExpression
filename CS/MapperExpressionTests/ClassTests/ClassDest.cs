@@ -7,7 +7,11 @@ namespace MapperExpression.Tests.Units.ClassTests
 
         public int PropInt1 { get; set; }
         public int PropInt2 { get; set; }
+
+        public string PropString { get; set; }
         public string PropString2 { get; set; }
+
+    
         public int RealOnlyPropInt1 { get; }
 
         public ClassDest2 ClassDestEntityBase { get; set; }

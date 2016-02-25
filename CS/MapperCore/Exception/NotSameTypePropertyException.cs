@@ -6,7 +6,7 @@ namespace MapperExpression.Exception
     /// Exception when the properties aren't the same type or no mapper found
     /// </summary>
     [Serializable]
-    public class NotSameTypePropertyException : System.Exception
+    public class NotSameTypePropertyException : MapperExceptionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NotSameTypePropertyException"/> class.

@@ -14,6 +14,10 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,19 +64,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ChangParameterExpressionVisitor.cs" />
     <Compile Include="Core\ConverterExpressionVisitor.cs" />
     <Compile Include="Core\MapperConfiguration.cs" />
     <Compile Include="Core\MapperConfigurationBase.cs" />
     <Compile Include="Core\MapperConfigurationContainer.cs" />
     <Compile Include="Core\MapperExpressionVisitor.cs" />
+    <Compile Include="Exception\MapperExceptionBase.cs" />
     <Compile Include="Exception\MapperExistException.cs" />
     <Compile Include="Exception\MapperNotInitializedException.cs" />
+    <Compile Include="Exception\NoActionAfterMapping.cs" />
     <Compile Include="Exception\NoFoundMapperException.cs" />
     <Compile Include="Exception\NotSameTypePropertyException.cs" />
     <Compile Include="Exception\PropertyNoExistException.cs" />
     <Compile Include="Exception\ReadOnlyPropertyException.cs" />
     <Compile Include="Extensions\MapperExtentions.cs" />
     <Compile Include="Extensions\QueryableExtentions.cs" />
+    <Compile Include="Helper\MapperHelper.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

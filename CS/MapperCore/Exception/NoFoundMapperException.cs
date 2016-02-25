@@ -6,7 +6,7 @@ namespace MapperExpression.Exception
     /// Exception when a mapper is not found
     /// </summary>
     [Serializable]
-    public class NoFoundMapperException : System.Exception
+    public class NoFoundMapperException : MapperExceptionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NoFoundMapperException"/> class.

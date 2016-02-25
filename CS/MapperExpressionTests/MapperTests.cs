@@ -23,6 +23,7 @@ namespace MapperExpression.Tests.Units
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
 
+
         }
         [ClassCleanup]
         public static void Clean()
@@ -48,7 +49,7 @@ namespace MapperExpression.Tests.Units
             //Create a other map configuration with the same parameter.
             Mapper.CreateMap<ClassSource, ClassDest>();
 
-            Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.TypeSource == typeof(ClassSource) && m.TypeDest == typeof(ClassDest)));
+            Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest)));
         }
 
         [TestMethod, TestCategory("Map")]
@@ -77,7 +78,8 @@ namespace MapperExpression.Tests.Units
             ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1, PropString1 = "test" };
             using (ShimsContext.Create())
             {
-                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) => {
+                MapperExpression.Core.Fakes.ShimMapperConfiguration<ClassSource, ClassDest>.AllInstances.GetFuncDelegate = (s) =>
+                {
                     throw new MapperNotInitializedException(typeof(ClassSource), typeof(ClassDest));
                 };
 
@@ -133,24 +135,29 @@ namespace MapperExpression.Tests.Units
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
 
-        //[TestMethod, TestCategory("Map"),ExpectedException(typeof(NotImplementedException))]
-        //public void Mapper_CreateMap_WithCountMethodInSource_Sucess()
+        [TestMethod, TestCategory("GetMapper")]
+        public void GetMapper_Success()
+        {
+            MapperConfigurationBase actual = null;
+            actual = Mapper.GetMapper((m) => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest));
+            Assert.IsNotNull(actual);
+        }
+
+        //[TestMethod]
+        //public void Map_ExistingObject_Success()
         //{
-        //    Clean();
-        //    int nbCount = 3;
-        //    ClassDest actual = null;
+        //    ClassDest actual = new ClassDest();
         //    ClassSource expected = Builder<ClassSource>.CreateNew()
-        //        .With(x => x.ListProp = Builder<ClassSource2>.CreateListOfSize(nbCount).Build().ToList())
+        //        .With(x => x.SubClass = Builder<ClassSource2>.CreateNew().Build())
         //        .Build();
-        //    //Create the default map for the test
         //    Mapper.CreateMap<ClassSource, ClassDest>()
-        //        .ForMember(s => s.PropString1, d => d.PropString2)
-        //        .ForMember(s => s.ListProp.Count(), d => d.CountListProp);
+        //        .ForMember(s => s.SubClass, d => d.SubClass);
+        //    Mapper.CreateMap<ClassSource2, ClassDest2>();
         //    Mapper.Initialize();
-
-        //    actual = Mapper.Map<ClassSource, ClassDest>(expected);
-
-        //    Assert.AreEqual(actual.CountListProp, nbCount);
+        //    Mapper.Map(expected, actual);
+        //    Assert.IsNotNull(actual);
+        //    Assert.AreEqual(actual.PropInt1, expected.PropInt1);
+        //    Assert.AreEqual(actual.PropString2, expected.PropString1);
         //    Clean();
         //}
     }

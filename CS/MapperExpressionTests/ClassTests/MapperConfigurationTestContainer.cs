@@ -11,7 +11,11 @@ namespace MapperExpression.Tests.Units.ClassTests
     /// </summary>
     public class MapperConfigurationTestContainer : MapperConfiguration<ClassSource, ClassDest>
     {
+        public MapperConfigurationTestContainer()
+          :  base("sTest")
+        {
 
+        }
         public void SetIsInitialized(bool value)
         {
             isInitialized = value;
@@ -31,32 +35,18 @@ namespace MapperExpression.Tests.Units.ClassTests
         {
             return GetMapper(tSource, tDest, throwExceptionOnNoFound);
         }
-
-        public  bool CheckAndConfigureTypeOfListTest(PropertyInfo memberSource, PropertyInfo memberDest)
+        public void CheckAndConfigureMappingTest(Tuple<LambdaExpression, LambdaExpression, bool> configExpression)
         {
-            return CheckAndConfigureTypeOfList(memberSource, memberDest);
+            CheckAndConfigureMapping(configExpression);
         }
-
-        public void CheckAndConfigureMembersMappingTest(PropertyInfo memberSource, PropertyInfo memberDest)
-        {
-            CheckAndConfigureMembersMapping(memberSource, memberDest);
-        }
-
         public PropertyInfo GetPropertyInfoTest(LambdaExpression expression)
         {
             return GetPropertyInfo(expression);
         }
 
-        public List<MemberAssignment> ChangeSourceTest(PropertyInfo property, ParameterExpression paramSource)
-        {
-            return ChangeSource(property, paramSource);
-        }
+       
 
-        public void  CreateCheckIfNullTest(PropertyInfo memberSource, PropertyInfo memberDest, MapperConfigurationBase mapperExterne)
-        {
-            CreateCheckIfNull(memberSource, memberDest, mapperExterne);
-        }
-
+       
         public void CreateCommonMemberTest()
         {
             CreateCommonMember();
@@ -72,15 +62,20 @@ namespace MapperExpression.Tests.Units.ClassTests
             CheckAndRemoveMemberDest(propertyName);
         }
 
-        public PropertyInfo GetPropertyInfoDestTest(string propertyName)
-        {
-            return GetPropertyInfoDest(propertyName);
-        }
 
+        public  void CreateMemberAssignementForExistingTest()
+        {
+            CreateMemberAssignementForExistingTarget();
+        }
 
         internal override void CreateMappingExpression(Func<Type, object> constructor)
         {
             base.CreateMappingExpression(constructor);
+        }
+
+        public Delegate GetDelegateForExistingTargetTest()
+        {
+            return GetDelegateForExistingTarget();
         }
     }
 }

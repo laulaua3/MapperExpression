@@ -24,7 +24,7 @@ namespace MapperExemple.Web.Controllers
             Stopwatch watcher = Stopwatch.StartNew();
             for (int i = 0; i < nbIteration; i++)
             {
-                var model = MapperExpression.Mapper.Map<Customer, CustomerModel>(source);
+                var model = MapperExpression.Mapper<CustomerModel>.Map(source);
             }
             watcher.Stop();
             result.TimeExecuting = watcher.Elapsed.ToString();

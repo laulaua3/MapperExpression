@@ -6,7 +6,7 @@ namespace MapperExpression.Exception
     /// Exception when a mapper is not Initialized
     /// </summary>
     [Serializable]
-    public  class MapperNotInitializedException :System.Exception
+    public  class MapperNotInitializedException :MapperExceptionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MapperNotInitializedException"/> class.

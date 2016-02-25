@@ -6,7 +6,7 @@ namespace MapperExpression.Exception
     /// Exception when the property is not found
     /// </summary>
     [Serializable]
-    public class PropertyNoExistException : System.Exception
+    public class PropertyNoExistException : MapperExceptionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyNoExistException"/> class.
