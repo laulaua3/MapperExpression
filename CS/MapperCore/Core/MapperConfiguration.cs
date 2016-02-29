@@ -24,20 +24,17 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Constructor
 
         /// <summary>
         /// Instantiates a new instance of<see cref="MapperConfiguration{TSource, TDest}"/> class.
         /// </summary>
-        internal MapperConfiguration(string paramName)
-            : base(typeof(TSource), typeof(TDest), paramName)
+        internal MapperConfiguration(string paramName, string mapperName = null)
+            : base(typeof(TSource), typeof(TDest), paramName, mapperName)
         {
             propertiesMapping = new List<Tuple<LambdaExpression, LambdaExpression, bool>>();
             propertiesToIgnore = new List<PropertyInfo>();
             actionsAfterMap = new List<Action<TSource, TDest>>();
         }
-
-        #endregion
 
         #region Public methods
 

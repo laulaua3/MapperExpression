@@ -2,7 +2,8 @@
 using System.Linq.Expressions;
 using MapperExpression.Core;
 using MapperExpression.Exception;
-
+using System.Collections.Generic;
+using System.Linq;
 namespace MapperExpression
 {
 
@@ -26,8 +27,11 @@ namespace MapperExpression
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TTarget">The type of the dest.</typeparam>
         /// <param name="source">the source object.</param>
-        /// <returns>A new  object of <typeparamref name="TTarget"></typeparamref></returns>
-        public static TTarget Map<TSource, TTarget>(TSource source)
+        /// <param name="name">The name.</param>
+        /// <returns>
+        /// A new  object of <typeparamref name="TTarget"></typeparamref>
+        /// </returns>
+        public static TTarget Map<TSource, TTarget>(TSource source, string name = null)
             where TSource : class
             where TTarget : class
         {
@@ -110,7 +114,26 @@ namespace MapperExpression
             }
             return map as MapperConfiguration<TSource, TTarget>;
         }
-
+        /// <summary>
+        /// Creates the map.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <typeparam name="TTarget">The type of the target.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public static MapperConfiguration<TSource, TTarget> CreateMap<TSource, TTarget>(string name)
+            where TSource : class
+            where TTarget : class
+        {
+            // We do not use the method because it GetMapper throw an exception if not found
+            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget));
+            if (map == null)
+            {
+                map = new MapperConfiguration<TSource, TTarget>("s" + MapperConfigurationContainer.Instance.Count);
+                MapperConfigurationContainer.Instance.Add(map);
+            }
+            return map as MapperConfiguration<TSource, TTarget>;
+        }
         /// <summary>
         /// Indicates the injection service used
         /// </summary>
@@ -157,40 +180,26 @@ namespace MapperExpression
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
 
-        /// <summary>
-        /// Gets the mapper.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns></returns>
-        public static MapperConfigurationBase GetMapper(Predicate<MapperConfigurationBase> predicate)
-        {
-            return MapperConfigurationContainer.Instance.Find(predicate);
-        }
-
         #endregion
 
         #region Internals methods
 
-        internal static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>()
+        internal static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>(string name = null)
             where TSource : class
             where TDest : class
         {
 
-            return (GetMapper(typeof(TSource), typeof(TDest)) as MapperConfiguration<TSource, TDest>);
+            return (GetMapper(typeof(TSource), typeof(TDest), name) as MapperConfiguration<TSource, TDest>);
 
         }
 
-        internal static MapperConfigurationBase GetMapper(Type tSource, Type tDest)
+        internal static MapperConfigurationBase GetMapper(Type tSource, Type tDest, string name = null)
         {
-            MapperConfigurationBase mapConfig = MapperConfigurationContainer.Instance.Find(tSource, tDest);
-            if (mapConfig != null)
-            {
-                return mapConfig;
-            }
-            else
-            {
+            MapperConfigurationBase mapConfig = MapperConfigurationContainer.Instance.Find(tSource, tDest, name);
+            if(mapConfig == null)
                 throw new NoFoundMapperException(tSource, tDest);
-            }
+
+            return mapConfig;
         }
 
         #endregion
@@ -207,8 +216,8 @@ namespace MapperExpression
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
-        /// <returns></returns>
-        public static TTarget Map<TSource>(TSource source)
+        /// <param name="name">The name.</param>
+        public static TTarget Map<TSource>(TSource source, string name = null)
             where TSource : class
         {
 

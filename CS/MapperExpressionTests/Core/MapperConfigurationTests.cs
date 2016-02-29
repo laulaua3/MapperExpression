@@ -183,18 +183,6 @@ namespace MapperExpression.Tests.Units
             expected.CreateCommonMemberTest();
 
         }
-        [TestMethod, TestCategory("CheckAndRemoveMemberSource")]
-        public void CheckAndRemoveMemberSource_PropertyExist_Remove()
-        {
-            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            expected.CreateMappingExpression(null);
-
-            int countOri = expected.MemberToMapForNew.Count;
-
-            expected.CheckAndRemoveMemberSourceTest("PropInt1");
-
-            Assert.AreNotEqual(countOri, expected.MemberToMapForNew.Count);
-        }
         [TestMethod, TestCategory("CheckAndRemoveMemberDest")]
         public void CheckAndRemoveMemberDest_PropertyExist_Remove()
         {
@@ -219,21 +207,6 @@ namespace MapperExpression.Tests.Units
 
             Assert.IsNotNull(expected.GetDelegateForExistingTargetTest());
         }
-
-        //[TestMethod, TestCategory("CheckAndConfigureTuple")]
-        //public void CheckAndConfigureMappingTest_SameType_NoCheckIfNull_Success()
-        //{
-        //    Mapper.Reset();
-        //    MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-        //    Expression<Func<ClassSource, object>> source = s => s.PropString;
-        //    Expression<Func<ClassDest, object>> target = d => d.PropString;
-        //    Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, true);
-        //    expected.CheckAndConfigureMappingTest(tuple);
-        //    Assert.IsNotNull(expected.GetDelegate());
-
-
-        //}
-
     }
 
 }

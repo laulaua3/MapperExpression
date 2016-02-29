@@ -116,16 +116,5 @@ namespace MapperExpression.Core
                 return base.Visit(expDest);
             }
         }
-
-        protected override Expression VisitMethodCall(MethodCallExpression node)
-        {
-            if(node.Object != null && node.Object.NodeType == ExpressionType.MemberAccess)
-            {
-                VisitMember(node.Object as MemberExpression);
-            }
-            return base.VisitMethodCall(node);
-        }
-
-
     }
 }

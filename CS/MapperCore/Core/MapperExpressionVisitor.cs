@@ -85,7 +85,6 @@ namespace MapperExpression.Core
                     // Ex: source.SubClass.SubClass2.MyProperty
                     // Which will give
                     // source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty
-                    
                     foreach (MemberExpression item in membersToCheck)
                     {
                        
@@ -168,6 +167,10 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitMember(MemberExpression node)
         {
+            if (node == null)
+            {
+                return node;
+            }
             MemberExpression memberAccessExpression = (MemberExpression)base.VisitMember(node);
 
             // To treat later
@@ -189,7 +192,15 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitUnary(UnaryExpression node)
         {
-            return VisitMember(node.Operand as MemberExpression);
+            if (node.Operand.NodeType == ExpressionType.MemberAccess)
+            {
+                return VisitMember(node.Operand as MemberExpression);
+            }
+            if (node.NodeType == ExpressionType.Convert)
+            {
+                return Visit(node.Operand);
+            }
+            return node;
         }
 
 

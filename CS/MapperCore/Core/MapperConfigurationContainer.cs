@@ -30,9 +30,25 @@ namespace MapperExpression.Core
 
         }
 
-        internal MapperConfigurationBase Find(Type source, Type target)
+
+
+        internal MapperConfigurationBase Find(Type source, Type target, string name = null)
         {
-            return Find(m => m.SourceType == source && m.TargetType == target);
+            IList<MapperConfigurationBase> mapConfigs = Instance.FindAll(x => x.SourceType == source && x.TargetType == target);
+            MapperConfigurationBase result = null;
+            if (mapConfigs.Count > 0)
+            {
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    result = mapConfigs.FirstOrDefault(x => x.Name == x.paramClassSource.Name);
+                }
+                else
+                {
+                    result = mapConfigs.FirstOrDefault(x => x.Name == name);
+                }
+            }
+            return result;
         }
     }
 }

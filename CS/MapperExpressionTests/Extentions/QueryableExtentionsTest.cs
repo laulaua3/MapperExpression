@@ -97,10 +97,10 @@ namespace MapperExpression.Tests.Units.Extentions
         [TestMethod, TestCategory("Extentions")]
         public void Where_Success()
         {
-            IQueryable<ClassSource> actual = null;
+            IQueryable<ClassDest> actual = null;
 
-            QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
-            Expression<Func<ClassDest, bool>> criterias = x => x.PropInt1 == 1;
+            QueryableImplTest<ClassDest> expected = new QueryableImplTest<ClassDest>();
+            Expression<Func<ClassSource, bool>> criterias = x => x.PropInt1 == 1;
             actual = expected.Where(criterias);
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.Where)));
 

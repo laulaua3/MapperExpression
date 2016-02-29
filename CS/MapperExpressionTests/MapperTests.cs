@@ -135,13 +135,7 @@ namespace MapperExpression.Tests.Units
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
 
-        [TestMethod, TestCategory("GetMapper")]
-        public void GetMapper_Success()
-        {
-            MapperConfigurationBase actual = null;
-            actual = Mapper.GetMapper((m) => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest));
-            Assert.IsNotNull(actual);
-        }
+       
 
         //[TestMethod]
         //public void Map_ExistingObject_Success()

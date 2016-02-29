@@ -122,7 +122,6 @@ namespace MapperExpression.Extensions
             return query.Provider.CreateQuery<TSource>(resultExp) as TQueryable;
         }
 
-
         #endregion
     }
 }

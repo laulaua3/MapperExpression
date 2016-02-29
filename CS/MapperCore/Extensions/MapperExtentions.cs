@@ -27,12 +27,12 @@ namespace MapperExpression.Extensions
             return ConvertImpl(from, toType);
         }
         /// <summary>
-        /// Converts a lambda expression type <typeparamref name="TFrom"/> to <typeparamref name="TTo"/>
+        /// Converts to.
         /// </summary>
-        /// </summary>
-        /// <typeparam name="TFrom">The type of original.</typeparam>
+        /// <typeparam name="TFrom">The type of from.</typeparam>
         /// <param name="from">From.</param>
         /// <param name="toType">To type.</param>
+        /// <returns></returns>
         public static Expression ConvertTo<TFrom>(
            this Expression<Func<TFrom, bool>> from, Type toType)
         {

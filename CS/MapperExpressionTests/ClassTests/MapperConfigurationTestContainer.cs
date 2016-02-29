@@ -51,12 +51,6 @@ namespace MapperExpression.Tests.Units.ClassTests
         {
             CreateCommonMember();
         }
-
-        public void CheckAndRemoveMemberSourceTest(string propertyName)
-        {
-            CheckAndRemoveMemberSource(propertyName);
-        }
-
         public void CheckAndRemoveMemberDestTest(string propertyName)
         {
             CheckAndRemoveMemberDest(propertyName);
