@@ -33,8 +33,7 @@ namespace MapperExpression.Extensions
         /// <param name="from">From.</param>
         /// <param name="toType">To type.</param>
         /// <returns></returns>
-        public static Expression ConvertTo<TFrom>(
-           this Expression<Func<TFrom, bool>> from, Type toType)
+        public static Expression ConvertTo<TFrom>(this Expression<Func<TFrom, bool>> from, Type toType)
         {
             return ConvertImpl(from, toType);
         }
@@ -45,8 +44,7 @@ namespace MapperExpression.Extensions
         /// <typeparam name="TTo">The type of target.</typeparam>
         /// <param name="from">From.</param>
         /// <returns></returns>
-        public static Expression ConvertTo<TFrom, TTo>(
-            this Expression<Func<TFrom, object>> from)
+        public static Expression ConvertTo<TFrom, TTo>(this Expression<Func<TFrom, object>> from)
         {
             return ConvertImpl(from, typeof(TTo));
         }
@@ -57,8 +55,7 @@ namespace MapperExpression.Extensions
         /// <typeparam name="TTo">The type of converted expression.</typeparam>
         /// <param name="from">original expression.</param>
         /// <returns>expression converted or if no mapping is found the original expression.</returns>
-        public static Expression<Func<TTo, bool>> ConvertTo<TFrom, TTo>(
-           this Expression<Func<TFrom, bool>> from)
+        public static Expression<Func<TTo, bool>> ConvertTo<TFrom, TTo>(this Expression<Func<TFrom, bool>> from)
         {
             return ConvertImpl(from, typeof(TTo)) as Expression<Func<TTo, bool>>;
         }

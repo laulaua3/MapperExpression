@@ -221,7 +221,7 @@ namespace MapperExpression
             where TSource : class
         {
 
-            return Mapper.Map<TSource, TTarget>(source);
+            return Mapper.Map<TSource, TTarget>(source, name);
         }
     }
 }

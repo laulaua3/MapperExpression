@@ -6,7 +6,7 @@ namespace MapperExpression.Helper
     internal  class MapperHelper
     {
         /// <summary>
-        /// Gets the default valueof the type.
+        /// Gets the default value of the type.
         /// </summary>
         /// <param name="typeObject">The type.</param>
         internal static object GetDefaultValue(Type typeObject)

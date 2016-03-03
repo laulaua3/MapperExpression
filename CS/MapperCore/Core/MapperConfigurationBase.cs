@@ -5,14 +5,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using MapperExpression.Exception;
-using System.Diagnostics.Contracts;
 using MapperExpression.Helper;
 using System.Diagnostics;
 
 namespace MapperExpression.Core
 {
     /// <summary>
-    /// Basic Class for managing the mapping
+    /// Basic class for managing the mapping
     /// </summary>
     [DebuggerDisplay("Mapper for {SourceType.Name} To {TargetType.Name}")]
     public abstract class MapperConfigurationBase
@@ -165,7 +164,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public Type GetDestinationType()
         {
-            return GetRealType(TargetType); ;
+            return GetRealType(TargetType);
         }
         #endregion
 
@@ -282,6 +281,7 @@ namespace MapperExpression.Core
                         var externalMapper = GetMapper(typeSource, typeTarget, false);
                         if (externalMapper != null)
                         {
+                            externalMapper.CreateMappingExpression(constructorFunc);
                             Expression mapExpression = externalMapper.GetMemberInitExpression();
                             Expression defaultExpression = Expression.Constant(MapperHelper.GetDefaultValue(configExpression.Item1.Body.Type), configExpression.Item1.Body.Type);
                             // To change the parameter.
@@ -563,7 +563,6 @@ namespace MapperExpression.Core
                 return constructorFunc(typeToFind).GetType();
             return typeToFind;
         }
-        #endregion
 
         private bool IsListOf(Type typeTarget)
         {
@@ -576,5 +575,6 @@ namespace MapperExpression.Core
 
             return test(typeTarget) || typeTarget.GetInterfaces().Any(test);
         }
+        #endregion
     }
 }

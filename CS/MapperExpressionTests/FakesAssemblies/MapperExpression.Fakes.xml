@@ -58,9 +58,6 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ConstructUsingServiceLocator">
             <summary>Définit le shim de MapperConfiguration`2.ConstructUsingServiceLocator()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ConstructorString">
-            <summary>Définit le shim de MapperConfiguration`2.MapperConfiguration`2(String paramName)</summary>
-        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ConstructorStringString">
             <summary>Définit le shim de MapperConfiguration`2.MapperConfiguration`2(String paramName, String mapperName)</summary>
         </member>
@@ -289,11 +286,38 @@
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.#ctor(MapperExpression.Core.MapperConfigurationContainer)">
             <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AddMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationContainer.Add(MapperConfigurationBase item)</summary>
+        </member>
         <member name="T:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances">
             <summary>Définir des shims pour tous les membres des instances</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.AddMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationContainer.Add(MapperConfigurationBase item)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.Clear">
+            <summary>Définit le shim de MapperConfigurationContainer.Clear()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.CountGet">
+            <summary>Définit le shim de MapperConfigurationContainer.get_Count()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.Dispose">
+            <summary>Définit le shim de MapperConfigurationContainer.Dispose()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.ExistsPredicateOfMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type target, String name)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.GetEnumerator">
+            <summary>Définit le shim de MapperConfigurationContainer.GetEnumerator()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.RemoveAtInt32">
+            <summary>Définit le shim de MapperConfigurationContainer.RemoveAt(Int32 index)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.SystemCollectionsIEnumerableGetEnumerator">
+            <summary>Définit le shim de MapperConfigurationContainer.System.Collections.IEnumerable.GetEnumerator()</summary>
         </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.BehaveAsCurrent">
             <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
@@ -304,38 +328,44 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Behavior">
             <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
         </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.ICollection)">
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.IDisposable)">
             <summary>Relie les membres de l&apos;interface au shim.</summary>
         </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.IEnumerable)">
             <summary>Relie les membres de l&apos;interface au shim.</summary>
         </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.IList)">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
-        </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.Generic.ICollection{MapperExpression.Core.MapperConfigurationBase})">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
-        </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.Generic.IEnumerable{MapperExpression.Core.MapperConfigurationBase})">
             <summary>Relie les membres de l&apos;interface au shim.</summary>
         </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.Generic.IList{MapperExpression.Core.MapperConfigurationBase})">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
-        </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.Generic.IReadOnlyCollection{MapperExpression.Core.MapperConfigurationBase})">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
-        </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.Generic.IReadOnlyList{MapperExpression.Core.MapperConfigurationBase})">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Clear">
+            <summary>Définit le shim de MapperConfigurationContainer.Clear()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Constructor">
             <summary>Définit le shim de MapperConfigurationContainer.MapperConfigurationContainer()</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.CountGet">
+            <summary>Définit le shim de MapperConfigurationContainer.get_Count()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Dispose">
+            <summary>Définit le shim de MapperConfigurationContainer.Dispose()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.ExistsPredicateOfMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationContainer.Find(Type source, Type target, String name)</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.GetEnumerator">
+            <summary>Définit le shim de MapperConfigurationContainer.GetEnumerator()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.InstanceGet">
             <summary>Définit le shim de MapperConfigurationContainer.get_Instance()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.RemoveAtInt32">
+            <summary>Définit le shim de MapperConfigurationContainer.RemoveAt(Int32 index)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.SystemCollectionsIEnumerableGetEnumerator">
+            <summary>Définit le shim de MapperConfigurationContainer.System.Collections.IEnumerable.GetEnumerator()</summary>
         </member>
     </members>
 </doc>
