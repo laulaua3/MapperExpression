@@ -53,6 +53,8 @@ namespace MapperExpression.Core
         /// The visitor mapper
         /// </summary>
         internal MapperExpressionVisitor visitorMapper;
+
+        private MethodInfo selectMethod;
         #endregion
 
         #region Properties
@@ -101,6 +103,11 @@ namespace MapperExpression.Core
 
             visitorMapper = new MapperExpressionVisitor(paramClassSource);
             MemberToMapForNew = new List<MemberAssignment>();
+            selectMethod = typeof(Enumerable).GetMethods()
+                                .Where(m => m.Name == "Select")
+                                .Select(x => x.GetParameters().First(p => p.Name.Equals("selector") &&
+                                                                     p.ParameterType.GetGenericArguments().Count() == 2))
+                                .First().Member as MethodInfo;
         }
 
         #endregion
@@ -161,7 +168,6 @@ namespace MapperExpression.Core
         /// <summary>
         /// Gets the real type of the destination.
         /// </summary>
-        /// <returns></returns>
         public Type GetDestinationType()
         {
             return GetRealType(TargetType);
@@ -240,7 +246,7 @@ namespace MapperExpression.Core
             if (!result)
             {
                 //Find if a mapper exist
-                result = GetMapper(typeSource, typeTarget, false) != null;
+                result = MapperConfigurationContainer.Instance.Exists(m => m.SourceType == typeSource && m.TargetType == typeTarget);
             }
 
             return result;
@@ -270,10 +276,8 @@ namespace MapperExpression.Core
                     // no specific action.
                     if (typeSource == typeTarget)
                     {
-
                         // We create the binding.
                         CreateMemberBinding(configExpression.Item1.Body, propTarget, configExpression.Item3);
-
                     }
                     else
                     {
@@ -319,7 +323,6 @@ namespace MapperExpression.Core
                     // Use the extention Enumerable to change type.
                     else
                     {
-                        bool isIQuerable = typeSource is IQueryable;
                         var externalMapper = GetMapper(sourceTypeList, destTypeList, false);
                         if (externalMapper != null)
                         {
@@ -327,24 +330,18 @@ namespace MapperExpression.Core
 
                             Type extentionType = typeof(Enumerable);
                             // We seek the good select method.
-                            var goodSelectMethod = extentionType.GetMethods()
-                                .Where(m => m.Name == "Select")
-                                .Select(x => x.GetParameters().First(p => p.Name.Equals("selector") &&
-                                                                     p.ParameterType.GetGenericArguments().Count() == 2))
-                                .First().Member as MethodInfo;
+
                             MemberAssignment expBind = null;
-                            ChangParameterExpressionVisitor changeVisitor = new ChangParameterExpressionVisitor(paramClassSource);
-                            Expression expSource = changeVisitor.Visit(configExpression.Item1.Body);
+                            Expression expSource = configExpression.Item1.Body;
                             //For compatibility with EF/LINQ2SQL.
                             LambdaExpression expMappeur = externalMapper.GetGenericLambdaExpression();
                             // We create the call to the Select method.
-                            Expression select = Expression.Call(goodSelectMethod.MakeGenericMethod(sourceTypeList, destTypeList),
+                            Expression select = Expression.Call(selectMethod.MakeGenericMethod(sourceTypeList, destTypeList),
                                 new Expression[] { expSource, expMappeur });
                             // We create the call to ToList method
                             Expression toList = Expression.Call(extentionType.GetMethod("ToList").MakeGenericMethod(destTypeList), select);
 
-                            if (!isIQuerable// Normaly if isIQuerable we don't need to check the nullity.
-                                && configExpression.Item3)// But if you want
+                            if (configExpression.Item3)// But if you want check the nullity
                             {
                                 // test if the source property is null.
                                 Expression checkIfNull = Expression.NotEqual(expSource, Expression.Constant(MapperHelper.GetDefaultValue(expSource.Type), expSource.Type));
@@ -477,7 +474,7 @@ namespace MapperExpression.Core
             {
                 // For change the parameter of the original expression.
                 MapperExpressionVisitor visitSource = new MapperExpressionVisitor(paramClassSource);
-                MapperExpressionVisitor visitDest = new MapperExpressionVisitor(Expression.Parameter(TargetType, paramClassSource.Name.Replace("s","t")));
+                MapperExpressionVisitor visitDest = new MapperExpressionVisitor(Expression.Parameter(TargetType, paramClassSource.Name.Replace("s", "t")));
 
                 IEnumerable<Expression> finalAssign = CreateExpressions(propertiesMapping, visitSource, visitDest);
                 expressionForExisting = Expression.Lambda(Expression.Block(finalAssign), visitSource.Parameter, visitDest.Parameter);
@@ -513,7 +510,7 @@ namespace MapperExpression.Core
                 {
                     CheckAndConfigureMapping(propertiesMapping[i]);
                 }
-                // creation of delegate.
+                // Creation of delegate.
                 GetDelegate();
             }
         }
@@ -545,12 +542,12 @@ namespace MapperExpression.Core
                         var ifExpression = Expression.NotEqual(expSource, Expression.Constant(null, expSource.Type));
 
                         var check = Expression.IfThen(ifExpression, mapperExterne.expressionForExisting);
+                        //TODO Finish
                         //  yield return check;
                     }
                 }
                 else
                 {
-
                     yield return Expression.Assign(expDest, expSource);
                 }
 

@@ -301,9 +301,6 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.CountGet">
             <summary>Définit le shim de MapperConfigurationContainer.get_Count()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.Dispose">
-            <summary>Définit le shim de MapperConfigurationContainer.Dispose()</summary>
-        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.AllInstances.ExistsPredicateOfMapperConfigurationBase">
             <summary>Définit le shim de MapperConfigurationContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
         </member>
@@ -328,9 +325,6 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Behavior">
             <summary>Attribue le comportement à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
         </member>
-        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.IDisposable)">
-            <summary>Relie les membres de l&apos;interface au shim.</summary>
-        </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Bind(System.Collections.IEnumerable)">
             <summary>Relie les membres de l&apos;interface au shim.</summary>
         </member>
@@ -345,9 +339,6 @@
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.CountGet">
             <summary>Définit le shim de MapperConfigurationContainer.get_Count()</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.Dispose">
-            <summary>Définit le shim de MapperConfigurationContainer.Dispose()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationContainer.ExistsPredicateOfMapperConfigurationBase">
             <summary>Définit le shim de MapperConfigurationContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
