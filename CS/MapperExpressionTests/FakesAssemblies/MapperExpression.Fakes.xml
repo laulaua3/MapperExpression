@@ -13,11 +13,17 @@
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.#ctor(MapperExpression.Core.MapperConfiguration{`0,`1})">
             <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ActionsAfterMapGet">
+            <summary>Définit le shim de MapperConfiguration`2.get_ActionsAfterMap()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AfterMapActionOfT0T1">
             <summary>Définit le shim de MapperConfiguration`2.AfterMap(Action`2&lt;!0,!1&gt; actionAfterMap)</summary>
         </member>
         <member name="T:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances">
             <summary>Définir des shims pour tous les membres des instances</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ActionsAfterMapGet">
+            <summary>Définit le shim de MapperConfiguration`2.get_ActionsAfterMap()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.AfterMapActionOfT0T1">
             <summary>Définit le shim de MapperConfiguration`2.AfterMap(Action`2&lt;!0,!1&gt; actionAfterMap)</summary>
@@ -28,8 +34,11 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ExecuteAfterActionsT0T1">
             <summary>Définit le shim de MapperConfiguration`2.ExecuteAfterActions(!0 source, !1 dest)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ForMemberExpressionOfFuncOfT0ObjectExpressionOfFuncOfT1ObjectBoolean">
-            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,Object&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ForMemberOf2ExpressionOfFuncOfT0M0ExpressionOfFuncOfT1M1``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperExpression.Core.MapperConfiguration{`0,`1},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`1,``1}},MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,!!0&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,!!1&gt;&gt; getPropertyDest)</summary>
+        </member>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ForMemberOf2ExpressionOfFuncOfT0M0ExpressionOfFuncOfT1M1Boolean``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperExpression.Core.MapperConfiguration{`0,`1},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`1,``1}},System.Boolean,MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,!!0&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,!!1&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetFuncDelegate">
             <summary>Définit le shim de MapperConfiguration`2.GetFuncDelegate()</summary>
@@ -40,8 +49,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.GetSortedExpressionString">
             <summary>Définit le shim de MapperConfiguration`2.GetSortedExpression(String propertySource)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.IgnoreExpressionOfFuncOfT1Object">
-            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; propertyDest)</summary>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.IgnoreOf1ExpressionOfFuncOfT1M0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperExpression.Core.MapperConfiguration{`0,`1},System.Linq.Expressions.Expression{System.Func{`1,``0}},MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,!!0&gt;&gt; propertyDest)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.AllInstances.ReverseMap">
             <summary>Définit le shim de MapperConfiguration`2.ReverseMap()</summary>
@@ -64,8 +73,11 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ExecuteAfterActionsT0T1">
             <summary>Définit le shim de MapperConfiguration`2.ExecuteAfterActions(!0 source, !1 dest)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ForMemberExpressionOfFuncOfT0ObjectExpressionOfFuncOfT1ObjectBoolean">
-            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,Object&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ForMemberOf2ExpressionOfFuncOfT0M0ExpressionOfFuncOfT1M1``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`1,``1}},MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,!!0&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,!!1&gt;&gt; getPropertyDest)</summary>
+        </member>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ForMemberOf2ExpressionOfFuncOfT0M0ExpressionOfFuncOfT1M1Boolean``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`1,``1}},System.Boolean,MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.ForMember(Expression`1&lt;Func`2&lt;!0,!!0&gt;&gt; getPropertySource, Expression`1&lt;Func`2&lt;!1,!!1&gt;&gt; getPropertyDest, Boolean checkIfNull)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.GetFuncDelegate">
             <summary>Définit le shim de MapperConfiguration`2.GetFuncDelegate()</summary>
@@ -76,8 +88,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.GetSortedExpressionString">
             <summary>Définit le shim de MapperConfiguration`2.GetSortedExpression(String propertySource)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.IgnoreExpressionOfFuncOfT1Object">
-            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,Object&gt;&gt; propertyDest)</summary>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.IgnoreOf1ExpressionOfFuncOfT1M0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.Expressions.Expression{System.Func{`1,``0}},MapperExpression.Core.MapperConfiguration{`0,`1}})">
+            <summary>Définit le shim de MapperConfiguration`2.Ignore(Expression`1&lt;Func`2&lt;!1,!!0&gt;&gt; propertyDest)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfiguration`2.ReverseMap">
             <summary>Définit le shim de MapperConfiguration`2.ReverseMap()</summary>
@@ -97,14 +109,14 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndRemoveMemberDestString">
             <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ConstructorFuncGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_ConstructorFunc()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateCommonMember">
             <summary>Définit le shim de MapperConfigurationBase.CreateCommonMember()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateConfigTypeType">
-            <summary>Définit le shim de MapperConfigurationBase.CreateConfig(Type typeSource, Type typeTarget)</summary>
-        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateExpressionsListOfTupleOfLambdaExpressionLambdaExpressionBooleanMapperExpressionVisitorMapperExpressionVisitor">
-            <summary>Définit le shim de MapperConfigurationBase.CreateExpressions(List`1&lt;Tuple`3&lt;LambdaExpression,LambdaExpression,Boolean&gt;&gt; propertiesMapping, MapperExpressionVisitor expressionVisitorSource, MapperExpressionVisitor expressionVisitorTarget)</summary>
+            <summary>Définit le shim de MapperConfigurationBase.CreateExpressions(List`1&lt;Tuple`3&lt;LambdaExpression,LambdaExpression,Boolean&gt;&gt; propertiesOfMapping, MapperExpressionVisitor expressionVisitorSource, MapperExpressionVisitor expressionVisitorTarget)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMappingExpressionFuncOfTypeObject">
             <summary>Définit le shim de MapperConfigurationBase.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
@@ -112,11 +124,23 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMemberAssignementForExistingTarget">
             <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssignementForExistingTarget()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMemberBindingExpressionPropertyInfoBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.CreateMemberBinding(Expression propertyExpression, PropertyInfo propertyTarget, Boolean checkIfNull)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateMemberBindingExpressionMemberInfoBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberBinding(Expression propertyExpression, MemberInfo propertyTarget, Boolean checkIfNull)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ForMemberLambdaExpressionLambdaExpressionBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.DelegateCallForExistingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_DelegateCallForExisting()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.DelegateCallForNewGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_DelegateCallForNew()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ExpressionForExistingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_ExpressionForExisting()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ForMemberBaseLambdaExpressionLambdaExpression">
+            <summary>Définit le shim de MapperConfigurationBase.ForMemberBase(LambdaExpression getPropertySource, LambdaExpression getPropertyDest)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.ForMemberBaseLambdaExpressionLambdaExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.ForMemberBase(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetDelegate">
             <summary>Définit le shim de MapperConfigurationBase.GetDelegate()</summary>
@@ -133,32 +157,35 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetLambdaDestString">
             <summary>Définit le shim de MapperConfigurationBase.GetLambdaDest(String propertyName)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMapperTypeTypeBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type typeOfSource, Type typeOfTarget, Boolean throwExceptionOnNoFound)</summary>
-        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetMemberInitExpression">
             <summary>Définit le shim de MapperConfigurationBase.GetMemberInitExpression()</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetPropertyInfoLambdaExpression">
-            <summary>Définit le shim de MapperConfigurationBase.GetPropertyInfo(LambdaExpression propertyExpression)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.GetRealTypeType">
             <summary>Définit le shim de MapperConfigurationBase.GetRealType(Type typeToFind)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.IsListOfType">
-            <summary>Définit le shim de MapperConfigurationBase.IsListOf(Type typeTarget)</summary>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.IgnoreBaseOf2ExpressionOfFuncOfM0M1``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{MapperExpression.Core.MapperConfigurationBase,System.Linq.Expressions.Expression{System.Func{``0,``1}},MapperExpression.Core.MapperConfigurationBase})">
+            <summary>Définit le shim de MapperConfigurationBase.IgnoreBase(Expression`1&lt;Func`2&lt;!!0,!!1&gt;&gt; propertyDest)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.IsInitializedGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_IsInitialized()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.MemberForNewGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_MemberForNew()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.MemberToMapForNewGet">
             <summary>Définit le shim de MapperConfigurationBase.get_MemberToMapForNew()</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.MemberToMapForNewSetListOfMemberAssignment">
-            <summary>Définit le shim de MapperConfigurationBase.set_MemberToMapForNew(List`1&lt;MemberAssignment&gt; value)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.NameGet">
             <summary>Définit le shim de MapperConfigurationBase.get_Name()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.NameSetString">
             <summary>Définit le shim de MapperConfigurationBase.set_Name(String value)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.PropertiesMappingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_PropertiesMapping()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.PropertiesToIgnoreGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_PropertiesToIgnore()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.SourceTypeGet">
             <summary>Définit le shim de MapperConfigurationBase.get_SourceType()</summary>
@@ -193,6 +220,9 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CheckAndRemoveMemberDestString">
             <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ConstructorFuncGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_ConstructorFunc()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ConstructorTypeTypeStringString">
             <summary>Définit le shim de MapperConfigurationBase.MapperConfigurationBase(Type source, Type destination, String paramName, String name)</summary>
         </member>
@@ -203,7 +233,7 @@
             <summary>Définit le shim de MapperConfigurationBase.CreateConfig(Type typeSource, Type typeTarget)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateExpressionsListOfTupleOfLambdaExpressionLambdaExpressionBooleanMapperExpressionVisitorMapperExpressionVisitor">
-            <summary>Définit le shim de MapperConfigurationBase.CreateExpressions(List`1&lt;Tuple`3&lt;LambdaExpression,LambdaExpression,Boolean&gt;&gt; propertiesMapping, MapperExpressionVisitor expressionVisitorSource, MapperExpressionVisitor expressionVisitorTarget)</summary>
+            <summary>Définit le shim de MapperConfigurationBase.CreateExpressions(List`1&lt;Tuple`3&lt;LambdaExpression,LambdaExpression,Boolean&gt;&gt; propertiesOfMapping, MapperExpressionVisitor expressionVisitorSource, MapperExpressionVisitor expressionVisitorTarget)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateMappingExpressionFuncOfTypeObject">
             <summary>Définit le shim de MapperConfigurationBase.CreateMappingExpression(Func`2&lt;Type,Object&gt; constructor)</summary>
@@ -211,11 +241,23 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateMemberAssignementForExistingTarget">
             <summary>Définit le shim de MapperConfigurationBase.CreateMemberAssignementForExistingTarget()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateMemberBindingExpressionPropertyInfoBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.CreateMemberBinding(Expression propertyExpression, PropertyInfo propertyTarget, Boolean checkIfNull)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateMemberBindingExpressionMemberInfoBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.CreateMemberBinding(Expression propertyExpression, MemberInfo propertyTarget, Boolean checkIfNull)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ForMemberLambdaExpressionLambdaExpressionBoolean">
-            <summary>Définit le shim de MapperConfigurationBase.ForMember(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.DelegateCallForExistingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_DelegateCallForExisting()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.DelegateCallForNewGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_DelegateCallForNew()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ExpressionForExistingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_ExpressionForExisting()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ForMemberBaseLambdaExpressionLambdaExpression">
+            <summary>Définit le shim de MapperConfigurationBase.ForMemberBase(LambdaExpression getPropertySource, LambdaExpression getPropertyDest)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ForMemberBaseLambdaExpressionLambdaExpressionBoolean">
+            <summary>Définit le shim de MapperConfigurationBase.ForMemberBase(LambdaExpression getPropertySource, LambdaExpression getPropertyDest, Boolean checkIfNull)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetDelegate">
             <summary>Définit le shim de MapperConfigurationBase.GetDelegate()</summary>
@@ -232,6 +274,9 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetLambdaDestString">
             <summary>Définit le shim de MapperConfigurationBase.GetLambdaDest(String propertyName)</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetMapperTypeType">
+            <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type typeOfSource, Type typeOfTarget)</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetMapperTypeTypeBoolean">
             <summary>Définit le shim de MapperConfigurationBase.GetMapper(Type typeOfSource, Type typeOfTarget, Boolean throwExceptionOnNoFound)</summary>
         </member>
@@ -244,20 +289,32 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.GetRealTypeType">
             <summary>Définit le shim de MapperConfigurationBase.GetRealType(Type typeToFind)</summary>
         </member>
+        <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.IgnoreBaseOf2ExpressionOfFuncOfM0M1``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Linq.Expressions.Expression{System.Func{``0,``1}},MapperExpression.Core.MapperConfigurationBase})">
+            <summary>Définit le shim de MapperConfigurationBase.IgnoreBase(Expression`1&lt;Func`2&lt;!!0,!!1&gt;&gt; propertyDest)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.IsInitializedGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_IsInitialized()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.IsListOfType">
             <summary>Définit le shim de MapperConfigurationBase.IsListOf(Type typeTarget)</summary>
         </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.MemberForNewGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_MemberForNew()</summary>
+        </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.MemberToMapForNewGet">
             <summary>Définit le shim de MapperConfigurationBase.get_MemberToMapForNew()</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.MemberToMapForNewSetListOfMemberAssignment">
-            <summary>Définit le shim de MapperConfigurationBase.set_MemberToMapForNew(List`1&lt;MemberAssignment&gt; value)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.NameGet">
             <summary>Définit le shim de MapperConfigurationBase.get_Name()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.NameSetString">
             <summary>Définit le shim de MapperConfigurationBase.set_Name(String value)</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.PropertiesMappingGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_PropertiesMapping()</summary>
+        </member>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.PropertiesToIgnoreGet">
+            <summary>Définit le shim de MapperConfigurationBase.get_PropertiesToIgnore()</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.SourceTypeGet">
             <summary>Définit le shim de MapperConfigurationBase.get_SourceType()</summary>

@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MapperExpression.Tests.Units.ClassTests;
 using MapperExpression.Core;
-using MapperExpression.Exception;
+using MapperExpression.Exceptions;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Collections.Generic;
@@ -75,8 +75,8 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationContainer.Instance.RemoveAt(1);
         }
 
-       
-       
+
+
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NotSameTypePropertyException))]
         public void NotSameTypePropertyException_Exception()
         {
@@ -108,8 +108,7 @@ namespace MapperExpression.Tests.Units
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             expected.CreateMappingExpression(null);
-            LambdaExpression actual = null;
-            actual = expected.GetSortedExpression("PropNotExist");
+            expected.GetSortedExpression("PropNotExist");
 
         }
 
@@ -129,7 +128,7 @@ namespace MapperExpression.Tests.Units
             Assert.IsTrue(actual > 0);
 
         }
-   
+
 
         [TestMethod, TestCategory("GetPropertyInfo")]
         public void GetPropertyInfo_PropertyFound_Success()
@@ -169,7 +168,7 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             Mapper.Reset();
             Mapper.CreateMap<ClassSource2, ClassDest2>();
-            
+
             expected.CreateMappingExpression(null);
             var actual = expected.GetGenericLambdaExpression();
             Mapper.Reset();

@@ -73,7 +73,7 @@ namespace MapperExpression.Core
                         result = base.Visit((node as LambdaExpression).Body);
                         break;
                     default:
-                        result=  base.Visit(node);
+                        result = base.Visit(node);
                         break;
 
                 }
@@ -87,11 +87,11 @@ namespace MapperExpression.Core
                     // source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty
                     foreach (MemberExpression item in membersToCheck)
                     {
-                       
+
                         if (!isFirst) // Not to test the value of the property back
                         {
                             object defaultValue = MapperHelper.GetDefaultValue(item.Type);
-                           
+
                             // Creating verification of default value
                             Expression notDefaultValue = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
                             Expression conditional = null;
@@ -134,7 +134,7 @@ namespace MapperExpression.Core
                 // to remove validation of the lambda expression
                 if ((node.NodeType == ExpressionType.Lambda))
                 {
-                    return base.Visit((node as LambdaExpression).Body);
+                    return base.Visit(((LambdaExpression)node).Body);
                 }
                 else
                 {
@@ -142,8 +142,6 @@ namespace MapperExpression.Core
                 }
             }
         }
-
-
 
         /// <summary>
         /// Visit <see cref="T:System.Linq.Expressions.ParameterExpression" />.
@@ -192,21 +190,22 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitUnary(UnaryExpression node)
         {
-            if (node.Operand.NodeType == ExpressionType.MemberAccess)
+            if (node != null)
             {
-                return VisitMember(node.Operand as MemberExpression);
-            }
-            if (node.NodeType == ExpressionType.Convert)
-            {
-                return Visit(node.Operand);
+                if (node.Operand.NodeType == ExpressionType.MemberAccess)
+                {
+                    return VisitMember(node.Operand as MemberExpression);
+                }
+                if (node.NodeType == ExpressionType.Convert)
+                {
+                    return Visit(node.Operand);
+                }
             }
             return node;
         }
 
-
-
         #endregion
 
-        
+
     }
 }

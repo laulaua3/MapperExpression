@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
 using MapperExpression.Core;
-using MapperExpression.Exception;
-using System.Collections.Generic;
-using System.Linq;
+using MapperExpression.Exceptions;
+
 namespace MapperExpression
 {
 
@@ -38,7 +37,7 @@ namespace MapperExpression
             TTarget result = null;
             try
             {
-                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>();
+                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>(name);
                 Func<TSource, TTarget> query = mapper.GetFuncDelegate();
                 if (query != null)
                 {
@@ -53,21 +52,23 @@ namespace MapperExpression
             }
             return result;
         }
+
         /// <summary>
-        /// Maps the specified source.
+        /// Maps the specified source to the target.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TTarget">The type of the dest.</typeparam>
+        /// <typeparam name="TTarget">The type of the target.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        public static void Map<TSource, TTarget>(TSource source, TTarget target)
+        /// <param name="name">The name.</param>
+        public static void Map<TSource, TTarget>(TSource source, TTarget target, string name = null)
          where TSource : class
          where TTarget : class
         {
             TTarget result = null;
             try
             {
-                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>();
+                MapperConfiguration<TSource, TTarget> mapper = GetMapper<TSource, TTarget>(name);
                 Action<TSource, TTarget> query = mapper.GetDelegateForExistingTarget() as Action<TSource, TTarget>;
                 if (query != null)
                 {
@@ -101,35 +102,16 @@ namespace MapperExpression
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TTarget">The type of the dest.</typeparam>
         /// <returns></returns>
-        public static MapperConfiguration<TSource, TTarget> CreateMap<TSource, TTarget>()
+        public static MapperConfiguration<TSource, TTarget> CreateMap<TSource, TTarget>(string name = null)
             where TSource : class
             where TTarget : class
         {
             // We do not use the method because it GetMapper throw an exception if not found
-            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget));
+            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget), name);
             if (map == null)
             {
-                map = new MapperConfiguration<TSource, TTarget>("s" + MapperConfigurationContainer.Instance.Count);
-                MapperConfigurationContainer.Instance.Add(map);
-            }
-            return map as MapperConfiguration<TSource, TTarget>;
-        }
-        /// <summary>
-        /// Creates the map.
-        /// </summary>
-        /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TTarget">The type of the target.</typeparam>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        public static MapperConfiguration<TSource, TTarget> CreateMap<TSource, TTarget>(string name)
-            where TSource : class
-            where TTarget : class
-        {
-            // We do not use the method because it GetMapper throw an exception if not found
-            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget));
-            if (map == null)
-            {
-                map = new MapperConfiguration<TSource, TTarget>("s" + MapperConfigurationContainer.Instance.Count);
+                string finalName = String.IsNullOrEmpty(name) ? "s" + MapperConfigurationContainer.Instance.Count : name;
+                map = new MapperConfiguration<TSource, TTarget>(finalName);
                 MapperConfigurationContainer.Instance.Add(map);
             }
             return map as MapperConfiguration<TSource, TTarget>;
@@ -196,7 +178,7 @@ namespace MapperExpression
         internal static MapperConfigurationBase GetMapper(Type tSource, Type tDest, string name = null)
         {
             MapperConfigurationBase mapConfig = MapperConfigurationContainer.Instance.Find(tSource, tDest, name);
-            if(mapConfig == null)
+            if (mapConfig == null)
                 throw new NoFoundMapperException(tSource, tDest);
 
             return mapConfig;

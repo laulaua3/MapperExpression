@@ -1,5 +1,5 @@
 ﻿using MapperExpression.Core;
-using MapperExpression.Exception;
+using MapperExpression.Exceptions;
 using MapperExpression.Tests.Units.ClassTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -59,7 +59,7 @@ namespace MapperExpression.Tests.Units
         
         
         [TestMethod, TestCategory("CheckAndConfigureTuple")]
-        public void CheckAndConfigureMappingTest_List_Success()
+        public void CheckAndConfigureMappingTest_List_NotSameType_Success()
         {
             Mapper.Reset();
             Mapper.CreateMap<ClassSource2, ClassDest2>();
@@ -71,6 +71,25 @@ namespace MapperExpression.Tests.Units
             Expression<Func<ClassSource, object>> source = s => s.ListProp;
             Expression<Func<ClassDest, object>> target = d => d.ListProp;
             Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, true);
+            expected.CheckAndConfigureMappingTest(tuple);
+            Assert.IsNotNull(expected.GetDelegate());
+
+
+        }
+
+        [TestMethod, TestCategory("CheckAndConfigureTuple")]
+        public void CheckAndConfigureMappingTest_List_SameType_Success()
+        {
+            Mapper.Reset();
+            Mapper.CreateMap<ClassSource2, ClassDest2>();
+
+
+            MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
+            MapperConfigurationContainer.Instance.Add(expected);
+            Mapper.Initialize();
+            Expression<Func<ClassSource, object>> source = s => s.ListString;
+            Expression<Func<ClassDest, object>> target = d => d.ListString;
+            Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, false);
             expected.CheckAndConfigureMappingTest(tuple);
             Assert.IsNotNull(expected.GetDelegate());
 

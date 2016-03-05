@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MapperExpression.Core;
-using System.Linq.Expressions;
+﻿using MapperExpression.Core.Visitor;
 using MapperExpression.Tests.Units.ClassTests;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace MapperExpression.Tests.Units.Core
 {

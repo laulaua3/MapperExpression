@@ -83,7 +83,6 @@ namespace MapperExpression.Core
         /// <returns>
         ///   <see cref="T:System.Collections.Generic.IEnumerator`1" /> can be used to iterate through the collection.
         /// </returns>
-
         public IEnumerator<MapperConfigurationBase> GetEnumerator()
         {
             return items.GetEnumerator() as IEnumerator<MapperConfigurationBase>;

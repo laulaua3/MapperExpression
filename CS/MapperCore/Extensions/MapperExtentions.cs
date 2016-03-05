@@ -1,4 +1,5 @@
 ﻿using MapperExpression.Core;
+using MapperExpression.Core.Visitor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -21,6 +22,7 @@ namespace MapperExpression.Extensions
         /// <param name="from">From.</param>
         /// <param name="toType">To type.</param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public static Expression ConvertTo<TFrom>(
             this Expression<Func<TFrom, object>> from, Type toType)
         {
@@ -33,6 +35,7 @@ namespace MapperExpression.Extensions
         /// <param name="from">From.</param>
         /// <param name="toType">To type.</param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public static Expression ConvertTo<TFrom>(this Expression<Func<TFrom, bool>> from, Type toType)
         {
             return ConvertImpl(from, toType);
@@ -44,6 +47,7 @@ namespace MapperExpression.Extensions
         /// <typeparam name="TTo">The type of target.</typeparam>
         /// <param name="from">From.</param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public static Expression ConvertTo<TFrom, TTo>(this Expression<Func<TFrom, object>> from)
         {
             return ConvertImpl(from, typeof(TTo));
@@ -55,9 +59,10 @@ namespace MapperExpression.Extensions
         /// <typeparam name="TTo">The type of converted expression.</typeparam>
         /// <param name="from">original expression.</param>
         /// <returns>expression converted or if no mapping is found the original expression.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public static Expression<Func<TTo, bool>> ConvertTo<TFrom, TTo>(this Expression<Func<TFrom, bool>> from)
         {
-            return ConvertImpl(from, typeof(TTo)) as Expression<Func<TTo, bool>>;
+            return (Expression<Func<TTo, bool>>)ConvertImpl(from, typeof(TTo));
         }
         private static Expression ConvertImpl<TFrom>(Expression<TFrom> from, Type toType)
            where TFrom : class

@@ -1,14 +1,11 @@
 ﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using MapperExpression.Tests.Units.ClassTests;
 using MapperExpression.Core;
-using MapperExpression.Exception;
+using MapperExpression.Exceptions;
+using MapperExpression.Tests.Units.ClassTests;
 using Microsoft.QualityTools.Testing.Fakes;
-using System.Linq.Expressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
-using FizzWare.NBuilder;
+using System.Linq.Expressions;
 
 namespace MapperExpression.Tests.Units
 {
@@ -51,7 +48,14 @@ namespace MapperExpression.Tests.Units
 
             Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest)));
         }
+        [TestMethod, TestCategory("CreateMap")]
+        public void Mapper_CreateMap_With_Name()
+        {
+            //Create a other map configuration with the same parameter.
+            Mapper.CreateMap<ClassSource, ClassDest>("test");
 
+            Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.Name == "test"));
+        }
         [TestMethod, TestCategory("Map")]
         public void Map_ReturnDestinationObject_Success()
         {
@@ -135,7 +139,15 @@ namespace MapperExpression.Tests.Units
             actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
 
-       
+        [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NoActionAfterMappingException))]
+        public void Map_NoActionException_Exception()
+        {
+            ClassDest actual = null;
+            Mapper.GetMapper<ClassSource, ClassDest>().AfterMap(null);
+            Mapper.Initialize();
+            actual = Mapper.Map<ClassSource, ClassDest>(new ClassSource());
+            Clean();
+        }
 
         //[TestMethod]
         //public void Map_ExistingObject_Success()

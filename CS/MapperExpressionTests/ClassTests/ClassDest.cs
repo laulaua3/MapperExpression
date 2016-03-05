@@ -17,6 +17,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         public ClassDest2 ClassDestEntityBase { get; set; }
         public List<ClassDest2> ListProp { get; set; }
 
+        public List<string> ListString { get; set; }
         public ClassDest2 SubClass { get; set; }
         public ClassDest2 SubClass2 { get; set; }
         public int CountListProp { get;  set; }

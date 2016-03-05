@@ -92,6 +92,7 @@
     <Compile Include="Core\MapperConfigurationBaseTests.cs" />
     <Compile Include="Core\MapperExpressionVisitorTest.cs" />
     <Compile Include="Core\ConverterExpressionVisitorTest.cs" />
+    <Compile Include="Core\MapperContainerTest.cs" />
     <Compile Include="Extentions\QueryableExtentionsTest.cs" />
     <Compile Include="Extentions\MapperExtentionsTest.cs" />
     <Compile Include="MapperTests.cs" />

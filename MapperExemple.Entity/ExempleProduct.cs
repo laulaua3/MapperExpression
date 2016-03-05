@@ -81,7 +81,6 @@ namespace MapperExemple.Entity
         public IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery)
         {
             var result = GetEntities(selectQuery).ToList();
-            _context.Dispose();
             return result;
         }
 

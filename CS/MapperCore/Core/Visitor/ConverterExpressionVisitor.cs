@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace MapperExpression.Core
+namespace MapperExpression.Core.Visitor
 {
     /// <summary>
     /// Visitor expression that converts an expression from source to target

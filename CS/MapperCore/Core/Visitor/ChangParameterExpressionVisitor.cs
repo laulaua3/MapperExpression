@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MapperExpression.Core
+namespace MapperExpression.Core.Visitor
 {
     internal class ChangParameterExpressionVisitor : ExpressionVisitor
     {
@@ -17,9 +17,13 @@ namespace MapperExpression.Core
 
         protected override Expression VisitParameter(ParameterExpression node)
         {
-            if (node.Type == _parameter.Type)
-                return _parameter;
-            return base.VisitParameter(node);
+            if (node != null)
+            {
+                if (node.Type == _parameter.Type)
+                    return _parameter;
+                return base.VisitParameter(node);
+            }
+            return node;
         }
               
     }

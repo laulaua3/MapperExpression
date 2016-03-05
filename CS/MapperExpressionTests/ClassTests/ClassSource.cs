@@ -15,7 +15,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         public string PropString2 { get; set; }
         public List<ClassSource2> ListProp { get; set; }
 
-
+        public List<string> ListString { get; set; }
         public ClassSource Same { get; set; }
 
         public ClassSource2 SubClass { get; set; }

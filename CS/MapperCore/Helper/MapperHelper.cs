@@ -3,7 +3,10 @@ using System.Linq.Expressions;
 
 namespace MapperExpression.Helper
 {
-    internal  class MapperHelper
+    /// <summary>
+    /// Helper
+    /// </summary>
+    internal static class MapperHelper
     {
         /// <summary>
         /// Gets the default value of the type.

@@ -16,19 +16,15 @@ namespace MapperExpression.Tests.Units.ClassTests
         {
 
         }
-        public void SetIsInitialized(bool value)
-        {
-            isInitialized = value;
-        }
 
         public int GetIgnoreCount()
         {
-            return propertiesToIgnore.Count;
+            return PropertiesToIgnore.Count;
         }
 
         public int GetAfterMapActionCount()
         {
-            return actionsAfterMap.Count;
+            return ActionsAfterMap.Count;
         }
 
         public MapperConfigurationBase GetMapperTest(Type tSource, Type tDest, bool throwExceptionOnNoFound)
