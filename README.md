@@ -19,5 +19,5 @@ Customer result = exemple1.GetFirstCustomer();
 //exemple to Map a object
 var model = Mapper.Map<Customer, CustomerModel>(result);
 //Or (New!!)
-var model = Mapper<CustomerMode>.Map(result);
+var model = Mapper<CustomerModel>.Map(result);
 ```
