@@ -19,6 +19,7 @@ Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
  Mapper.CreateMap<IExempleProduct, ProductModel>();
  //Other exemple
 Mapper.CreateMap<Product, ProductModel>();
+//IMPORTANT
 Mapper.Initialize();
 ```
 *Use*
