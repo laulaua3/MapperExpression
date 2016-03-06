@@ -1,7 +1,7 @@
 # MapperExpression
 Mapper simple like AutoMapper without all options but more efficient for performances
 # Code Exemple
-*Configuration at boot application*
+### _Configuration at boot application_
 ```C#
 //For simple exemple
 Mapper.CreateMap<Customer, CustomerModel>();
@@ -22,7 +22,7 @@ Mapper.CreateMap<Product, ProductModel>();
 // VERY IMPORTANT (this method seal your mapping)
 Mapper.Initialize();
 ```
-*Use*
+### _Use_
 ```C#
 ExempleEntity exemple1 = new ExempleEntity();
 Customer result = exemple1.GetFirstCustomer();
