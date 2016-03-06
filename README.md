@@ -31,4 +31,4 @@ var model = Mapper.Map<Customer, CustomerModel>(result);
 //Or (New!!)
 var model = Mapper<CustomerModel>.Map(result);
 ```
-**For more detail see the project of exemple**
+**For more details see the project of exemple**
