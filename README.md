@@ -1,7 +1,7 @@
 # MapperExpression
 Mapper simple like AutoMapper without all options but more efficient for performances
 # Code Exemple
-*At the application start*
+*Configuration at boot application*
 ```C#
 //For simple exemple
 Mapper.CreateMap<Customer, CustomerModel>();
