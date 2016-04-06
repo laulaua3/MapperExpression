@@ -1,11 +1,12 @@
 ﻿using MapperExemple.Entity.EF;
+using MapperExemple.Entity.Interface;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace MapperExemple.Entity
 {
-    public class ExempleCustomer
+    public class ExempleCustomer : IExempleCustomer
     {
         #region Simple mapping
 
@@ -23,6 +24,7 @@ namespace MapperExemple.Entity
 
         public IQueryable<Customer> GetCustomers()
         {
+            //It's only un exemple ,don't use in normal development
             ExempleDbContext context = new ExempleDbContext();
             context.Database.Log = x => Debug.WriteLine(x);
             var result = from c in context.Customers

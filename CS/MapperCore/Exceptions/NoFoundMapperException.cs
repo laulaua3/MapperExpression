@@ -22,16 +22,16 @@ namespace MapperExpression.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="NoFoundMapperException"/> class.
         /// </summary>
-        public NoFoundMapperException()
+        /// <param name="name">The name.</param>
+        public NoFoundMapperException(string name)
+        : base(ValideParameter("The mapping with the name " + name + " was not found",!string.IsNullOrEmpty(name)))
         {
 
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="NoFoundMapperException"/> class.
         /// </summary>
-        /// <param name="exceptionMessage">The exception message.</param>
-        public NoFoundMapperException(string exceptionMessage)
-            : base(exceptionMessage)
+        public NoFoundMapperException()
         {
 
         }

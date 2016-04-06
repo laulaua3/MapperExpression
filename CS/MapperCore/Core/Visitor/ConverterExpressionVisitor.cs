@@ -19,7 +19,7 @@ namespace MapperExpression.Core.Visitor
             Dictionary<Expression, Expression> parameterMap, Type typeDestination)
         {
             this.parameterMap = parameterMap;
-            this.destinationType = typeDestination;
+            destinationType = typeDestination;
         }
         private Type destinationType;
         private MapperConfigurationBase mapper;

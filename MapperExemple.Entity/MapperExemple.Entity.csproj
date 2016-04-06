@@ -117,6 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExempleBase.cs" />
     <Compile Include="ExempleCustomer.cs" />
     <Compile Include="EF\ExempleDbContext.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
@@ -132,6 +133,8 @@
     <Compile Include="EF\IExempleDbContext.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IExempleOrder.cs" />
+    <Compile Include="Interface\IExempleCustomer.cs" />
     <Compile Include="Interface\IExempleProduct.cs" />
     <Compile Include="EF\Invoice.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>

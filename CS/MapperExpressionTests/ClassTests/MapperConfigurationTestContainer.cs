@@ -31,7 +31,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         {
             return GetMapper(tSource, tDest, throwExceptionOnNoFound);
         }
-        public void CheckAndConfigureMappingTest(Tuple<LambdaExpression, LambdaExpression, bool> configExpression)
+        public void CheckAndConfigureMappingTest(Tuple<LambdaExpression, LambdaExpression, bool,string> configExpression)
         {
             CheckAndConfigureMapping(configExpression);
         }

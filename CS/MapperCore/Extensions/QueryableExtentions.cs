@@ -87,6 +87,21 @@ namespace MapperExpression.Extensions
         {
             return query.Select(Mapper.GetMapper<TSource, TDest>().GetLambdaExpression());
         }
+        /// <summary>
+        /// Projects each element of a sequence into a new form by incorporating the destination object
+        /// </summary>
+        /// <typeparam name="TSource">type of source</typeparam>
+        /// <typeparam name="TDest">type of destination</typeparam>
+        /// <param name="query">Sequence values to classify.</param>
+        /// <param name="mapperName">Name of the mapper.</param>
+        /// <returns></returns>
+        public static IQueryable<TDest> Select<TSource, TDest>(this IQueryable<TSource> query,string mapperName)
+            where TSource : class
+            where TDest : class
+        {
+            return query.Select(Mapper.GetMapper<TSource, TDest>(mapperName).GetLambdaExpression());
+        }
+
 
         /// <summary>
         /// Filter a sequence of values based on a predicate.

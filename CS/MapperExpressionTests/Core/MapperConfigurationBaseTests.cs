@@ -66,11 +66,11 @@ namespace MapperExpression.Tests.Units
            
             
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            MapperConfigurationContainer.Instance.Add(expected);
+            MapperConfigurationCollectionContainer.Instance.Add(expected);
             Mapper.Initialize();
             Expression<Func<ClassSource, object>> source = s => s.ListProp;
             Expression<Func<ClassDest, object>> target = d => d.ListProp;
-            Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, true);
+            Tuple<LambdaExpression, LambdaExpression, bool, string> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool,string>(source, target, true,string.Empty);
             expected.CheckAndConfigureMappingTest(tuple);
             Assert.IsNotNull(expected.GetDelegate());
 
@@ -85,11 +85,11 @@ namespace MapperExpression.Tests.Units
 
 
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            MapperConfigurationContainer.Instance.Add(expected);
+            MapperConfigurationCollectionContainer.Instance.Add(expected);
             Mapper.Initialize();
             Expression<Func<ClassSource, object>> source = s => s.ListString;
             Expression<Func<ClassDest, object>> target = d => d.ListString;
-            Tuple<LambdaExpression, LambdaExpression, bool> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool>(source, target, false);
+            Tuple<LambdaExpression, LambdaExpression, bool, string> tuple = Tuple.Create<LambdaExpression, LambdaExpression, bool, string>(source, target, false,string.Empty);
             expected.CheckAndConfigureMappingTest(tuple);
             Assert.IsNotNull(expected.GetDelegate());
 

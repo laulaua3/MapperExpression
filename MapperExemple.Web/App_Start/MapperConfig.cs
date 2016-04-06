@@ -25,6 +25,7 @@ namespace MapperExemple.Web.App_Start
 
             //Exemple with Ioc
             Mapper.ConstructServicesUsing((x) => DependencyResolver.Current.GetService(x));
+            //other exemple
             //Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
@@ -33,7 +34,7 @@ namespace MapperExemple.Web.App_Start
             //Other exemple
             Mapper.CreateMap<Product, ProductModel>();
             Stopwatch initWatch = Stopwatch.StartNew();
-            //Important!!!
+            //IMPORTANT!!!
             Mapper.Initialize();
             initWatch.Stop();
             Debug.WriteLine("Init MapperExpression :" + initWatch.Elapsed.ToString());

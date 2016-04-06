@@ -16,8 +16,6 @@ namespace MapperExemple.Entity
                 context.Database.Log = x => Debug.WriteLine(x);
                 //Need to include the sub object
                 var result = context.Orders.Include("Customer").Include("OrderDetails");
-
-
                 return result.FirstOrDefault();
             }
         }

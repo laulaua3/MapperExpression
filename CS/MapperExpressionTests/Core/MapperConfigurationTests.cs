@@ -72,7 +72,7 @@ namespace MapperExpression.Tests.Units
 
             actual = expected.ReverseMap();
             //For remove the reverse mapping (for the others tests)
-            MapperConfigurationContainer.Instance.RemoveAt(1);
+            MapperConfigurationCollectionContainer.Instance.RemoveAt(1);
         }
 
 
@@ -199,7 +199,7 @@ namespace MapperExpression.Tests.Units
         public void CreateMemberAssignementForExisting_Succes()
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
-            MapperConfigurationContainer.Instance.Add(expected);
+            MapperConfigurationCollectionContainer.Instance.Add(expected);
             expected.ForMember(s => s.SubClass, d => d.SubClass);
             Mapper.CreateMap<ClassSource2, ClassDest2>();
             expected.CreateMappingExpression(null);

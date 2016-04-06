@@ -2,6 +2,9 @@
 using System.Linq.Expressions;
 using MapperExpression.Core;
 using MapperExpression.Exceptions;
+using System.Reflection;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MapperExpression
 {
@@ -107,12 +110,12 @@ namespace MapperExpression
             where TTarget : class
         {
             // We do not use the method because it GetMapper throw an exception if not found
-            MapperConfigurationBase map = MapperConfigurationContainer.Instance.Find(typeof(TSource), typeof(TTarget), name);
+            MapperConfigurationBase map = MapperConfigurationCollectionContainer.Instance.Find(typeof(TSource), typeof(TTarget), name);
             if (map == null)
             {
-                string finalName = String.IsNullOrEmpty(name) ? "s" + MapperConfigurationContainer.Instance.Count : name;
+                string finalName = String.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count : name;
                 map = new MapperConfiguration<TSource, TTarget>(finalName);
-                MapperConfigurationContainer.Instance.Add(map);
+                MapperConfigurationCollectionContainer.Instance.Add(map);
             }
             return map as MapperConfiguration<TSource, TTarget>;
         }
@@ -131,16 +134,30 @@ namespace MapperExpression
         ///<remarks>Use for your units test only</remarks>
         public static void Reset()
         {
-            MapperConfigurationContainer.Instance.Clear();
+            MapperConfigurationCollectionContainer.Instance.Clear();
         }
+        /// <summary>
+        /// Gets the mapper.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <typeparam name="TDest">The type of the dest.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>(string name = null)
+            where TSource : class
+            where TDest : class
+        {
 
+            return (GetMapper(typeof(TSource), typeof(TDest), name) as MapperConfiguration<TSource, TDest>);
+
+        }
         /// <summary>
         /// Initialise the mappers.
         /// </summary>
         /// <remarks>Use only the application initialization</remarks>
         public static void Initialize()
         {
-            MapperConfigurationContainer configRegister = MapperConfigurationContainer.Instance;
+            MapperConfigurationCollectionContainer configRegister = MapperConfigurationCollectionContainer.Instance;
 
             foreach (MapperConfigurationBase mapper in configRegister)
             {
@@ -161,23 +178,24 @@ namespace MapperExpression
         {
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
-
-        #endregion
-
-        #region Internals methods
-
-        internal static MapperConfiguration<TSource, TDest> GetMapper<TSource, TDest>(string name = null)
-            where TSource : class
+        /// <summary>
+        /// Gets the properties not mapped.
+        /// </summary>
+        public static PropertiesNotMapped GetPropertiesNotMapped<TSource, TDest>(string name = null)
+             where TSource : class
             where TDest : class
         {
-
-            return (GetMapper(typeof(TSource), typeof(TDest), name) as MapperConfiguration<TSource, TDest>);
-
+            var mapper = GetMapper<TSource, TDest>(name);
+            return mapper.GetPropertiesNotMapped();  
         }
+        #endregion
+
+        #region Internals methods        
+
 
         internal static MapperConfigurationBase GetMapper(Type tSource, Type tDest, string name = null)
         {
-            MapperConfigurationBase mapConfig = MapperConfigurationContainer.Instance.Find(tSource, tDest, name);
+            MapperConfigurationBase mapConfig = MapperConfigurationCollectionContainer.Instance.Find(tSource, tDest, name);
             if (mapConfig == null)
                 throw new NoFoundMapperException(tSource, tDest);
 

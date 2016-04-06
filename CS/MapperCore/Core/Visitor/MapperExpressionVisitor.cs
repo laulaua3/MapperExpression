@@ -12,9 +12,11 @@ namespace MapperExpression.Core
 
         private bool checkNull;
 
-        private readonly ParameterExpression parameter;
+        private ParameterExpression parameter;
 
-        private readonly Stack<MemberExpression> membersToCheck;
+        private Stack<MemberExpression> membersToCheck;
+
+
 
         internal ParameterExpression Parameter
         {
@@ -152,7 +154,6 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
-            // To change parameter
             return parameter;
         }
 

@@ -6,11 +6,8 @@ namespace MapperExpression.Core.Visitor
     internal class ChangParameterExpressionVisitor : ExpressionVisitor
     {
         private Expression _parameter;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ChangParameterExpressionVisitor"/> class.
-        /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        public ChangParameterExpressionVisitor(Expression parameter)
+        
+        internal ChangParameterExpressionVisitor(Expression parameter)
         {
             _parameter = parameter;
         }

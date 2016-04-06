@@ -37,7 +37,7 @@ namespace MapperExpression.Tests.Units
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
 
-            Assert.AreEqual(MapperConfigurationContainer.Instance.Count, 1);
+            Assert.AreEqual(MapperConfigurationCollectionContainer.Instance.Count, 1);
         }
 
         [TestMethod, TestCategory("CreateMap")]
@@ -46,7 +46,7 @@ namespace MapperExpression.Tests.Units
             //Create a other map configuration with the same parameter.
             Mapper.CreateMap<ClassSource, ClassDest>();
 
-            Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest)));
+            Assert.IsTrue(MapperConfigurationCollectionContainer.Instance.Exists(m => m.SourceType == typeof(ClassSource) && m.TargetType == typeof(ClassDest)));
         }
         [TestMethod, TestCategory("CreateMap")]
         public void Mapper_CreateMap_With_Name()
@@ -54,7 +54,7 @@ namespace MapperExpression.Tests.Units
             //Create a other map configuration with the same parameter.
             Mapper.CreateMap<ClassSource, ClassDest>("test");
 
-            Assert.IsTrue(MapperConfigurationContainer.Instance.Exists(m => m.Name == "test"));
+            Assert.IsTrue(MapperConfigurationCollectionContainer.Instance.Exists(m => m.Name == "test"));
         }
         [TestMethod, TestCategory("Map")]
         public void Map_ReturnDestinationObject_Success()
@@ -149,6 +149,17 @@ namespace MapperExpression.Tests.Units
             Clean();
         }
 
+        [TestMethod]
+        public void GetPropertiesNotMapped_ReturnProperties_Success()
+        {
+
+            PropertiesNotMapped actual = null;
+            Mapper.Initialize();
+            actual = Mapper.GetPropertiesNotMapped<ClassSource, ClassDest>();
+            Assert.IsTrue(actual.SourceProperties.Count > 0);
+            Assert.IsTrue(actual.TargetProperties.Count > 0);
+        }
+      
         //[TestMethod]
         //public void Map_ExistingObject_Success()
         //{

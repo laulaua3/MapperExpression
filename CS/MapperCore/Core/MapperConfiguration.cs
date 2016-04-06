@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using MapperExpression.Exceptions;
 using System.Diagnostics.Contracts;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MapperExpression.Core
 {
@@ -21,11 +23,11 @@ namespace MapperExpression.Core
         /// <summary>
         /// The actions after map
         /// </summary>
-        protected IList<Action<TSource, TDest>> ActionsAfterMap
+        protected ReadOnlyCollection<Action<TSource, TDest>> ActionsAfterMap
         {
             get
             {
-                return actionsAfterMap;
+                return new ReadOnlyCollection<Action<TSource, TDest>>(actionsAfterMap);
             }
         }
 
@@ -70,7 +72,6 @@ namespace MapperExpression.Core
         /// <param name="getPropertySource">The get property source.</param>
         /// <param name="getPropertyDest">The get property dest.</param>
         /// <returns></returns>
-
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest)
         {
             // Adding in the list for further processing 
@@ -137,27 +138,32 @@ namespace MapperExpression.Core
         /// <summary>
         /// Reverses the map.
         /// </summary>
-        /// <returns>the new Mapper</returns>
-        public MapperConfiguration<TDest, TSource> ReverseMap()
+        /// <param name="name">The name of the mapper.</param>
+        /// <returns>
+        /// the new Mapper
+        /// </returns>
+        /// <exception cref="MapperExistException"></exception>
+        public MapperConfiguration<TDest, TSource> ReverseMap(string name = null)
         {
-            MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false) as MapperConfiguration<TDest, TSource>;
+            MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false, name) as MapperConfiguration<TDest, TSource>;
 
             if (map != null)
             {
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
-            map = new MapperConfiguration<TDest, TSource>("s" + MapperConfigurationContainer.Instance.Count + 1);
+            string finalName = string.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count + 1 :name; 
+            map = new MapperConfiguration<TDest, TSource>(finalName);
             CreateCommonMember();
             // Path is the mapping of existing properties and inverse relationships are created
             for (int i = 0; i < PropertiesMapping.Count; i++)
             {
-                Tuple<LambdaExpression, LambdaExpression, bool> item = PropertiesMapping[i];
+                Tuple<LambdaExpression, LambdaExpression, bool,string> item = PropertiesMapping[i];
                 PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
                 if (propertyDest.CanWrite)
                     map.ForMemberBase(item.Item2, item.Item1, item.Item3);
             }
 
-            MapperConfigurationContainer.Instance.Add(map);
+            MapperConfigurationCollectionContainer.Instance.Add(map);
             return map;
         }
 
@@ -189,6 +195,7 @@ namespace MapperExpression.Core
             return Expression.Lambda(result, paramClassSource);
 
         }
+
 
         #endregion
     }

@@ -9,20 +9,20 @@ namespace MapperExpression.Core
     /// Singleton storage mappers
     /// </summary>
     /// <remarks>Don't need a lazy singleton because this is for all thread</remarks>
-    internal class MapperConfigurationContainer :
+    internal class MapperConfigurationCollectionContainer :
         IEnumerable<MapperConfigurationBase>
     {
 
         private List<MapperConfigurationBase> items;
-        private static MapperConfigurationContainer currentInstance;
+        private static MapperConfigurationCollectionContainer currentInstance;
 
-        internal static MapperConfigurationContainer Instance
+        internal static MapperConfigurationCollectionContainer Instance
         {
             get
             {
                 if (currentInstance == null)
                 {
-                    currentInstance = new MapperConfigurationContainer();
+                    currentInstance = new MapperConfigurationCollectionContainer();
                 }
                 return currentInstance;
             }
@@ -39,11 +39,10 @@ namespace MapperExpression.Core
             }
         }
 
-        private MapperConfigurationContainer()
+        private MapperConfigurationCollectionContainer()
         {
             items = new List<MapperConfigurationBase>();
         }
-
 
         /// <summary>
         /// Finds the specified source.
@@ -124,6 +123,6 @@ namespace MapperExpression.Core
         {
             items.Add(item);
         }
-       
+
     }
 }

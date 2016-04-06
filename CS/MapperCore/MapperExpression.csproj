@@ -65,12 +65,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\PropertiesNotMapped.cs" />
     <Compile Include="Core\Visitor\ChangParameterExpressionVisitor.cs" />
     <Compile Include="Core\Visitor\ConverterExpressionVisitor.cs" />
     <Compile Include="Core\MapperConfiguration.cs" />
     <Compile Include="Core\MapperConfigurationBase.cs" />
     <Compile Include="Core\MapperConfigurationContainer.cs" />
-    <Compile Include="Core\MapperExpressionVisitor.cs" />
+    <Compile Include="Core\Visitor\MapperExpressionVisitor.cs" />
+    <Compile Include="Core\Visitor\PropertiesVisitor.cs" />
     <Compile Include="Exceptions\MapperExceptionBase.cs" />
     <Compile Include="Exceptions\MapperExistException.cs" />
     <Compile Include="Exceptions\MapperNotInitializedException.cs" />
