@@ -66,7 +66,6 @@ namespace MapperExemple.Entity
             return result;
         }
 
-
         public void Dispose()
         {
             Dispose(true);

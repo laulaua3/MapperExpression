@@ -15,7 +15,7 @@ namespace MapperExpression.Exceptions
         /// <param name="source">The source.</param>
         /// <param name="dest">The dest.</param>
         public NoFoundMapperException(Type source, Type dest)
-        : base(ValideParameter("The mapping for the types '" + source.Name + "' et '" + dest.Name + "' are not configured",source !=null,dest != null))
+        : base(ValideParameter("The mapping for the types '" + source.Name + "' and '" + dest.Name + "' are not configured", source != null, dest != null))
         {
 
         }
@@ -24,7 +24,7 @@ namespace MapperExpression.Exceptions
         /// </summary>
         /// <param name="name">The name.</param>
         public NoFoundMapperException(string name)
-        : base(ValideParameter("The mapping with the name " + name + " was not found",!string.IsNullOrEmpty(name)))
+        : base(ValideParameter("The mapping with the name " + name + " was not found", !string.IsNullOrEmpty(name)))
         {
 
         }
@@ -41,7 +41,7 @@ namespace MapperExpression.Exceptions
         /// <param name="serializer">The serializer.</param>
         /// <param name="context">The context.</param>
         protected NoFoundMapperException(SerializationInfo serializer, StreamingContext context)
-            :base(serializer, context)
+            : base(serializer, context)
         {
 
         }
@@ -51,7 +51,7 @@ namespace MapperExpression.Exceptions
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>
         public NoFoundMapperException(string exceptionMessage, Exception innerException)
-            : base(exceptionMessage,innerException)
+            : base(exceptionMessage, innerException)
         {
 
         }

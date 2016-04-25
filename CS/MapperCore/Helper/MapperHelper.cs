@@ -15,7 +15,7 @@ namespace MapperExpression.Helper
         internal static object GetDefaultValue(Type typeObject)
         {
             object defaultValue = null;
-            // Dans le cas de type valeur (ex :Integer), il faut instancier l'objet pour avoir sa valeur par défaut
+            // In the case of value types (eg Integer), you must instantiate the object to have its default value.
             if (typeObject.BaseType == typeof(ValueType))
             {
                 NewExpression exp = Expression.New(typeObject);

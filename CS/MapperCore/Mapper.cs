@@ -5,6 +5,7 @@ using MapperExpression.Exceptions;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace MapperExpression
 {
@@ -37,6 +38,7 @@ namespace MapperExpression
             where TSource : class
             where TTarget : class
         {
+            Contract.Requires(source != null);
             TTarget result = null;
             try
             {
@@ -162,7 +164,7 @@ namespace MapperExpression
             foreach (MapperConfigurationBase mapper in configRegister)
             {
                 mapper.CreateMappingExpression(constructorFunc);
-                mapper.CreateMemberAssignementForExistingTarget();
+                mapper.CreateMemberAssignementForExistingTarget(null,null);
             }
         }
 

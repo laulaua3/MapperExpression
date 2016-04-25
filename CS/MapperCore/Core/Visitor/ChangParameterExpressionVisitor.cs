@@ -6,7 +6,8 @@ namespace MapperExpression.Core.Visitor
     internal class ChangParameterExpressionVisitor : ExpressionVisitor
     {
         private Expression _parameter;
-        
+        private ParameterExpression getParameterExpression;
+        private bool getParameter;
         internal ChangParameterExpressionVisitor(Expression parameter)
         {
             _parameter = parameter;
@@ -16,12 +17,37 @@ namespace MapperExpression.Core.Visitor
         {
             if (node != null)
             {
-                if (node.Type == _parameter.Type)
-                    return _parameter;
-                return base.VisitParameter(node);
+                if (!getParameter)
+                {
+                    if (node.Type == _parameter.Type)
+                        return _parameter;
+                    return base.VisitParameter(node);
+                }
+                else
+                {
+                    getParameterExpression = node;
+                }
+                return node;
+                
             }
             return node;
         }
-              
+
+
+        internal ParameterExpression GetParameter()
+        {
+            getParameter = true;
+
+            Visit(_parameter);
+            getParameter = false;
+            return getParameterExpression;
+        }
+        public Expression Parameter
+        {
+            get
+            {
+                return _parameter;
+            }
+        }
     }
 }

@@ -12,13 +12,12 @@ namespace MapperExpression.Core
 
         private bool checkNull;
 
-        private ParameterExpression parameter;
+        private Expression parameter;
 
         private Stack<MemberExpression> membersToCheck;
 
 
-
-        internal ParameterExpression Parameter
+        internal Expression Parameter
         {
             get
             {
@@ -30,12 +29,13 @@ namespace MapperExpression.Core
         #region Constructor
 
 
-        internal MapperExpressionVisitor(ParameterExpression paramClassSource)
+        internal MapperExpressionVisitor(Expression paramClassSource)
         {
 
             parameter = paramClassSource;
             membersToCheck = new Stack<MemberExpression>();
         }
+
 
         #endregion
 
@@ -71,8 +71,17 @@ namespace MapperExpression.Core
                         result = VisitMember((node as UnaryExpression).Operand as MemberExpression);
                         break;
                     case ExpressionType.Lambda:
-                        // to remove validation of the lambda expression
-                        result = base.Visit((node as LambdaExpression).Body);
+                        LambdaExpression lambda = ((LambdaExpression)node);
+                        //Sub expression
+                        if (lambda.Body.NodeType != ExpressionType.Lambda)
+                        {
+                            result = base.Visit(lambda.Body);
+                        }
+                        else
+                        {
+                            return lambda;
+                        }
+
                         break;
                     default:
                         result = base.Visit(node);
@@ -136,7 +145,17 @@ namespace MapperExpression.Core
                 // to remove validation of the lambda expression
                 if ((node.NodeType == ExpressionType.Lambda))
                 {
-                    return base.Visit(((LambdaExpression)node).Body);
+
+                    LambdaExpression lambda = ((LambdaExpression)node);
+                    //Sub expression
+                    if (lambda.Body.NodeType != ExpressionType.Call)
+                    {
+                        return base.Visit(lambda.Body);
+                    }
+                    else
+                    {
+                        return lambda;
+                    }
                 }
                 else
                 {
@@ -154,7 +173,9 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
+
             return parameter;
+
         }
 
         /// <summary>
@@ -169,6 +190,11 @@ namespace MapperExpression.Core
             if (node == null)
             {
                 return node;
+            }
+            if (node.Member.ReflectedType != parameter.Type)
+            {
+                var exp = Visit(node.Expression);
+                return Expression.MakeMemberAccess(exp, node.Member);
             }
             MemberExpression memberAccessExpression = (MemberExpression)base.VisitMember(node);
 

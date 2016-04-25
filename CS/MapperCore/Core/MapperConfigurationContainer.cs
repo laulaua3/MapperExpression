@@ -39,6 +39,7 @@ namespace MapperExpression.Core
             }
         }
 
+
         private MapperConfigurationCollectionContainer()
         {
             items = new List<MapperConfigurationBase>();
@@ -68,7 +69,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Existses the specified predigate.
+        /// Whether mapping exists from the predicate.
         /// </summary>
         /// <param name="match">The predigate.</param>
         internal bool Exists(Predicate<MapperConfigurationBase> match)
@@ -99,7 +100,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Removes at.
+        /// Removes at the index.
         /// </summary>
         /// <param name="index">The index.</param>
         internal void RemoveAt(int index)
@@ -108,7 +109,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Clears this instance.
+        /// Clears all mappers.
         /// </summary>
         internal void Clear()
         {
@@ -116,12 +117,12 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Adds the specified item.
+        /// Adds the mapper.
         /// </summary>
-        /// <param name="item">The item.</param>
-        internal void Add(MapperConfigurationBase item)
+        /// <param name="mapper">The mapper.</param>
+        internal void Add(MapperConfigurationBase mapper)
         {
-            items.Add(item);
+            items.Add(mapper);
         }
 
     }

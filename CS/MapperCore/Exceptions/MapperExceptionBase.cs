@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace MapperExpression.Exceptions
 {
     /// <summary>
-    /// mapper exception 
+    /// Mapper exception. 
     /// </summary>
     [Serializable]
     public class MapperExceptionBase : Exception

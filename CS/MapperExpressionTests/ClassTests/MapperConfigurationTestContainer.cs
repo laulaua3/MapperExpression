@@ -53,9 +53,9 @@ namespace MapperExpression.Tests.Units.ClassTests
         }
 
 
-        public  void CreateMemberAssignementForExistingTest()
+        public void CreateMemberAssignementForExistingTargetTest(Expression parameterSource, Expression parameterTarget)
         {
-            CreateMemberAssignementForExistingTarget();
+            CreateMemberAssignementForExistingTarget(parameterSource, parameterTarget);
         }
 
         internal override void CreateMappingExpression(Func<Type, object> constructor)
