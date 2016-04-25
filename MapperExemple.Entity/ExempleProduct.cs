@@ -4,23 +4,17 @@ using MapperExemple.Entity.Interface;
 using MapperExpression.Extensions;
 using System;
 using System.Collections.Generic;
+
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace MapperExemple.Entity
 {
-    public class ExempleProduct : IExempleProduct
+    public class ExempleProduct : ExempleBase, IExempleProduct
 
     {
 
-        private ExempleDbContext _context;
-
-        public ExempleProduct()
-        {
-            _context = new ExempleDbContext();
-            _context.Database.Log = x => Debug.WriteLine(x);
-        }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int? SupplierId { get; set; }
@@ -37,7 +31,7 @@ namespace MapperExemple.Entity
             IExempleProduct result = null;
 
             result = _context.Products.Select<Product, IExempleProduct>().FirstOrDefault();
-            _context.Dispose();
+            Dispose();
             return result;
         }
 
@@ -45,9 +39,9 @@ namespace MapperExemple.Entity
         {
             List<IExempleProduct> result = null;
 
-
             result = _context.Products.Select<Product, IExempleProduct>().ToList();
-            _context.Dispose();
+
+            Dispose();
             return result;
         }
         public List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
@@ -63,7 +57,7 @@ namespace MapperExemple.Entity
             //Or
 
             result = GetEntities(criterias, selectQuery).Take(10).ToList();
-            _context.Dispose();
+            Dispose();
             return result;
         }
 
@@ -81,44 +75,6 @@ namespace MapperExemple.Entity
         public IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery)
         {
             var result = GetEntities(selectQuery).ToList();
-            _context.Dispose();
-            return result;
-        }
-
-        /// <summary>
-        /// Exemple to make a generic method
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selectQuery"></param>
-        /// <returns></returns>
-        private IQueryable<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
-            where TEntity : class
-        {
-            IQueryable<TResult> result = null;
-
-
-
-            result = _context.Set<TEntity>().Select(selectQuery);
-
-            return result;
-        }
-        /// <summary>
-        /// Exemple to make a generic method with criterias
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TCriterias"></typeparam>
-        /// <param name="criterias"></param>
-        /// <param name="selectQuery"></param>
-        /// <returns></returns>
-        private IQueryable<TResult> GetEntities<TEntity, TCriterias, TResult>(Expression<Func<TCriterias, bool>> criterias, Expression<Func<TEntity, TResult>> selectQuery)
-            where TEntity : class
-        {
-            IQueryable<TResult> result = null;
-            result = _context.Set<TEntity>()
-                .Where(criterias)
-                .Select(selectQuery);
             return result;
         }
     }

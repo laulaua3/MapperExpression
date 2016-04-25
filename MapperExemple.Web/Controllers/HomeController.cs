@@ -33,7 +33,7 @@ namespace MapperExemple.Web.Controllers
 
             Customer result = exemple1.GetFirstCustomer();
             //exemple to Map a object
-            var model = Mapper.Map<Customer, CustomerModel>(result);
+            var model = Mapper<CustomerModel>.Map(result);
 
 
             ViewBag.Message = "Simple exemple to map Customer to CustomerModel";
@@ -126,9 +126,6 @@ namespace MapperExemple.Web.Controllers
                         .Select<Customer, CustomerModel>()
                         .ToList();
             }
-
-
-
             return View(model);
         }
 
@@ -146,7 +143,7 @@ namespace MapperExemple.Web.Controllers
 
             var result = exemple5.GetFirstOrder();
 
-            var model = Mapper.Map<Order, OrderModel>(result);
+            var model = Mapper<OrderModel>.Map(result);
 
             return View(model);
         }
@@ -156,10 +153,10 @@ namespace MapperExemple.Web.Controllers
             ViewBag.Message = "List Exemple for custom mapping";
             //this exemple show how map a IQueryable to List  with custom mapping
             ExempleOrder exemple6 = new ExempleOrder();
-
+            List<OrderModel> model = null;
             var result = exemple6.GetOrders();
             //see sql request in console output
-            var model = result.Select<Order, OrderModel>().ToList();
+            model = result.Select<Order, OrderModel>().ToList();
 
             return View(model);
         }
@@ -177,7 +174,7 @@ namespace MapperExemple.Web.Controllers
 
             var result = exemple7.GetFirstProduct();
 
-            var model = Mapper.Map<IExempleProduct, ProductModel>(result);
+            var model = Mapper<ProductModel>.Map(result);
 
             return View(model);
         }

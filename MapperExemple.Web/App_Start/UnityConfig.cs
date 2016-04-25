@@ -38,10 +38,11 @@ namespace MapperExemple.Web.App_Start
             // container.LoadConfiguration();
             
             // TODO: Register your types here
-           // container.RegisterType<IExempleDbContext, ExempleDbContext>(new PerRequestLifetimeManager());
+            //container.RegisterType<IExempleDbContext, ExempleDbContext>(new PerRequestLifetimeManager());
             container.RegisterType<IExempleProduct, ExempleProduct>(new PerRequestLifetimeManager());
-           
-
+            container.RegisterType<IExempleCustomer, ExempleCustomer>(new PerRequestLifetimeManager());
+            container.RegisterType<IExempleOrder, IExempleOrder>(new PerRequestLifetimeManager());
+            
         }
     }
 

@@ -11,6 +11,7 @@
     <AssemblyName>MapperExemple.Entity</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +112,12 @@
     <Compile Include="EF\EmployeeSalesByCountryReturnModel.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\NorthwingContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthwingContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExempleBase.cs" />
     <Compile Include="ExempleCustomer.cs" />
     <Compile Include="EF\ExempleDbContext.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
@@ -126,6 +133,8 @@
     <Compile Include="EF\IExempleDbContext.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IExempleOrder.cs" />
+    <Compile Include="Interface\IExempleCustomer.cs" />
     <Compile Include="Interface\IExempleProduct.cs" />
     <Compile Include="EF\Invoice.cs">
       <DependentUpon>NorthwingContext.tt</DependentUpon>

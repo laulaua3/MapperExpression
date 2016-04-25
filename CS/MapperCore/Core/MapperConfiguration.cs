@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using MapperExpression.Exception;
+using MapperExpression.Exceptions;
 using System.Diagnostics.Contracts;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MapperExpression.Core
 {
@@ -16,28 +18,32 @@ namespace MapperExpression.Core
     public class MapperConfiguration<TSource, TDest>
         : MapperConfigurationBase
     {
-        #region Variables        
+        #region Variables  
+        private IList<Action<TSource, TDest>> actionsAfterMap;
         /// <summary>
         /// The actions after map
         /// </summary>
-        protected readonly List<Action<TSource, TDest>> actionsAfterMap;
+        protected ReadOnlyCollection<Action<TSource, TDest>> ActionsAfterMap
+        {
+            get
+            {
+                return new ReadOnlyCollection<Action<TSource, TDest>>(actionsAfterMap);
+            }
+        }
 
         #endregion
 
-        #region Constructor
 
         /// <summary>
         /// Instantiates a new instance of<see cref="MapperConfiguration{TSource, TDest}"/> class.
         /// </summary>
-        internal MapperConfiguration()
-            : base(typeof(TSource), typeof(TDest))
+        internal MapperConfiguration(string paramName, string mapperName = null)
+            : base(typeof(TSource), typeof(TDest), paramName, mapperName)
         {
-            propertiesMapping = new List<Tuple<LambdaExpression, LambdaExpression, bool>>();
-            propertiesToIgnore = new List<PropertyInfo>();
+            
+            
             actionsAfterMap = new List<Action<TSource, TDest>>();
         }
-
-        #endregion
 
         #region Public methods
 
@@ -48,7 +54,6 @@ namespace MapperExpression.Core
         public Expression<Func<TSource, TDest>> GetLambdaExpression()
         {
             MemberInitExpression exp = GetMemberInitExpression();
-            // Expression<Func<ClassSource, ClassDestination>> lambdaExecute = (c1) => new ClassDestination() { Test1 = c1.Test1, Test2 = c1.Test2 };
             return Expression.Lambda<Func<TSource, TDest>>(exp, paramClassSource);
         }
 
@@ -66,25 +71,37 @@ namespace MapperExpression.Core
         /// </summary>
         /// <param name="getPropertySource">The get property source.</param>
         /// <param name="getPropertyDest">The get property dest.</param>
-        /// <param name="checkIfNull">Vérifie si la propriété source n'est pas nul avant d'affecté la valeur (récursif)</param>
         /// <returns></returns>
-        public MapperConfiguration<TSource, TDest> ForMember(Expression<Func<TSource, object>> getPropertySource, Expression<Func<TDest, object>> getPropertyDest, bool checkIfNull = false)
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest)
         {
-            //Adding in the list for further processing
-            ForMember(getPropertySource as LambdaExpression, getPropertyDest as LambdaExpression, checkIfNull);
+            // Adding in the list for further processing 
+            ForMemberBase(getPropertySource, getPropertyDest, false);
             return this;
         }
-
+        /// <summary>
+        /// Fors the member.
+        /// </summary>
+        /// <typeparam name="TPropertySource">The type of the property source.</typeparam>
+        /// <typeparam name="TPropertyDest">The type of the property dest.</typeparam>
+        /// <param name="getPropertySource">The get property source.</param>
+        /// <param name="getPropertyDest">The get property dest.</param>
+        /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
+        /// <returns></returns>
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, bool checkIfNull)
+        {
+            // Adding in the list for further processing 
+            ForMemberBase(getPropertySource, getPropertyDest, checkIfNull);
+            return this;
+        }
         /// <summary>
         /// Ignores the specified property dest.
         /// </summary>
         /// <param name="propertyDest">The property dest.</param>
         /// <returns></returns>
-        public MapperConfiguration<TSource, TDest> Ignore(Expression<Func<TDest, object>> propertyDest)
+        public  MapperConfiguration<TSource, TDest> Ignore<TProperty>(Expression<Func<TDest, TProperty>> propertyDest)
         {
-            //Adding in the list for further processing
-            propertiesToIgnore.Add(GetPropertyInfo(propertyDest));
-            return this;
+            
+            return IgnoreBase(propertyDest) as MapperConfiguration<TSource, TDest>;
         }
 
         /// <summary>
@@ -94,7 +111,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> AfterMap(Action<TSource, TDest> actionAfterMap)
         {
-            //Adding in the list for further processing
+            // Adding in the list for further processing
             actionsAfterMap.Add(actionAfterMap);
             return this;
         }
@@ -108,34 +125,45 @@ namespace MapperExpression.Core
         {
             for (int i = 0; i < actionsAfterMap.Count; i++)
             {
-                actionsAfterMap[i](source, dest);
+
+                var action = actionsAfterMap[i];
+                if (action == null)
+                {
+                    throw new NoActionAfterMappingException();
+                }
+                action(source, dest);
             }
         }
 
         /// <summary>
         /// Reverses the map.
         /// </summary>
-        /// <returns>the new Mapper</returns>
-        public MapperConfiguration<TDest, TSource> ReverseMap()
+        /// <param name="name">The name of the mapper.</param>
+        /// <returns>
+        /// the new Mapper
+        /// </returns>
+        /// <exception cref="MapperExistException"></exception>
+        public MapperConfiguration<TDest, TSource> ReverseMap(string name = null)
         {
-            MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false) as MapperConfiguration<TDest, TSource>;
+            MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false, name) as MapperConfiguration<TDest, TSource>;
 
             if (map != null)
             {
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
-            map = new MapperConfiguration<TDest, TSource>();
+            string finalName = string.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count + 1 :name; 
+            map = new MapperConfiguration<TDest, TSource>(finalName);
             CreateCommonMember();
-            //Path is the mapping of existing properties and inverse relationships are created
-            for (int i = 0; i < propertiesMapping.Count; i++)
+            // Path is the mapping of existing properties and inverse relationships are created
+            for (int i = 0; i < PropertiesMapping.Count; i++)
             {
-                Tuple<LambdaExpression, LambdaExpression, bool> item = propertiesMapping[i];
+                Tuple<LambdaExpression, LambdaExpression, bool,string> item = PropertiesMapping[i];
                 PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
-                //If the destination property is not read-only
                 if (propertyDest.CanWrite)
-                    map.ForMember(item.Item2, item.Item1, item.Item3);
+                    map.ForMemberBase(item.Item2, item.Item1, item.Item3);
             }
-            MapperConfigurationContainer.Instance.Add(map);
+
+            MapperConfigurationCollectionContainer.Instance.Add(map);
             return map;
         }
 
@@ -152,69 +180,23 @@ namespace MapperExpression.Core
 
         #region Private methods
 
-        internal override void CreateMappingExpression(Func<Type, object> constructor)
-        {
-            if (!isInitialized)
-            {
-                //it is put before treatment to avoid recursive loops
-                isInitialized = true;
-                constructorFunc = constructor;
-                CreateCommonMember();
-
-                for (int i = 0; i < propertiesMapping.Count; i++)
-                {
-                    LambdaExpression getPropertySource = propertiesMapping[i].Item1;
-                    LambdaExpression getPropertyDest = propertiesMapping[i].Item2;
-                    //We will search the selected properties
-                    PropertyInfo memberSource = GetPropertyInfo(getPropertySource);
-                    PropertyInfo memberDest = GetPropertyInfo(getPropertyDest);
-                    CreateMemberAssignement(memberSource, memberDest);
-                }
-                //creation of delegate
-                GetFuncDelegate();
-            }
-        }
-
         internal LambdaExpression GetSortedExpression(string propertySource)
         {
             Contract.Assert(!string.IsNullOrEmpty(propertySource));
             Expression result = null;
-            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
+            var exp = PropertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
             if (exp == null)
             {
                 throw new PropertyNoExistException(propertySource, typeof(TDest));
             }
-            //To change the parameter
-            var visitor = new MapperExpressionVisitor(false, paramClassSource);
+            // To change the parameter
+            var visitor = new MapperExpressionVisitor(paramClassSource);
             result = visitor.Visit(exp.Item1);
             return Expression.Lambda(result, paramClassSource);
 
         }
 
-        internal PropertyInfo GetPropertyInfoSource(string propertyName)
-        {
-            Contract.Assert(!string.IsNullOrEmpty(propertyName));
-            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertyName);
-            if (exp == null)
-            {
-                throw new PropertyNoExistException(propertyName, typeof(TDest));
-            }
-            var property = GetPropertyInfo(exp.Item2);
-            return property;
-        }
-        internal PropertyInfo GetPropertyInfoDest(string propertyName)
-        {
-            Contract.Assert(!string.IsNullOrEmpty(propertyName));
-            var exp = propertiesMapping.Find(x => GetPropertyInfo(x.Item1).Name == propertyName);
-            if (exp == null)
-            {
-                throw new PropertyNoExistException(propertyName, typeof(TSource));
-            }
-            var property = GetPropertyInfo(exp.Item2);
-            return property;
-        }
 
-       
         #endregion
     }
 }

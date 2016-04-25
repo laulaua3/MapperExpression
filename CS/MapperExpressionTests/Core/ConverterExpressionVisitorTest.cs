@@ -1,9 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MapperExpression.Core;
-using System.Linq.Expressions;
+﻿using MapperExpression.Core.Visitor;
 using MapperExpression.Tests.Units.ClassTests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 namespace MapperExpression.Tests.Units.Core
 {
     [TestClass]
@@ -33,9 +35,10 @@ namespace MapperExpression.Tests.Units.Core
         public void VisitMember_Expression_SimpleProperty_Success()
         {
             Init(null);
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test";
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassSource)), typeof(ClassSource));
+
+            
             Expression actual = null;
 
             actual = visitor.Visit(expected);
@@ -53,17 +56,17 @@ namespace MapperExpression.Tests.Units.Core
         public void VisitMember_Expression_SubClassProperty_Success()
         {
             Init(null);
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
-            Expression<Func<ClassDest, bool>> expected = x => x.SubClass.PropString2 == "test";
+         
+            Expression<Func<ClassSource, bool>> expected = x => x.SubClass.PropString1 == "test";
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassDest)), typeof(ClassDest));
             Expression actual = null;
 
             actual = visitor.Visit(expected);
             var test = actual as BinaryExpression;
             Assert.IsNotNull(test);
             Assert.IsInstanceOfType(test.Left, typeof(MemberExpression));
-            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassSource2));
-            Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString1");
+            Assert.AreEqual((test.Left as MemberExpression).Member.ReflectedType, typeof(ClassDest2));
+            Assert.AreEqual((test.Left as MemberExpression).Member.Name, "PropString2");
 
         }
 
@@ -72,9 +75,10 @@ namespace MapperExpression.Tests.Units.Core
         public void VisitMember_Expression_SimpleProperty_MultiCondition_Success()
         {
             Init(null);
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test" && x.PropString2 == "test3";
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassSource)), typeof(ClassSource));
+
+          
             Expression actual = null;
 
             actual = visitor.Visit(expected);
@@ -92,9 +96,9 @@ namespace MapperExpression.Tests.Units.Core
         public void VisitMember_Expression_SimpleProperty_MultiCondition_SubClass_Success()
         {
             Init(null);
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test" && x.SubClass.PropString2 == "test";
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassSource)), typeof(ClassSource));
+
             Expression actual = null;
 
             actual = visitor.Visit(expected);
@@ -117,10 +121,10 @@ namespace MapperExpression.Tests.Units.Core
                 .ForMember(s => s.PropString2, d => d.PropString1)
                 .ForMember(s => s.SubClass, d => d.SubClass)
                 .ForMember(s => s.CountListProp, d => d.ListProp.Count());
-                
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
             Expression<Func<ClassDest, bool>> expected = x => x.CountListProp > 0;
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassSource)), typeof(ClassSource));
+
+          
             Expression actual = null;
 
             actual = visitor.Visit(expected);
@@ -135,14 +139,33 @@ namespace MapperExpression.Tests.Units.Core
         public void Visit_Null_Expression_Success()
         {
             Init(null);
-            ConverterExpressionVisitor<ClassDest, ClassSource> visitor = new ConverterExpressionVisitor<ClassDest, ClassSource>();
-
             Expression<Func<ClassDest, bool>> expected = null;
+            ConverterExpressionVisitor visitor = new ConverterExpressionVisitor(GetParametersDictionnary(expected, typeof(ClassSource)), typeof(ClassSource));
+
+
+
             Expression actual = null;
 
             actual = visitor.Visit(expected);
     
             Assert.IsNull(actual);
+        }
+
+        private Dictionary<Expression, Expression> GetParametersDictionnary<TFrom>(Expression<TFrom> from, Type toType)
+        {
+            Dictionary<Expression, Expression> parameterMap
+             = new Dictionary<Expression, Expression>();
+            if (from != null)
+            {
+                ParameterExpression[] newParams =
+                    new ParameterExpression[from.Parameters.Count];
+                for (int i = 0; i < newParams.Length; i++)
+                {
+                    newParams[i] = Expression.Parameter(toType, from.Parameters[i].Name);
+                    parameterMap[from.Parameters[i]] = newParams[i];
+                }
+            }
+            return parameterMap;
         }
     }
 }
