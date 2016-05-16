@@ -75,7 +75,7 @@ namespace MapperExpression.Core
                         //Sub expression
                         if (lambda.Body.NodeType != ExpressionType.Lambda)
                         {
-                            result = base.Visit(lambda.Body);
+                            result = Visit(lambda.Body);
                         }
                         else
                         {

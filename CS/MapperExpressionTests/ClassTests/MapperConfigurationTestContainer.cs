@@ -31,7 +31,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         {
             return GetMapper(tSource, tDest, throwExceptionOnNoFound);
         }
-        public void CheckAndConfigureMappingTest(Tuple<LambdaExpression, LambdaExpression, bool,string> configExpression)
+        public void CheckAndConfigureMappingTest(Tuple<Expression, Expression, bool,string> configExpression)
         {
             CheckAndConfigureMapping(configExpression);
         }
@@ -53,9 +53,9 @@ namespace MapperExpression.Tests.Units.ClassTests
         }
 
 
-        public void CreateMemberAssignementForExistingTargetTest(Expression parameterSource, Expression parameterTarget)
+        public void CreateMemberAssignementForExistingTargetTest()
         {
-            CreateMemberAssignementForExistingTarget(parameterSource, parameterTarget);
+            CreateMemberAssignementForExistingTarget();
         }
 
         internal override void CreateMappingExpression(Func<Type, object> constructor)

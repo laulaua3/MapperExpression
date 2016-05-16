@@ -16,6 +16,14 @@ namespace MapperExpression.Core
         private List<MapperConfigurationBase> items;
         private static MapperConfigurationCollectionContainer currentInstance;
 
+        /// <summary>
+        /// Prevents a default instance of the <see cref="MapperConfigurationCollectionContainer"/> class from being created.
+        /// </summary>
+        private MapperConfigurationCollectionContainer()
+        {
+            items = new List<MapperConfigurationBase>();
+        }
+
         internal static MapperConfigurationCollectionContainer Instance
         {
             get
@@ -39,11 +47,22 @@ namespace MapperExpression.Core
             }
         }
 
-
-        private MapperConfigurationCollectionContainer()
+        /// <summary>
+        /// Gets the <see cref="MapperConfigurationBase"/> at the specified index.
+        /// </summary>
+        /// <value>
+        /// The <see cref="MapperConfigurationBase"/>.
+        /// </value>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
+        internal MapperConfigurationBase this[ int index]
         {
-            items = new List<MapperConfigurationBase>();
+            get
+            {
+                return items[index];
+            }
         }
+       
 
         /// <summary>
         /// Finds the specified source.
@@ -124,6 +143,5 @@ namespace MapperExpression.Core
         {
             items.Add(mapper);
         }
-
     }
 }

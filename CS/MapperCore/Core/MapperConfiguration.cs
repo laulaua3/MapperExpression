@@ -40,8 +40,7 @@ namespace MapperExpression.Core
         internal MapperConfiguration(string paramName, string mapperName = null)
             : base(typeof(TSource), typeof(TDest), paramName, mapperName)
         {
-            
-            
+
             actionsAfterMap = new List<Action<TSource, TDest>>();
         }
 
@@ -75,7 +74,7 @@ namespace MapperExpression.Core
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest)
         {
             // Adding in the list for further processing 
-            ForMemberBase(getPropertySource, getPropertyDest, false);
+            ForMemberBase(getPropertySource.Body, getPropertyDest.Body, false);
             return this;
         }
         /// <summary>
@@ -90,7 +89,22 @@ namespace MapperExpression.Core
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, bool checkIfNull)
         {
             // Adding in the list for further processing 
-            ForMemberBase(getPropertySource, getPropertyDest, checkIfNull);
+            ForMemberBase(getPropertySource.Body, getPropertyDest.Body, checkIfNull);
+            return this;
+        }
+        /// <summary>
+        /// Fors the member.
+        /// </summary>
+        /// <typeparam name="TPropertySource">The type of the property source.</typeparam>
+        /// <typeparam name="TPropertyDest">The type of the property dest.</typeparam>
+        /// <param name="getPropertySource">The get property source.</param>
+        /// <param name="getPropertyDest">The get property dest.</param>
+        /// <param name="mapperName">Name of the mapper.</param>
+        /// <returns></returns>
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, string mapperName)
+        {
+            // Adding in the list for further processing 
+            ForMemberBase(getPropertySource.Body, getPropertyDest.Body, true, mapperName);
             return this;
         }
         /// <summary>
@@ -98,9 +112,9 @@ namespace MapperExpression.Core
         /// </summary>
         /// <param name="propertyDest">The property dest.</param>
         /// <returns></returns>
-        public  MapperConfiguration<TSource, TDest> Ignore<TProperty>(Expression<Func<TDest, TProperty>> propertyDest)
+        public MapperConfiguration<TSource, TDest> Ignore<TProperty>(Expression<Func<TDest, TProperty>> propertyDest)
         {
-            
+
             return IgnoreBase(propertyDest) as MapperConfiguration<TSource, TDest>;
         }
 
@@ -145,26 +159,47 @@ namespace MapperExpression.Core
         /// <exception cref="MapperExistException"></exception>
         public MapperConfiguration<TDest, TSource> ReverseMap(string name = null)
         {
-            MapperConfiguration<TDest, TSource> map = GetMapper(typeof(TDest), typeof(TSource), false, name) as MapperConfiguration<TDest, TSource>;
+            MapperConfigurationBase map = GetMapper(typeof(TDest), typeof(TSource), false, name) ;
 
             if (map != null)
             {
                 throw new MapperExistException(typeof(TDest), typeof(TSource));
             }
-            string finalName = string.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count + 1 :name; 
+            string finalName = string.IsNullOrEmpty(name) ? "s" + (MapperConfigurationCollectionContainer.Instance.Count).ToString() : name;
             map = new MapperConfiguration<TDest, TSource>(finalName);
+            MapperConfigurationCollectionContainer.Instance.Add(map);
             CreateCommonMember();
+           
             // Path is the mapping of existing properties and inverse relationships are created
             for (int i = 0; i < PropertiesMapping.Count; i++)
             {
-                Tuple<LambdaExpression, LambdaExpression, bool,string> item = PropertiesMapping[i];
+                Tuple<Expression, Expression, bool, string> item = PropertiesMapping[i];
                 PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
                 if (propertyDest.CanWrite)
-                    map.ForMemberBase(item.Item2, item.Item1, item.Item3);
+                {
+                    string mapperName = string.Empty;
+                    if (!string.IsNullOrEmpty(item.Item4))
+                    {
+                        //Find the reverse mapper
+                        var reverseMapper = GetMapper(item.Item2.Type, item.Item1.Type, false);
+                        if(reverseMapper !=null)
+                        {
+                            map.ForMemberBase(item.Item2, item.Item1, item.Item3, reverseMapper.Name);
+                        }
+                    }
+                    else
+                    {
+                        if (item.Item1.NodeType == ExpressionType.MemberAccess)
+                        {
+                            map.ForMemberBase(item.Item2, item.Item1, item.Item3, item.Item4);
+                        }
+                    }
+                    
+                }
             }
 
-            MapperConfigurationCollectionContainer.Instance.Add(map);
-            return map;
+           
+            return map as MapperConfiguration<TDest, TSource>;
         }
 
         /// <summary>
@@ -178,25 +213,5 @@ namespace MapperExpression.Core
 
         #endregion
 
-        #region Private methods
-
-        internal LambdaExpression GetSortedExpression(string propertySource)
-        {
-            Contract.Assert(!string.IsNullOrEmpty(propertySource));
-            Expression result = null;
-            var exp = PropertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
-            if (exp == null)
-            {
-                throw new PropertyNoExistException(propertySource, typeof(TDest));
-            }
-            // To change the parameter
-            var visitor = new MapperExpressionVisitor(paramClassSource);
-            result = visitor.Visit(exp.Item1);
-            return Expression.Lambda(result, paramClassSource);
-
-        }
-
-
-        #endregion
     }
 }

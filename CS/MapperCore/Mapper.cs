@@ -38,7 +38,9 @@ namespace MapperExpression
             where TSource : class
             where TTarget : class
         {
-            Contract.Requires(source != null);
+            // No source, no target.
+            if (source == null)
+                return null;
             TTarget result = null;
             try
             {
@@ -70,6 +72,9 @@ namespace MapperExpression
          where TSource : class
          where TTarget : class
         {
+
+            Contract.Requires(source != null);
+            Contract.Requires(target != null);
             TTarget result = null;
             try
             {
@@ -115,7 +120,7 @@ namespace MapperExpression
             MapperConfigurationBase map = MapperConfigurationCollectionContainer.Instance.Find(typeof(TSource), typeof(TTarget), name);
             if (map == null)
             {
-                string finalName = String.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count : name;
+                string finalName = string.IsNullOrEmpty(name) ? "s" + MapperConfigurationCollectionContainer.Instance.Count.ToString() : name;
                 map = new MapperConfiguration<TSource, TTarget>(finalName);
                 MapperConfigurationCollectionContainer.Instance.Add(map);
             }
@@ -160,12 +165,12 @@ namespace MapperExpression
         public static void Initialize()
         {
             MapperConfigurationCollectionContainer configRegister = MapperConfigurationCollectionContainer.Instance;
-
-            foreach (MapperConfigurationBase mapper in configRegister)
+            for (int i = 0; i < configRegister.Count; i++)
             {
-                mapper.CreateMappingExpression(constructorFunc);
-                mapper.CreateMemberAssignementForExistingTarget(null,null);
+                configRegister[i].Initialize(constructorFunc);
             }
+
+
         }
 
         /// <summary>
@@ -188,7 +193,7 @@ namespace MapperExpression
             where TDest : class
         {
             var mapper = GetMapper<TSource, TDest>(name);
-            return mapper.GetPropertiesNotMapped();  
+            return mapper.GetPropertiesNotMapped();
         }
         #endregion
 
