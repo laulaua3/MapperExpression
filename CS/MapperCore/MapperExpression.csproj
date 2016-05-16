@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CanCreateConfig.cs" />
     <Compile Include="Core\PropertiesNotMapped.cs" />
     <Compile Include="Core\Visitor\ChangParameterExpressionVisitor.cs" />
     <Compile Include="Core\Visitor\ConverterExpressionVisitor.cs" />

@@ -2,7 +2,6 @@
 using System.Linq;
 using MapperExpression.Core;
 using System.Linq.Expressions;
-using System.Reflection;
 namespace MapperExpression.Extensions
 {
     /// <summary>
@@ -86,6 +85,7 @@ namespace MapperExpression.Extensions
         {
             return GetSelect<TSource, TTarget>(query, null);
         }
+
         /// <summary>
         /// Projects each element of a sequence into a new form by incorporating the destination object.
         /// </summary>
@@ -101,8 +101,6 @@ namespace MapperExpression.Extensions
             return GetSelect<TSource, TTarget>(query, mapperName);
         }
 
-
-        
         /// <summary>
         /// Filter a sequence of values based on a predicate.
         /// </summary>
@@ -139,13 +137,13 @@ namespace MapperExpression.Extensions
         }
 
         private static IQueryable<TTarget> GetSelect<TSource, TTarget>(IQueryable<TSource> query, string mapperName)
-             where TSource : class
+            where TSource : class
             where TTarget : class
         {
             // it's the same don't need mapper
             if (typeof(TSource) == typeof(TTarget))
             {
-                return query as IQueryable<TTarget>;
+                return (IQueryable<TTarget>)query;
             }
             return query.Select(Mapper.GetMapper<TSource, TTarget>(mapperName).GetLambdaExpression());
         }

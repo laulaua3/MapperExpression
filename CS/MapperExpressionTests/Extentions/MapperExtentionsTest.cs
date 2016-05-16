@@ -16,7 +16,6 @@ namespace MapperExpression.Tests.Units.Extentions
             //Create the default map for the test
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2)
-                .ForMember(s => s.SubClass, d => d.SubClass)
                 .ReverseMap();
             Mapper.CreateMap<ClassDest2, ClassSource2>()
                 .ForMember(s => s.PropString2, d => d.PropString1)

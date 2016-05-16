@@ -63,7 +63,7 @@ namespace MapperExpression.Tests.Units.Core
 
             actual = expected.Visit(exp, true);
 
-            Assert.IsTrue(actual.NodeType == ExpressionType.Conditional);
+            Assert.IsTrue(actual.NodeType == ExpressionType.MemberAccess);
         }
         [TestMethod, TestCategory("Visit")]
         public void Visit_ExpressionSubClassCheckIfNull_DefaultValueConstant_ReturnExpression()
@@ -74,7 +74,7 @@ namespace MapperExpression.Tests.Units.Core
 
             actual = expected.Visit(exp, true);
 
-            Assert.IsTrue(actual.NodeType == ExpressionType.Conditional);
+            Assert.IsTrue(actual.NodeType == ExpressionType.MemberAccess);
         }
         [TestMethod, TestCategory("Visit")]
         public void Visit_ParameterExpression_CheckIfNull_IsTrue_Expression()
