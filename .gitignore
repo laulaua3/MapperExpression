@@ -47,5 +47,6 @@ obj/
 *.dll
 .vs/MapperExpression/v14/.suo
 *.coverage
-*.suo
-.vs/MapperExpression/v14/.suo
+.TestResults
+.packages
+/packages
