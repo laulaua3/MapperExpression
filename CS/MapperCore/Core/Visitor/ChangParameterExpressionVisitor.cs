@@ -5,7 +5,7 @@ namespace MapperExpression.Core.Visitor
 {
     internal class ChangParameterExpressionVisitor : ExpressionVisitor
     {
-        private Expression[] _parameter;      
+        private Expression[] _parameter;
         internal ChangParameterExpressionVisitor(params Expression[] parameter)
         {
             _parameter = parameter;
@@ -13,17 +13,15 @@ namespace MapperExpression.Core.Visitor
 
         protected override Expression VisitParameter(ParameterExpression node)
         {
+            //Yes it's possible
             if (node != null)
             {
-                
-
-                    Expression returnParameter = _parameter.FirstOrDefault(x => x.Type == node.Type);
-                    if (returnParameter !=null)
-                        return returnParameter;
-                    return base.VisitParameter(node); 
+                Expression returnParameter = _parameter.FirstOrDefault(x => x.Type == node.Type);
+                if (returnParameter != null)
+                    return returnParameter;
             }
             return node;
         }
-       
+
     }
 }

@@ -440,12 +440,9 @@ namespace MapperExpression.Core
 
             if (propertiesMapping.Count > 0)
             {
-
-               
                 // For change the parameter of the original expression.
-                var paramSource = paramClassSource ;
                 var paramTarget = Expression.Parameter(TargetType, paramClassSource.Name.Replace("s", "t")) ;
-                ChangParameterExpressionVisitor visitSource = new ChangParameterExpressionVisitor(paramSource);
+                ChangParameterExpressionVisitor visitSource = new ChangParameterExpressionVisitor(paramClassSource);
                 ChangParameterExpressionVisitor visitTarget = new ChangParameterExpressionVisitor(paramTarget);
 
                 List<Expression> finalAssign = new List<Expression>();
@@ -472,6 +469,10 @@ namespace MapperExpression.Core
                             {
                                 finalAssign.Add(Expression.Assign(propToAssign, assignExpression));
                             }
+                            else
+                            {
+                                //TODO List
+                            }
                         }
 
                     }
@@ -497,7 +498,7 @@ namespace MapperExpression.Core
                 }
                 if (finalAssign.Count > 0 && delegateCallForExisting == null)
                 {
-                    expressionForExisting = Expression.Lambda(Expression.Block(typeof(void), finalAssign), paramSource, paramTarget);
+                    expressionForExisting = Expression.Lambda(Expression.Block(typeof(void), finalAssign), paramClassSource, paramTarget);
                     // Assign the delegate
                     delegateCallForExisting = expressionForExisting.Compile();
                 }

@@ -217,7 +217,7 @@ namespace MapperExpression
     /// <typeparam name="TTarget">The type of the dest.</typeparam>
     public static class Mapper<TTarget>
          where TTarget : class
-    {
+    { 
         /// <summary>
         /// Maps the specified source.
         /// </summary>
