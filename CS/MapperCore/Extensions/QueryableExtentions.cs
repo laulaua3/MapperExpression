@@ -147,6 +147,7 @@ namespace MapperExpression.Extensions
             }
             return query.Select(Mapper.GetMapper<TSource, TTarget>(mapperName).GetLambdaExpression());
         }
+
         #endregion
     }
 }

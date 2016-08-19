@@ -54,7 +54,7 @@ namespace MapperExpression.Core.Visitor
                 Expression expression = null;
                 switch (node.NodeType)
                 {
-                    // to remove validation of the lambda expression.
+                    // To remove validation of the lambda expression.
                     case ExpressionType.Lambda:
 
                         expression = base.Visit((node as LambdaExpression).Body);

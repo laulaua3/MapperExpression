@@ -110,6 +110,11 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("GetQueryExpression")]
         public void GetQueryExpression_ReturnExpression()
         {
+            Clean();
+            
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.PropString1, d => d.PropString2);
+
             Mapper.Initialize();
 
             Expression<Func<ClassSource, ClassDest>> actual = null;

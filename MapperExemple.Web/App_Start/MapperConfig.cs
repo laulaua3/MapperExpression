@@ -3,6 +3,7 @@ using MapperExemple.Entity.Interface;
 using MapperExemple.Web.Models;
 using MapperExpression;
 using Microsoft.Practices.ServiceLocation;
+using Nelibur.ObjectMapper;
 using System.Diagnostics;
 using System.Web.Mvc;
 
@@ -63,6 +64,18 @@ namespace MapperExemple.Web.App_Start
 
                 cfg.Seal();
             });
+
+            //TinyMapper don't find Ioc
+            TinyMapper.Bind<Customer, CustomerModel>();
+
+            //For exemple with custom mapping
+            TinyMapper.Bind<Order, OrderModel>((config) =>
+            {
+                config.Bind(s => s.Customer.CompanyName, d => d.CustomerName);
+                
+            });
+            TinyMapper.Bind<OrderDetail, OrderDetailModel>();
+            TinyMapper.Bind<Product, ProductModel>();
         }
     }
 }

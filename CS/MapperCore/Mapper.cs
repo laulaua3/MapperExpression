@@ -53,7 +53,7 @@ namespace MapperExpression
                     mapper.ExecuteAfterActions(source, result);
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -87,7 +87,7 @@ namespace MapperExpression
                     mapper.ExecuteAfterActions(source, result);
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -126,6 +126,7 @@ namespace MapperExpression
             }
             return map as MapperConfiguration<TSource, TTarget>;
         }
+     
         /// <summary>
         /// Indicates the injection service used
         /// </summary>
@@ -143,6 +144,7 @@ namespace MapperExpression
         {
             MapperConfigurationCollectionContainer.Instance.Clear();
         }
+   
         /// <summary>
         /// Gets the mapper.
         /// </summary>
@@ -155,7 +157,7 @@ namespace MapperExpression
             where TDest : class
         {
 
-            return (GetMapper(typeof(TSource), typeof(TDest), name) as MapperConfiguration<TSource, TDest>);
+            return GetMapper(typeof(TSource), typeof(TDest), name) as MapperConfiguration<TSource, TDest>;
 
         }
         /// <summary>
@@ -169,8 +171,6 @@ namespace MapperExpression
             {
                 configRegister[i].Initialize(constructorFunc);
             }
-
-
         }
 
         /// <summary>

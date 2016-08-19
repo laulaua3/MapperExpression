@@ -95,7 +95,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Core\CanCreateConfig.cs" />
     <Compile Include="Core\PropertiesNotMapped.cs" />
+    <Compile Include="Core\TypePairMapper.cs" />
     <Compile Include="Core\Visitor\ChangParameterExpressionVisitor.cs" />
     <Compile Include="Core\Visitor\ConverterExpressionVisitor.cs" />
     <Compile Include="Core\MapperConfiguration.cs" />
