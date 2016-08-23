@@ -49,3 +49,4 @@ obj/
 *.coverage
 /TestResults
 /packages
+/MapperExpression.Nuget

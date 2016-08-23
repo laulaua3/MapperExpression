@@ -20,6 +20,7 @@ namespace MapperExpression.Helper
             {
                 NewExpression exp = Expression.New(typeObject);
                 LambdaExpression lambda = Expression.Lambda(exp);
+                // Yes, we know that this is a consumer.
                 Delegate constructor = lambda.Compile();
                 defaultValue = constructor.DynamicInvoke();
             }
