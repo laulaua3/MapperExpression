@@ -1,18 +1,14 @@
-﻿using MapperExpression.Core;
-using MapperExpression.Core.Visitor;
+﻿using MapperExpression.Core.Visitor;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace MapperExpression.Extensions
 {
     /// <summary>
     /// Extentions of the mapper
     /// </summary>
-    public static class MapperExtentions
+    public static class ExpressionExtentions
     {
 
         /// <summary>

@@ -466,7 +466,8 @@ namespace MapperExpression.Core
                     Type targetType = TypeSystem.GetElementType(item.Item1.Type);
                     if (string.IsNullOrEmpty(item.Item4))
                     {
-                        Expression defaultExpression = Expression.Constant(MapperHelper.GetDefaultValue(item.Item2.Type),item.Item2.Type);
+                        object defaultValue = MapperHelper.GetDefaultValue(item.Item2.Type);
+                        Expression defaultExpression = Expression.Constant(defaultValue, item.Item2.Type);
                         Expression checkIfNull = Expression.NotEqual(assignExpression, defaultExpression);
                         if (item.Item3)
                         {

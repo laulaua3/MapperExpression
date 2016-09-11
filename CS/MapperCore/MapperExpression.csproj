@@ -127,7 +127,7 @@
     <Compile Include="Exceptions\NotSameTypePropertyException.cs" />
     <Compile Include="Exceptions\PropertyNoExistException.cs" />
     <Compile Include="Exceptions\ReadOnlyPropertyException.cs" />
-    <Compile Include="Extensions\MapperExtentions.cs" />
+    <Compile Include="Extensions\ExpressionExtentions.cs" />
     <Compile Include="Extensions\QueryableExtentions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helper\MapperHelper.cs" />
