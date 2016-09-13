@@ -62,22 +62,24 @@ namespace MapperExpression.Core
         {
             get
             {
+                if (index > items.Count)
+                    throw new IndexOutOfRangeException();
+                // We use this for the performance (yes it's better).
                 var enumerator = GetEnumerator();
-                
+
                 int i = 0;
                 while (enumerator.MoveNext())
                 {
                     if (i == index)
                     {
                         return enumerator.Current;
-                
+
                     }
                     i++;
                 }
                 return null;
             }
         }
-
 
         /// <summary>
         /// Finds the specified source.
@@ -87,6 +89,7 @@ namespace MapperExpression.Core
         /// <param name="name">The name.</param>
         internal MapperConfigurationBase Find(Type source, Type target, string name = null)
         {
+            // We use this for the performance (yes it's better).
             var enumerator = GetEnumerator();
             while (enumerator.MoveNext())
             {
@@ -106,7 +109,7 @@ namespace MapperExpression.Core
         internal bool Exists(Func<MapperConfigurationBase, bool> match)
         {
             var enumerator = GetEnumerator();
-
+            // We use this for the performance (yes it's better).
             while (enumerator.MoveNext())
             {
                 if (match(enumerator.Current))
@@ -117,8 +120,6 @@ namespace MapperExpression.Core
             }
             return false;
         }
-
-
 
         /// <summary>
         /// Removes at the index.
