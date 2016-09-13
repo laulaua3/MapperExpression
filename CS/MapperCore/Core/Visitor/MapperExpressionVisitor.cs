@@ -28,7 +28,6 @@ namespace MapperExpression.Core
 
         #region Constructor
 
-
         internal MapperExpressionVisitor(Expression paramClassSource)
         {
 
@@ -173,9 +172,7 @@ namespace MapperExpression.Core
         /// </returns>
         protected override Expression VisitParameter(ParameterExpression node)
         {
-
             return parameter;
-
         }
 
         /// <summary>
@@ -232,7 +229,5 @@ namespace MapperExpression.Core
         }
 
         #endregion
-
-
     }
 }

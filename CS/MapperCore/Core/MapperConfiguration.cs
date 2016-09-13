@@ -62,7 +62,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public Func<TSource, TDest> GetFuncDelegate()
         {
-            return GetDelegate() as Func<TSource, TDest>;
+            return (Func<TSource, TDest>)GetDelegate();
         }
 
         /// <summary>
@@ -137,15 +137,18 @@ namespace MapperExpression.Core
         /// <param name="dest">The dest.</param>
         public void ExecuteAfterActions(TSource source, TDest dest)
         {
-            for (int i = 0; i < actionsAfterMap.Count; i++)
+            if (actionsAfterMap.Count > 0)
             {
-
-                var action = actionsAfterMap[i];
-                if (action == null)
+                for (int i = 0; i < actionsAfterMap.Count; i++)
                 {
-                    throw new NoActionAfterMappingException();
+
+                    var action = actionsAfterMap[i];
+                    if (action == null)
+                    {
+                        throw new NoActionAfterMappingException();
+                    }
+                    action(source, dest);
                 }
-                action(source, dest);
             }
         }
 
@@ -159,7 +162,7 @@ namespace MapperExpression.Core
         /// <exception cref="MapperExistException"></exception>
         public MapperConfiguration<TDest, TSource> ReverseMap(string name = null)
         {
-            MapperConfigurationBase map = GetMapper(typeof(TDest), typeof(TSource), false, name) ;
+            MapperConfigurationBase map = GetMapper(typeof(TDest), typeof(TSource), false, name);
 
             if (map != null)
             {
@@ -169,7 +172,7 @@ namespace MapperExpression.Core
             map = new MapperConfiguration<TDest, TSource>(finalName);
             MapperConfigurationCollectionContainer.Instance.Add(map);
             CreateCommonMember();
-           
+
             // Path is the mapping of existing properties and inverse relationships are created
             for (int i = 0; i < PropertiesMapping.Count; i++)
             {
@@ -182,7 +185,7 @@ namespace MapperExpression.Core
                     {
                         //Find the reverse mapper
                         var reverseMapper = GetMapper(item.Item2.Type, item.Item1.Type, false);
-                        if(reverseMapper !=null)
+                        if (reverseMapper != null)
                         {
                             map.ForMemberBase(item.Item2, item.Item1, item.Item3, reverseMapper.Name);
                         }
@@ -194,11 +197,11 @@ namespace MapperExpression.Core
                             map.ForMemberBase(item.Item2, item.Item1, item.Item3, item.Item4);
                         }
                     }
-                    
+
                 }
             }
 
-           
+
             return map as MapperConfiguration<TDest, TSource>;
         }
 

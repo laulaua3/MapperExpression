@@ -103,17 +103,17 @@
         <member name="T:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances">
             <summary>Définir des shims pour tous les membres des instances</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndConfigureMappingTupleOfExpressionExpressionBooleanString">
-            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMapping(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndConfigureMappingTupleOfExpressionExpressionBooleanStringRef">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMapping(Tuple`4&lt;Expression,Expression,Boolean,String&gt;&amp; configExpression)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CheckAndRemoveMemberDestString">
             <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreatBindingFromSimpleTupleOfExpressionExpressionBooleanStringTypeTypePropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.CreatBindingFromSimple(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreatBindingFromSimpleTupleOfExpressionExpressionBooleanStringRefTypeTypePropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CreatBindingFromSimple(Tuple`4&lt;Expression,Expression,Boolean,String&gt;&amp; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateBindingFromListTupleOfExpressionExpressionBooleanStringTypeTypePropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.CreateBindingFromList(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateBindingFromListTupleOfExpressionExpressionBooleanStringRefTypeTypePropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.CreateBindingFromList(Tuple`4&lt;Expression,Expression,Boolean,String&gt;&amp; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.CreateCommonMember">
             <summary>Définit le shim de MapperConfigurationBase.CreateCommonMember()</summary>
@@ -214,20 +214,14 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CanCreateConfigTypeType">
             <summary>Définit le shim de MapperConfigurationBase.CanCreateConfig(Type typeSource, Type typeTarget)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CheckAndConfigureMappingTupleOfExpressionExpressionBooleanString">
-            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMapping(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CheckAndConfigureMappingTupleOfExpressionExpressionBooleanStringRef">
+            <summary>Définit le shim de MapperConfigurationBase.CheckAndConfigureMapping(Tuple`4&lt;Expression,Expression,Boolean,String&gt;&amp; configExpression)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CheckAndRemoveMemberDestString">
             <summary>Définit le shim de MapperConfigurationBase.CheckAndRemoveMemberDest(String properyName)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.ConstructorTypeTypeStringString">
             <summary>Définit le shim de MapperConfigurationBase.MapperConfigurationBase(Type source, Type destination, String paramName, String name)</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreatBindingFromSimpleTupleOfExpressionExpressionBooleanStringTypeTypePropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.CreatBindingFromSimple(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
-        </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateBindingFromListTupleOfExpressionExpressionBooleanStringTypeTypePropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.CreateBindingFromList(Tuple`4&lt;Expression,Expression,Boolean,String&gt; configExpression, Type typeSource, Type typeTarget, PropertyInfo propTarget)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.CreateCommonMember">
             <summary>Définit le shim de MapperConfigurationBase.CreateCommonMember()</summary>
@@ -335,13 +329,13 @@
             <summary>Initialise un nouveau shim pour l&apos;instance donnée</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AddMapperConfigurationBase">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Add(MapperConfigurationBase mapper)</summary>
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Add(MapperConfigurationBase value)</summary>
         </member>
         <member name="T:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances">
             <summary>Définir des shims pour tous les membres des instances</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.AddMapperConfigurationBase">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Add(MapperConfigurationBase mapper)</summary>
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Add(MapperConfigurationBase value)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.Clear">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.Clear()</summary>
@@ -349,8 +343,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.CountGet">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.get_Count()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.ExistsPredicateOfMapperConfigurationBase">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.ExistsFuncOfMapperConfigurationBaseBoolean">
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Func`2&lt;MapperConfigurationBase,Boolean&gt; match)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.Find(Type source, Type target, String name)</summary>
@@ -391,8 +385,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.CountGet">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.get_Count()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.ExistsPredicateOfMapperConfigurationBase">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.ExistsFuncOfMapperConfigurationBaseBoolean">
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Func`2&lt;MapperConfigurationBase,Boolean&gt; match)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.Find(Type source, Type target, String name)</summary>
@@ -411,6 +405,9 @@
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.SystemCollectionsIEnumerableGetEnumerator">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.System.Collections.IEnumerable.GetEnumerator()</summary>
+        </member>
+        <member name="T:Microsoft.QualityTools.Testing.Fakes.Delegates.MapperExpressionDelegates">
+            <summary>Contient des délégués personnalisés utilisés pour les stubs et les shims de MapperExpression</summary>
         </member>
     </members>
 </doc>

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace MapperExpression.Core
 {
     /// <summary>
-    /// Singleton storage mappers
+    /// Singleton storage mappers.
     /// </summary>
-    /// <remarks>Don't need a lazy singleton because this is for all thread</remarks>
+    /// <remarks>Don't need a lazy singleton because this is for all thread.</remarks>
     internal class MapperConfigurationCollectionContainer :
         IEnumerable<MapperConfigurationBase>
     {
 
-        private List<MapperConfigurationBase> items;
+        private HashSet<MapperConfigurationBase> items;
         private static MapperConfigurationCollectionContainer currentInstance;
 
         /// <summary>
@@ -21,8 +21,10 @@ namespace MapperExpression.Core
         /// </summary>
         private MapperConfigurationCollectionContainer()
         {
-            items = new List<MapperConfigurationBase>();
+            items = new HashSet<MapperConfigurationBase>();
+
         }
+
 
         internal static MapperConfigurationCollectionContainer Instance
         {
@@ -47,6 +49,7 @@ namespace MapperExpression.Core
             }
         }
 
+
         /// <summary>
         /// Gets the <see cref="MapperConfigurationBase"/> at the specified index.
         /// </summary>
@@ -55,14 +58,28 @@ namespace MapperExpression.Core
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        internal MapperConfigurationBase this[ int index]
+        internal MapperConfigurationBase this[int index]
         {
             get
             {
-                return items[index];
+                if (index > items.Count)
+                    throw new IndexOutOfRangeException();
+                // We use this for the performance (yes it's better).
+                var enumerator = GetEnumerator();
+
+                int i = 0;
+                while (enumerator.MoveNext())
+                {
+                    if (i == index)
+                    {
+                        return enumerator.Current;
+
+                    }
+                    i++;
+                }
+                return null;
             }
         }
-       
 
         /// <summary>
         /// Finds the specified source.
@@ -72,50 +89,36 @@ namespace MapperExpression.Core
         /// <param name="name">The name.</param>
         internal MapperConfigurationBase Find(Type source, Type target, string name = null)
         {
-
-            MapperConfigurationBase result = null;
-
-            if (string.IsNullOrEmpty(name))
+            // We use this for the performance (yes it's better).
+            var enumerator = GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                result = items.Find(x => x.Name == x.paramClassSource.Name && x.SourceType == source && x.TargetType == target);
+                var current = enumerator.Current;
+                string nameMapper = string.IsNullOrEmpty(name) ? current.paramClassSource.Name : name;
+                if (current.SourceType == source && current.TargetType == target && current.Name == nameMapper)
+                    return current;
             }
-            else
-            {
-                result = items.Find(x => x.Name == name && x.SourceType == source && x.TargetType == target);
-            }
+            return null;
 
-            return result;
         }
 
         /// <summary>
         /// Whether mapping exists from the predicate.
         /// </summary>
         /// <param name="match">The predigate.</param>
-        internal bool Exists(Predicate<MapperConfigurationBase> match)
+        internal bool Exists(Func<MapperConfigurationBase, bool> match)
         {
-            return items.Exists(match);
-        }
+            var enumerator = GetEnumerator();
+            // We use this for the performance (yes it's better).
+            while (enumerator.MoveNext())
+            {
+                if (match(enumerator.Current))
+                {
 
-        /// <summary>
-        /// Returns an enumerator that jaundice within the collection.
-        /// </summary>
-        /// <returns>
-        ///   <see cref="T:System.Collections.Generic.IEnumerator`1" /> can be used to iterate through the collection.
-        /// </returns>
-        public IEnumerator<MapperConfigurationBase> GetEnumerator()
-        {
-            return items.GetEnumerator() as IEnumerator<MapperConfigurationBase>;
-        }
-
-        /// <summary>
-        /// Returns an enumerator that jaundice within the collection.
-        /// </summary>
-        /// <returns>
-        /// Objet <see cref="T:System.Collections.IEnumerator" /> can be used to iterate through the collection.
-        /// </returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return items.GetEnumerator();
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -124,7 +127,13 @@ namespace MapperExpression.Core
         /// <param name="index">The index.</param>
         internal void RemoveAt(int index)
         {
-            items.RemoveAt(index);
+            var enumerator = GetEnumerator();
+            MapperConfigurationBase itemToDelete = this[index];
+            if (itemToDelete != null)
+            {
+                items.Remove(itemToDelete);
+            }
+
         }
 
         /// <summary>
@@ -135,13 +144,20 @@ namespace MapperExpression.Core
             items.Clear();
         }
 
-        /// <summary>
-        /// Adds the mapper.
-        /// </summary>
-        /// <param name="mapper">The mapper.</param>
-        internal void Add(MapperConfigurationBase mapper)
+        public void Add(MapperConfigurationBase value)
         {
-            items.Add(mapper);
+
+            items.Add(value);
+        }
+
+        public IEnumerator<MapperConfigurationBase> GetEnumerator()
+        {
+            return items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

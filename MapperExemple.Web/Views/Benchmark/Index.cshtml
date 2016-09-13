@@ -22,11 +22,12 @@
         $("#time3").hide();
         $("#time1").hide();
         $("#time4").hide();
+        $("#time5").hide();
         callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2", true);
         callService("@Url.Action("BenchMarkValueInjecter", "Benchmark")", "#time3");
         callService("@Url.Action("BenchMarkMapperExpression", "Benchmark")", "#time1");
         callService("@Url.Action("BenchMarkDirect", "Benchmark")", "#time4");
-
+        callService("@Url.Action("BenchMarkTinyMapper", "Benchmark")", "#time5");
     }
     function callService(url, timerElement, isLast) {
         var count = $("#count").val();
@@ -72,6 +73,18 @@ for (int i = 0; i &lt; id; i++)
 <div>
     <label>Execution time :</label>
     <p id="time1" class="text-success"></p>
+</div>
+<h3>TinyMapper</h3>
+<pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">
+Customer source = Builder&lt;Customer&gt;.CreateNew().Build();
+for (int i = 0; i &lt; id; i++)
+{
+    var model = TinyMapper.Map&lt;CustomerModel&gt;(source);
+}
+</pre>
+<div>
+    <label>Execution time :</label>
+    <p id="time5" class="text-success"></p>
 </div>
 <h3>AutoMapper</h3>
 <pre class="brush: csharp; ruler: true;  toolbar: false; smart-tabs: false;">

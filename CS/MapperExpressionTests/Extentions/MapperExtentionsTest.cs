@@ -46,6 +46,10 @@ namespace MapperExpression.Tests.Units.Extentions
         public void ConvertTo_WithType()
         {
 
+            Clean();
+            //Create the default map for the test
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.PropString1, d => d.PropString2).ReverseMap();
             LambdaExpression actual = null;
             Expression<Func<ClassDest, bool>> expected = x => x.PropString2 == "test";
 

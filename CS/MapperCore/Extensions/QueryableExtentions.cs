@@ -23,7 +23,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TTarget : class
         {
-            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
+            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient.
             return CreateSortedMethodCall<TSource, TTarget, IOrderedQueryable<TSource>>(query, "OrderBy", sortedPropertyDestName);
         }
 
@@ -39,7 +39,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TTarget : class
         {
-            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
+            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient.
             return CreateSortedMethodCall<TSource, TTarget, IOrderedQueryable<TSource>>(query, "OrderByDescending", sortedPropertyDestName);
         }
 
@@ -54,7 +54,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TTarget : class
         {
-            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
+            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient.
             return CreateSortedMethodCall<TSource, TTarget, IOrderedQueryable<TSource>>(query, "ThenBy", sortedPropertyDestName);
         }
 
@@ -69,7 +69,7 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TTarget : class
         {
-            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient
+            // Do not use the MethodBase.GetCurrentMethod().Name call because it is not efficient.
             return CreateSortedMethodCall<TSource, TTarget, IOrderedQueryable<TSource>>(query, "ThenByDescending", sortedPropertyDestName);
         }
 
@@ -140,13 +140,14 @@ namespace MapperExpression.Extensions
             where TSource : class
             where TTarget : class
         {
-            // it's the same don't need mapper
+            // It's the same don't need mapper.
             if (typeof(TSource) == typeof(TTarget))
             {
                 return (IQueryable<TTarget>)query;
             }
             return query.Select(Mapper.GetMapper<TSource, TTarget>(mapperName).GetLambdaExpression());
         }
+
         #endregion
     }
 }

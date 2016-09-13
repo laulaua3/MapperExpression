@@ -13,6 +13,8 @@ namespace MapperExpression.Core.Visitor
     internal class ConverterExpressionVisitor : ExpressionVisitor
     {
         private readonly Dictionary<Expression, Expression> parameterMap;
+        private Type destinationType;
+        private MapperConfigurationBase mapper;
 
 
         internal ConverterExpressionVisitor(
@@ -21,9 +23,7 @@ namespace MapperExpression.Core.Visitor
             this.parameterMap = parameterMap;
             destinationType = typeDestination;
         }
-        private Type destinationType;
-        private MapperConfigurationBase mapper;
-
+      
         /// <summary>
         /// Visit <see cref="T:System.Linq.Expressions.ParameterExpression" />.
         /// </summary>
@@ -54,7 +54,7 @@ namespace MapperExpression.Core.Visitor
                 Expression expression = null;
                 switch (node.NodeType)
                 {
-                    // to remove validation of the lambda expression.
+                    // To remove validation of the lambda expression.
                     case ExpressionType.Lambda:
 
                         expression = base.Visit((node as LambdaExpression).Body);

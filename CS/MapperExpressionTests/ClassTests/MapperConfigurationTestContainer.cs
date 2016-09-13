@@ -33,7 +33,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         }
         public void CheckAndConfigureMappingTest(Tuple<Expression, Expression, bool,string> configExpression)
         {
-            CheckAndConfigureMapping(configExpression);
+            CheckAndConfigureMapping( ref configExpression);
         }
         public PropertyInfo GetPropertyInfoTest(LambdaExpression expression)
         {

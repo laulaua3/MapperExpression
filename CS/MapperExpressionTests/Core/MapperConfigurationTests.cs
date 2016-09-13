@@ -195,12 +195,12 @@ namespace MapperExpression.Tests.Units
             Assert.AreNotEqual(countOri, expected.MemberToMapForNew.Count);
         }
 
-        //[TestMethod, TestCategory("CreateMemberAssignementForExisting")]
+        [TestMethod, TestCategory("CreateMemberAssignementForExisting")]
         public void CreateMemberAssignementForExisting_Succes()
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             MapperConfigurationCollectionContainer.Instance.Add(expected);
-            expected.ForMember(s => s.SubClass, d => d.SubClass);
+
             Mapper.CreateMap<ClassSource2, ClassDest2>();
             expected.CreateMappingExpression(null);
 

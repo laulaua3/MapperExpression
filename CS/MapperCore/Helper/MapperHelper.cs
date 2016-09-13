@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace MapperExpression.Helper
 {
     /// <summary>
-    /// Helper
+    /// Internal helper.
     /// </summary>
     internal static class MapperHelper
     {
@@ -20,9 +20,17 @@ namespace MapperExpression.Helper
             {
                 NewExpression exp = Expression.New(typeObject);
                 LambdaExpression lambda = Expression.Lambda(exp);
+                // Yes, we know that this is a consumer.
                 Delegate constructor = lambda.Compile();
                 defaultValue = constructor.DynamicInvoke();
             }
+            // Case : Enum
+            if (typeObject.IsEnum)
+            {
+                // We return the first of enum
+                defaultValue =Enum.Parse(typeObject,Enum.GetNames(typeObject)[0]);
+            }
+
             return defaultValue;
         }
     }
