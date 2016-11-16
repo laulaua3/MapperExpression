@@ -111,7 +111,6 @@ namespace MapperExpression.Extensions
         /// <returns></returns>
         public static IQueryable<TTarget> Where<TSource, TTarget>(this IQueryable<TTarget> query, Expression<Func<TSource, bool>> predicate)
         {
-
             // For don't call the same method(same signature)
             return Queryable.Where(query, predicate.ConvertTo<TSource, TTarget>());
         }

@@ -114,7 +114,6 @@ namespace MapperExpression.Core
             {
                 if (match(enumerator.Current))
                 {
-
                     return true;
                 }
             }
@@ -133,7 +132,6 @@ namespace MapperExpression.Core
             {
                 items.Remove(itemToDelete);
             }
-
         }
 
         /// <summary>
@@ -146,7 +144,6 @@ namespace MapperExpression.Core
 
         public void Add(MapperConfigurationBase value)
         {
-
             items.Add(value);
         }
 

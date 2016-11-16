@@ -26,10 +26,6 @@ namespace MapperExemple.Entity
             //For see the sql request
             (_context as ExempleDbContext).Database.Log = x => Debug.WriteLine(x);
         }
-        /// <summary>
-        /// Exécute les tâches définies par l'application associées à la libération ou à la redéfinition des ressources non managées.
-        /// </summary>
-
 
         /// <summary>
         /// Exemple to make a generic method
