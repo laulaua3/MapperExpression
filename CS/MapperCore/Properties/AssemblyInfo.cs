@@ -7,12 +7,12 @@ using System.Runtime.InteropServices;
 //  l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 //  associées à un assembly.
 [assembly: AssemblyTitle("MapperExpression")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Mapper simple like AutoMapper based on the lambda expressions")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("LB")]
+[assembly: AssemblyCompany("Laurent Boulet")]
 [assembly: AssemblyProduct("MapperExpression")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyTrademark("MapperExpression")]
 [assembly: AssemblyCulture("")]
 
 //  L'affectation de la valeur false à ComVisible rend les types invisibles dans cet assembly 
