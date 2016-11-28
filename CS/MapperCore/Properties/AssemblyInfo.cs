@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Laurent Boulet")]
 [assembly: AssemblyProduct("MapperExpression")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCopyright("Copyright © Me 2016")]
 [assembly: AssemblyTrademark("MapperExpression")]
 [assembly: AssemblyCulture("")]
 

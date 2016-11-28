@@ -1,8 +1,6 @@
 using System;
 using Microsoft.Practices.Unity;
-using MapperExemple.Entity.Interface;
-using MapperExemple.Entity;
-using MapperExemple.Entity.EF;
+using Microsoft.Practices.Unity.Configuration;
 
 namespace MapperExemple.Web.App_Start
 {
@@ -36,16 +34,9 @@ namespace MapperExemple.Web.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
-            
+
             // TODO: Register your types here
-            //container.RegisterType<IExempleDbContext, ExempleDbContext>(new PerRequestLifetimeManager());
-            container.RegisterType<IExempleProduct, ExempleProduct>(new PerRequestLifetimeManager());
-            container.RegisterType<IExempleCustomer, ExempleCustomer>(new PerRequestLifetimeManager());
-            container.RegisterType<IExempleOrder, IExempleOrder>(new PerRequestLifetimeManager());
-            
+            // container.RegisterType<IProductRepository, ProductRepository>();
         }
     }
-
-   
-
 }
