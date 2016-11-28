@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using MapperExemple.Entity.Interface;
+using MapperExemple.Entity;
 
 namespace MapperExemple.Web.App_Start
 {
@@ -37,6 +39,7 @@ namespace MapperExemple.Web.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IExempleProduct, ExempleProduct>();
         }
     }
 }

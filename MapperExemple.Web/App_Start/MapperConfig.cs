@@ -62,7 +62,7 @@ namespace MapperExemple.Web.App_Start
                 // Other exemple.
                 cfg.CreateMap<Product, ProductModel>();
 
-                cfg.Seal();
+                
             });
 
             // TinyMapper don't find Ioc.
