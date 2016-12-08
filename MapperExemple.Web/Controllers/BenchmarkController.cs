@@ -21,79 +21,36 @@ namespace MapperExemple.Web.Controllers
 
         public async Task<ActionResult> BenchMarkMapperExpression(int nbIteration)
         {
-            Task<ActionResult> result = Task.Run<ActionResult>(() =>
-        {
-            BenchmarkModel resultModel = new BenchmarkModel();
-            resultModel.Mapper = "MapperExpression";
-            //Generate data
-            Customer source = Builder<Customer>.CreateNew().Build();
-            Stopwatch watcher = Stopwatch.StartNew();
-
-            for (int i = 0; i < nbIteration; i++)
+            return await Execute((source) =>
             {
-                var model = MapperExpression.Mapper<CustomerModel>.Map(source);
-            }
-            watcher.Stop();
-            resultModel.TimeExecuting = watcher.Elapsed.ToString();
-            return Json(resultModel, JsonRequestBehavior.AllowGet);
-        });
-            return await result;
+                return MapperExpression.Mapper<CustomerModel>.Map(source);
+            }, "MapperExpression", nbIteration);          
         }
 
         public async Task<ActionResult> BenchMarkAutoMapper(int nbIteration)
         {
-            Task<ActionResult> result = Task.Run<ActionResult>(() =>
-            {
-                BenchmarkModel resultModel = new BenchmarkModel();
-                resultModel.Mapper = "AutoMapper";
-                //Generate data
-                Customer source = Builder<Customer>.CreateNew().Build();
-                Stopwatch watcher = Stopwatch.StartNew();
-                for (int i = 0; i < nbIteration; i++)
+            return await Execute((source) =>
                 {
-                    var model = AutoMapper.Mapper.Map<CustomerModel>(source);
-                }
-                watcher.Stop();
-                resultModel.TimeExecuting = watcher.Elapsed.ToString();
-                return Json(resultModel, JsonRequestBehavior.AllowGet);
-            });
-            return await result;
-        }
+                    return AutoMapper.Mapper.Map<CustomerModel>(source);
+                }, "AutoMapper", nbIteration);
 
+        }
 
         public async Task<ActionResult> BenchMarkValueInjecter(int nbIteration)
         {
-            Task<ActionResult> result = Task.Run<ActionResult>(() =>
-            {
-                BenchmarkModel resultModel = new BenchmarkModel();
-                resultModel.Mapper = "ValueInjecte";
-                //Generate data
-                Customer source = Builder<Customer>.CreateNew().Build();
-                Stopwatch watcher = Stopwatch.StartNew();
-                for (int i = 0; i < nbIteration; i++)
-                {
-                    CustomerModel model = new CustomerModel();
-                    model.InjectFrom(source);
-                }
-                watcher.Stop();
-                resultModel.TimeExecuting = watcher.Elapsed.ToString();
-                return Json(resultModel, JsonRequestBehavior.AllowGet);
-            });
-            return await result;
+            return await Execute((source) =>
+                 {
+                     CustomerModel model = new CustomerModel();
+                     model.InjectFrom(source);
+                     return model;
+                 }, "ValueInjecte", nbIteration);
         }
 
         public async Task<ActionResult> BenchMarkDirect(int nbIteration)
         {
-            Task<ActionResult> result = Task.Run<ActionResult>(() =>
-            {
-                BenchmarkModel resultModel = new BenchmarkModel();
-                resultModel.Mapper = "Direct";
-                //Generate data
-                Customer source = Builder<Customer>.CreateNew().Build();
-                Stopwatch watcher = Stopwatch.StartNew();
-                for (int i = 0; i < nbIteration; i++)
+            return await Execute((source) =>
                 {
-                    CustomerModel model = new CustomerModel()
+                    return new CustomerModel()
                     {
                         Address = source.Address,
                         City = source.City,
@@ -105,34 +62,38 @@ namespace MapperExemple.Web.Controllers
                         Phone = source.Phone,
                         PostalCode = source.PostalCode,
                         Region = source.Region
-                    };
-
-                }
-                watcher.Stop();
-                resultModel.TimeExecuting = watcher.Elapsed.ToString();
-                return Json(resultModel, JsonRequestBehavior.AllowGet);
-            });
-            return await result;
+                    }; ;
+                }, "Direct", nbIteration);
         }
 
         public async Task<ActionResult> BenchMarkTinyMapper(int nbIteration)
         {
-            Task<ActionResult> result = Task.Run<ActionResult>(() =>
-            {
-                BenchmarkModel resultModel = new BenchmarkModel();
-                resultModel.Mapper = "TinyMapper";
-                //Generate data
-                Customer source = Builder<Customer>.CreateNew().Build();
-                Stopwatch watcher = Stopwatch.StartNew();
-                for (int i = 0; i < nbIteration; i++)
+            return await Execute((s) =>
                 {
-                    var model = TinyMapper.Map<CustomerModel>(source);
-                }
-                watcher.Stop();
-                resultModel.TimeExecuting = watcher.Elapsed.ToString();
-                return Json(resultModel, JsonRequestBehavior.AllowGet);
-            });
-            return await result;
+                    return TinyMapper.Map<CustomerModel>(s);
+                }, "TinyMapper", nbIteration);
+               
+           
+        }
+
+        private Task<ActionResult> Execute(Func<Customer, CustomerModel> mapp, string mapperName, int nbIteration)
+        {
+            return Task.Run<ActionResult>(() =>
+             {
+                 BenchmarkModel resultModel = new BenchmarkModel();
+                 resultModel.Mapper = mapperName;
+                 // Generate data.
+                 Customer source = Builder<Customer>.CreateNew().Build();
+                 Stopwatch watcher = Stopwatch.StartNew();
+                 for (int i = 0; i < nbIteration; i++)
+                 {
+                     var model = mapp(source);
+                 }
+                 watcher.Stop();
+                 resultModel.TimeExecuting = watcher.Elapsed.ToString();
+                 return Json(resultModel, JsonRequestBehavior.AllowGet);
+             });
+
         }
     }
 }
