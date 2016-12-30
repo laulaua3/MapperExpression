@@ -18,8 +18,8 @@ namespace MapperExpression.Core
     public class MapperConfiguration<TSource, TDest>
         : MapperConfigurationBase
     {
-        #region Variables  
-        private IList<Action<TSource, TDest>> actionsAfterMap;
+        #region Variables
+        readonly IList<Action<TSource, TDest>> actionsAfterMap;
         /// <summary>
         /// The actions after map
         /// </summary>
@@ -73,7 +73,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest)
         {
-            // Adding in the list for further processing 
+            // Adding in the list for further processing
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, false);
             return this;
         }
@@ -88,7 +88,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, bool checkIfNull)
         {
-            // Adding in the list for further processing 
+            // Adding in the list for further processing
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, checkIfNull);
             return this;
         }
@@ -103,7 +103,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, string mapperName)
         {
-            // Adding in the list for further processing 
+            // Adding in the list for further processing
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, true, mapperName);
             return this;
         }
@@ -180,7 +180,6 @@ namespace MapperExpression.Core
                 PropertyInfo propertyDest = GetPropertyInfo(item.Item1);
                 if (propertyDest.CanWrite)
                 {
-                    string mapperName = string.Empty;
                     if (!string.IsNullOrEmpty(item.Item4))
                     {
                         //Find the reverse mapper

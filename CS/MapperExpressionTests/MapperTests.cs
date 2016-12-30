@@ -111,7 +111,7 @@ namespace MapperExpression.Tests.Units
         public void GetQueryExpression_ReturnExpression()
         {
             Clean();
-            
+
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
 
@@ -140,17 +140,17 @@ namespace MapperExpression.Tests.Units
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NoFoundMapperException))]
         public void Map_NoFoundMapperException_Exception()
         {
-            ClassDest2 actual = null;
-            actual = Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
+
+            Mapper.Map<ClassSource, ClassDest2>(new ClassSource());
         }
 
         [TestMethod, TestCategory("Exception"), ExpectedException(typeof(NoActionAfterMappingException))]
         public void Map_NoActionException_Exception()
         {
-            ClassDest actual = null;
+
             Mapper.GetMapper<ClassSource, ClassDest>().AfterMap(null);
             Mapper.Initialize();
-            actual = Mapper.Map<ClassSource, ClassDest>(new ClassSource());
+            Mapper.Map<ClassSource, ClassDest>(new ClassSource());
             Clean();
         }
 
@@ -164,7 +164,7 @@ namespace MapperExpression.Tests.Units
             Assert.IsTrue(actual.SourceProperties.Count > 0);
             Assert.IsTrue(actual.TargetProperties.Count > 0);
         }
-      
+
         //[TestMethod]
         //public void Map_ExistingObject_Success()
         //{
