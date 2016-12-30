@@ -24,7 +24,7 @@ namespace MapperExemple.Web.Controllers
             return await Execute((source) =>
             {
                 return MapperExpression.Mapper<CustomerModel>.Map(source);
-            }, "MapperExpression", nbIteration);          
+            }, "MapperExpression", nbIteration);
         }
 
         public async Task<ActionResult> BenchMarkAutoMapper(int nbIteration)
@@ -62,7 +62,7 @@ namespace MapperExemple.Web.Controllers
                         Phone = source.Phone,
                         PostalCode = source.PostalCode,
                         Region = source.Region
-                    }; ;
+                    };
                 }, "Direct", nbIteration);
         }
 
@@ -72,11 +72,9 @@ namespace MapperExemple.Web.Controllers
                 {
                     return TinyMapper.Map<CustomerModel>(s);
                 }, "TinyMapper", nbIteration);
-               
-           
         }
 
-        private Task<ActionResult> Execute(Func<Customer, CustomerModel> mapp, string mapperName, int nbIteration)
+        Task<ActionResult> Execute(Func<Customer, CustomerModel> mapp, string mapperName, int nbIteration)
         {
             return Task.Run<ActionResult>(() =>
              {
