@@ -186,7 +186,7 @@ namespace MapperExpression
             return GetMapper<TSource, TDest>().GetFuncDelegate();
         }
         /// <summary>
-        /// Gets the properties not mapped.
+        /// Gets the properties not mapped(for the development).
         /// </summary>
         public static PropertiesNotMapped GetPropertiesNotMapped<TSource, TDest>(string name = null)
              where TSource : class

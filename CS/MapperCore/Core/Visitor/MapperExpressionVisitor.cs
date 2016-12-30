@@ -91,30 +91,30 @@ namespace MapperExpression.Core
                 Expression previousExpression = null;
                 if (membersToCheck.Count > 1)
                 {
-                    // We want to test all the sub objects before assigning the value
-                    // Ex: source.SubClass.SubClass2.MyProperty
-                    // Which will give
-                    // source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty
+                    // We want to test all the sub objects before assigning the value.
+                    // Ex: source.SubClass.SubClass2.MyProperty.
+                    // Which will give :
+                    // source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty.
                     foreach (MemberExpression item in membersToCheck)
                     {
 
-                        if (!isFirst) // Not to test the value of the property back
+                        if (!isFirst) // Not to test the value of the property back.
                         {
                             object defaultValue = MapperHelper.GetDefaultValue(item.Type);
 
-                            // Creating verification of default value
+                            // Creating verification of default value.
                             Expression notDefaultValue = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
                             Expression conditional = null;
-                            // It creates a condition that includes the above condition
+                            // It creates a condition that includes the above condition.
                             if (previousExpression != null)
                             {
                                 object defaultPreviousValue = MapperHelper.GetDefaultValue(previousExpression.Type);
                                 conditional = Expression.Condition(notDefaultValue, previousExpression, Expression.Constant(defaultPreviousValue, previousExpression.Type));
                             }
-                            // It affects the newly created conditions that will become the previous
+                            // It affects the newly created conditions that will become the previous.
                             previousExpression = conditional;
                         }
-                        else // here the requested property
+                        else // here the requested property.
                         {
                             previousExpression = item;
                             isFirst = false;
@@ -123,12 +123,12 @@ namespace MapperExpression.Core
 
                     return previousExpression;
                 }
-                // For one element don't need recusrive
+                // For one element don't need recusrive.
                 else if (membersToCheck.Count == 1)
                 {
                     var item = membersToCheck.Peek();
                     object defaultValue = MapperHelper.GetDefaultValue(item.Type);
-                    // Creating verification of default value
+                    // Creating verification of default value.
                     Expression notDefaultValue = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
                     Expression conditional = null;
                     conditional = Expression.Condition(notDefaultValue, item, Expression.Constant(defaultValue, item.Type));
@@ -140,13 +140,13 @@ namespace MapperExpression.Core
             }
             else
             {
-                // return by default (with change of the parameter)
-                // to remove validation of the lambda expression
+                // Return by default (with change of the parameter).
+                // To remove validation of the lambda expression.
                 if ((node.NodeType == ExpressionType.Lambda))
                 {
 
                     LambdaExpression lambda = ((LambdaExpression)node);
-                    //Sub expression
+                    // Sub expression.
                     if (lambda.Body.NodeType != ExpressionType.Call)
                     {
                         return base.Visit(lambda.Body);
@@ -198,8 +198,8 @@ namespace MapperExpression.Core
             // To treat later
             if (memberAccessExpression != null && checkNull)
             {
-                // Knowing that the last member is in the first visit and we go back every time
-                // our current insert member is in the first line of the list to change the order
+                // Knowing that the last member is in the first visit and we go back every time.
+                // Our current insert member is in the first line of the list to change the order.
                 membersToCheck.Push(memberAccessExpression);
             }
             return memberAccessExpression;

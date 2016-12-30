@@ -136,9 +136,9 @@ namespace MapperExemple.Web.Controllers
 
         public ActionResult Exemple5()
         {
-            //Default page
+            // Default page.
             ViewBag.Message = "Exemple for custom mapping";
-            //this exemple show the map with custom mapping
+            // This exemple show the map with custom mapping.
             ExempleOrder exemple5 = new ExempleOrder();
 
             var result = exemple5.GetFirstOrder();
@@ -149,13 +149,13 @@ namespace MapperExemple.Web.Controllers
         }
         public ActionResult Exemple6()
         {
-            //Default page
+            // Default page.
             ViewBag.Message = "List Exemple for custom mapping";
-            //this exemple show how map a IQueryable to List  with custom mapping
+            // This exemple show how map a IQueryable to List  with custom mapping.
             ExempleOrder exemple6 = new ExempleOrder();
             List<OrderModel> model = null;
             var result = exemple6.GetOrders();
-            //see sql request in console output
+            // See sql request in console output.
             model = result.Select<Order, OrderModel>().ToList();
 
             return View(model);
@@ -167,9 +167,9 @@ namespace MapperExemple.Web.Controllers
 
         public ActionResult Exemple7()
         {
-            //Default page
+            // Default page.
             ViewBag.Message = "Exemple with ioc";
-            //this exemple show the map  with ioc
+            // This exemple show the map  with ioc.
             IExempleProduct exemple7 = context;
 
             var result = exemple7.GetFirstProduct();

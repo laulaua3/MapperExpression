@@ -14,61 +14,61 @@ namespace MapperExemple.Web.App_Start
 
         public static void Initialise()
         {
-            //For simple exemple
+            // For simple exemple.
             Mapper.CreateMap<Customer, CustomerModel>();
 
-            //For exemple with custom mapping
+            // For exemple with custom mapping.
             Mapper.CreateMap<Order, OrderModel>()
-                //Custom mapping
+                // Custom mapping
                 .ForMember(s => s.Customer.CompanyName, d => d.CustomerName, true);
 
             Mapper.CreateMap<OrderDetail, OrderDetailModel>();
 
-            //Exemple with Ioc
+            // Exemple with Ioc.
             Mapper.ConstructServicesUsing((x) => DependencyResolver.Current.GetService(x));
-            //other exemple
-            //Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
+            // Other exemple.
+            // Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
             Mapper.CreateMap<IExempleProduct, ProductModel>();
 
-            //Other exemple
+            // Other exemple.
             Mapper.CreateMap<Product, ProductModel>();
             Stopwatch initWatch = Stopwatch.StartNew();
-            //IMPORTANT!!!
+            // IMPORTANT!!!
             Mapper.Initialize();
             initWatch.Stop();
             Debug.WriteLine("Init MapperExpression :" + initWatch.Elapsed.ToString());
 
 
-            //AutoMapper
+            // AutoMapper.
             AutoMapper.Mapper.Initialize((cfg) =>
             {
-                //For simple exemple
+                // For simple exemple.
                 cfg.CreateMap<Customer, CustomerModel>();
 
-                //For exemple with custom mapping
+                // For exemple with custom mapping.
                 cfg.CreateMap<Order, OrderModel>()
                     .ForMember((s) => s.CustomerName, (m) => m.MapFrom(d => d.Customer.CompanyName));
 
                 cfg.CreateMap<OrderDetail, OrderDetailModel>();
 
 
-                //Exemple with Ioc
+                // Exemple with Ioc.
                 cfg.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
                 cfg.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                     .ReverseMap();
                 cfg.CreateMap<IExempleProduct, ProductModel>();
-                //Other exemple
+                // Other exemple.
                 cfg.CreateMap<Product, ProductModel>();
 
-                cfg.Seal();
+                
             });
 
-            //TinyMapper don't find Ioc
+            // TinyMapper don't find Ioc.
             TinyMapper.Bind<Customer, CustomerModel>();
 
-            //For exemple with custom mapping
+            // For exemple with custom mapping.
             TinyMapper.Bind<Order, OrderModel>((config) =>
             {
                 config.Bind(s => s.Customer.CompanyName, d => d.CustomerName);

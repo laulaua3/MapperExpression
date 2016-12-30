@@ -13,7 +13,7 @@ namespace MapperExpression.Core.Visitor
 
         protected override Expression VisitParameter(ParameterExpression node)
         {
-            //Yes it's possible
+            // Yes it's possible.
             if (node != null)
             {
                 Expression returnParameter = _parameter.FirstOrDefault(x => x.Type == node.Type);

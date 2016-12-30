@@ -197,6 +197,7 @@ namespace MapperExpression.Core
             }
             return delegateCallForExisting;
         }
+
         /// <summary>
         /// Gets the generic lambda expression.
         /// </summary>
@@ -205,6 +206,7 @@ namespace MapperExpression.Core
             MemberInitExpression exp = GetMemberInitExpression();
             return Expression.Lambda(exp, paramClassSource);
         }
+
         /// <summary>
         /// Gets the real type of the destination.
         /// </summary>
@@ -212,6 +214,7 @@ namespace MapperExpression.Core
         {
             return GetRealType(TargetType);
         }
+
         /// <summary>
         /// Ignores the specified property dest.
         /// </summary>
@@ -515,7 +518,7 @@ namespace MapperExpression.Core
                             }
                             else
                             {
-                                //use Select of Enumerable NOT TESTED !!!!!
+                                // Use Select of Enumerable NOT TESTED !!!!!
                                 Expression selectExp = Expression.Call(selectMethod.MakeGenericMethod(sourceType), Expression.Constant(mapper.GetDelegate()));
                                 Expression checkIfNull = Expression.NotEqual(propToAssign, defaultExpression);
                                 Expression setIf = Expression.IfThen(checkIfNull, Expression.Assign(propToAssign, assignExpression));
@@ -529,7 +532,7 @@ namespace MapperExpression.Core
                 if (finalAssign.Count > 0 && delegateCallForExisting == null)
                 {
                     expressionForExisting = Expression.Lambda(Expression.Block(typeof(void), finalAssign), paramClassSource, paramTarget);
-                    // Assign the delegate
+                    // Assign the delegate.
                     delegateCallForExisting = expressionForExisting.Compile();
                 }
             }
@@ -558,7 +561,7 @@ namespace MapperExpression.Core
                 isInitialized = true;
                 constructorFunc = constructor;
                 CreateCommonMember();
-                var propsToAnalyse = propertiesMapping.ToList();//Clone the list because we can change 
+                var propsToAnalyse = propertiesMapping.ToList();// Clone the list because we can change.
                 for (int i = 0; i < propsToAnalyse.Count; i++)
                 {
                     var propToAnalyse = propsToAnalyse[i];
@@ -678,7 +681,7 @@ namespace MapperExpression.Core
                      Expression.Constant(MapperHelper.GetDefaultValue(mapExpression.Type), mapExpression.Type),
                     mapExpression.Type);
                 MemberAssignment bindExpression = Expression.Bind(propTarget, checkExpression);
-                //We find the mapper and not configured
+                // We find the mapper and not configured.
                 if (string.IsNullOrEmpty(configExpression.Item4))
                 {
                     configExpression = Tuple.Create(configExpression.Item1, configExpression.Item2, configExpression.Item3, externalMapper.Name);
