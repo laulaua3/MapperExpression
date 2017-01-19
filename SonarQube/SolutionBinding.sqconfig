@@ -1,0 +1,10 @@
+{
+  "ServerUri": "http://tfsr2:9000",
+  "ProjectKey": "MapperExpression",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "cs-sonar-way-39126",
+      "ProfileTimestamp": "2017-01-18T21:03:56+01:00"
+    }
+  }
+}

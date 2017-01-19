@@ -10,7 +10,7 @@ namespace MapperExpression.Exceptions
     /// </summary>
     [Serializable]
     
-    public class ReadOnlyPropertyException : MapperExceptionBase
+    public class ReadOnlyPropertyException : MapperBaseException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadOnlyPropertyException"/> class.
@@ -39,7 +39,7 @@ namespace MapperExpression.Exceptions
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>

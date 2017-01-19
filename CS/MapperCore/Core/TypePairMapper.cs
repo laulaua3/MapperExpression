@@ -26,22 +26,6 @@ namespace MapperExpression.Core
 
         public string Name { get; private set; }
 
-        private bool IsEqualTypes
-        {
-            get { return Source == Target; }
-        }
-
-
-
-        private bool IsPrimitiveTypes
-        {
-            get { return Source.IsPrimitive && Target.IsPrimitive; }
-        }
-
-        private bool IsValueTypes
-        {
-            get { return Source.IsValueType && Target.IsValueType; }
-        }
 
         public static TypePairMapper Create(Type source, Type target, string name = null)
         {
@@ -71,7 +55,7 @@ namespace MapperExpression.Core
         }
         public bool Equals(TypePairMapper other)
         {
-            bool result = false;
+            bool result ;
             if(!string.IsNullOrEmpty(other.Name))
             {
                 result= Source == other.Source && Target == other.Target &&  Name == other.Name;

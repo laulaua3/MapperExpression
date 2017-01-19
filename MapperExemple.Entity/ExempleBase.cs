@@ -37,7 +37,7 @@ namespace MapperExemple.Entity
         protected IQueryable<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
             where TEntity : class
         {
-            IQueryable<TResult> result = null;
+            IQueryable<TResult> result ;
 
             result = (_context as DbContext).Set<TEntity>().Select(selectQuery);
 
@@ -55,7 +55,7 @@ namespace MapperExemple.Entity
         protected IQueryable<TResult> GetEntities<TEntity, TCriterias, TResult>(Expression<Func<TCriterias, bool>> criterias, Expression<Func<TEntity, TResult>> selectQuery)
             where TEntity : class
         {
-            IQueryable<TResult> result = null;
+            IQueryable<TResult> result ;
             result = (_context as DbContext).Set<TEntity>()
                 .Where(criterias)
                 .Select(selectQuery);
@@ -78,12 +78,11 @@ namespace MapperExemple.Entity
             if (disposed)
                 return;
 
-            if (disposing)
+            if (disposing && _context != null)
             {
-                if (_context != null)
-                {
+              
                     _context.Dispose();
-                }
+                
             }
 
             // Free any unmanaged objects here.

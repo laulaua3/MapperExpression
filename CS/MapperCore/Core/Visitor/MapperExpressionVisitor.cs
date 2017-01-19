@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
-using System;
 using MapperExpression.Helper;
 
 namespace MapperExpression.Core
@@ -10,11 +9,11 @@ namespace MapperExpression.Core
         #region Variables
 
 
-        private bool checkNull;
+        bool checkNull;
 
-        private Expression parameter;
+        readonly Expression parameter;
 
-        private Stack<MemberExpression> membersToCheck;
+        readonly Stack<MemberExpression> membersToCheck;
 
 
         internal Expression Parameter
@@ -52,7 +51,7 @@ namespace MapperExpression.Core
         public Expression Visit(Expression node, bool checkIfNullity = false)
         {
             checkNull = checkIfNullity;
-            Expression result = null;
+            Expression result;
             if (node == null)
                 return node;
             if (checkNull)
@@ -71,7 +70,7 @@ namespace MapperExpression.Core
                         break;
                     case ExpressionType.Lambda:
                         LambdaExpression lambda = ((LambdaExpression)node);
-                        //Sub expression
+                        // Sub expression.
                         if (lambda.Body.NodeType != ExpressionType.Lambda)
                         {
                             result = Visit(lambda.Body);
@@ -93,6 +92,10 @@ namespace MapperExpression.Core
                 {
                     // We want to test all the sub objects before assigning the value.
                     // Ex: source.SubClass.SubClass2.MyProperty.
+                    // The order in membersToCheck is :
+                    // MyProperty => membersToCheck[0].
+                    // SubClass2  => membersToCheck[1].
+                    // SubClass => membersToCheck[2].
                     // Which will give :
                     // source.SubClass != null ? source.SubClass.SubClass2 != null ? source.SubClass.SubClass2.MyProperty :DefaultValueOfProperty :DefaultValueOfProperty.
                     foreach (MemberExpression item in membersToCheck)
@@ -114,7 +117,7 @@ namespace MapperExpression.Core
                             // It affects the newly created conditions that will become the previous.
                             previousExpression = conditional;
                         }
-                        else // here the requested property.
+                        else // Here the requested property.
                         {
                             previousExpression = item;
                             isFirst = false;
@@ -130,8 +133,7 @@ namespace MapperExpression.Core
                     object defaultValue = MapperHelper.GetDefaultValue(item.Type);
                     // Creating verification of default value.
                     Expression notDefaultValue = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
-                    Expression conditional = null;
-                    conditional = Expression.Condition(notDefaultValue, item, Expression.Constant(defaultValue, item.Type));
+                    Expression conditional = Expression.Condition(notDefaultValue, item, Expression.Constant(defaultValue, item.Type));
 
                     return conditional;
                 }
@@ -195,7 +197,7 @@ namespace MapperExpression.Core
             }
             MemberExpression memberAccessExpression = (MemberExpression)base.VisitMember(node);
 
-            // To treat later
+            // To treat later.
             if (memberAccessExpression != null && checkNull)
             {
                 // Knowing that the last member is in the first visit and we go back every time.

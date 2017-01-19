@@ -13,7 +13,7 @@ namespace MapperExpression.Core
         IEnumerable<MapperConfigurationBase>
     {
 
-        private HashSet<MapperConfigurationBase> items;
+        private readonly HashSet<MapperConfigurationBase> items;
         private static MapperConfigurationCollectionContainer currentInstance;
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace MapperExpression.Core
         /// <param name="index">The index.</param>
         internal void RemoveAt(int index)
         {
-            var enumerator = GetEnumerator();
+           
             MapperConfigurationBase itemToDelete = this[index];
             if (itemToDelete != null)
             {

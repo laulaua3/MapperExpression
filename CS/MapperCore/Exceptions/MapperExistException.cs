@@ -7,7 +7,7 @@ namespace MapperExpression.Exceptions
     /// Exception when a mapper is already exist
     /// </summary>
     [Serializable]
-    public class MapperExistException: MapperExceptionBase
+    public class MapperExistException: MapperBaseException
 
     {
         /// <summary>
@@ -49,7 +49,7 @@ namespace MapperExpression.Exceptions
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>

@@ -12,8 +12,8 @@ namespace MapperExpression.Core.Visitor
     /// </summary>
     internal class ConverterExpressionVisitor : ExpressionVisitor
     {
-        private readonly Dictionary<Expression, Expression> parameterMap;
-        private Type destinationType;
+        readonly Dictionary<Expression, Expression> parameterMap;
+        readonly Type destinationType;
         private MapperConfigurationBase mapper;
 
 
@@ -51,7 +51,7 @@ namespace MapperExpression.Core.Visitor
         {
             if (node != null)
             {
-                Expression expression = null;
+                Expression expression;
                 switch (node.NodeType)
                 {
                     // To remove validation of the lambda expression.
@@ -84,7 +84,7 @@ namespace MapperExpression.Core.Visitor
                 {
                     mapper = Mapper.GetMapper(node.Member.DeclaringType, destinationType);
                 }
-                Expression expDest = null;
+                Expression expDest ;
                 // We consider that the primitive class is the simple property(not a sub's object).
                 if (!expr.Type.IsValueType && expr.Type != typeof(string) && 
                     expr.NodeType != ExpressionType.Parameter && expr.NodeType != ExpressionType.Constant)

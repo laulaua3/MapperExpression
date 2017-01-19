@@ -9,9 +9,9 @@ namespace MapperExpression.Core.Visitor
 {
   internal  class PropertiesVisitor: ExpressionVisitor
     {
-        private List<PropertyInfo> _propertiesOfExpression;
+        readonly List<PropertyInfo> _propertiesOfExpression;
 
-        private Type _typeReference;
+        readonly Type _typeReference;
 
         internal PropertiesVisitor(Type typeReference)
         {

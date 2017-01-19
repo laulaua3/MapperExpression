@@ -5,7 +5,7 @@ namespace MapperExpression.Core.Visitor
 {
     internal class ChangParameterExpressionVisitor : ExpressionVisitor
     {
-        private Expression[] _parameter;
+        readonly Expression[] _parameter;
         internal ChangParameterExpressionVisitor(params Expression[] parameter)
         {
             _parameter = parameter;

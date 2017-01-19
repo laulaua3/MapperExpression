@@ -7,7 +7,7 @@ namespace MapperExpression.Exceptions
     /// Exception when the property is not found
     /// </summary>
     [Serializable]
-    public class PropertyNoExistException : MapperExceptionBase
+    public class PropertyNoExistException : MapperBaseException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyNoExistException"/> class.
@@ -46,7 +46,7 @@ namespace MapperExpression.Exceptions
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>

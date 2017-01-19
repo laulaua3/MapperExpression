@@ -85,7 +85,7 @@ namespace MapperExemple.Web.Controllers
                  Stopwatch watcher = Stopwatch.StartNew();
                  for (int i = 0; i < nbIteration; i++)
                  {
-                     var model = mapp(source);
+                      mapp(source);
                  }
                  watcher.Stop();
                  resultModel.TimeExecuting = watcher.Elapsed.ToString();

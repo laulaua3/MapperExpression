@@ -73,10 +73,7 @@ namespace MapperExemple.Entity.EF
         {
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
+     
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

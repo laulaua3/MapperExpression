@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube - MapperExpression Sonar way" ToolsVersion="14.0">
+  <Include Path="..\..\sonarqube\mapperexpressioncsharp.ruleset" Action="Default" />
+  <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
+</RuleSet>

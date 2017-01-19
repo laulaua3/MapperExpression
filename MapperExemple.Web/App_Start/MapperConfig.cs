@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MapperExemple.Web.App_Start
 {
-    public class MapperConfig
+    public static class MapperConfig
     {
 
         public static void Initialise()

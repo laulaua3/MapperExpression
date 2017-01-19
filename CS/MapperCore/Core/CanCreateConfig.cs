@@ -5,8 +5,7 @@ using System.Text;
 
 namespace MapperExpression.Core
 {
-  internal  class CreateConfig
-
+    internal class CreateConfig
     {
         public bool CanCreate { get; set; }
 

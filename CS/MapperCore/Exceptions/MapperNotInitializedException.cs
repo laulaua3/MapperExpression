@@ -7,7 +7,7 @@ namespace MapperExpression.Exceptions
     /// Exception when a mapper is not Initialized
     /// </summary>
     [Serializable]
-    public  class MapperNotInitializedException : MapperExceptionBase
+    public  class MapperNotInitializedException : MapperBaseException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MapperNotInitializedException"/> class.
@@ -48,7 +48,7 @@ namespace MapperExpression.Exceptions
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>

@@ -28,7 +28,7 @@ namespace MapperExemple.Entity
 
         public IExempleProduct GetFirstProduct()
         {
-            IExempleProduct result = null;
+            IExempleProduct result ;
 
             result = _context.Products.Select<Product, IExempleProduct>().FirstOrDefault();
             Dispose();
@@ -37,7 +37,7 @@ namespace MapperExemple.Entity
 
         public IList<IExempleProduct> GetProductsList()
         {
-            List<IExempleProduct> result = null;
+            List<IExempleProduct> result ;
 
             result = _context.Products.Select<Product, IExempleProduct>().ToList();
 
@@ -46,7 +46,7 @@ namespace MapperExemple.Entity
         }
         public List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
         {
-            List<TResult> result = null;
+            List<TResult> result ;
             //using (ExempleDbContext context = new ExempleDbContext())
             //{
             //    context.Database.Log = x => Debug.WriteLine(x);

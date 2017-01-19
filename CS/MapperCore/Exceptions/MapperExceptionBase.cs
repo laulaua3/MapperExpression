@@ -9,40 +9,40 @@ namespace MapperExpression.Exceptions
     /// Mapper exception. 
     /// </summary>
     [Serializable]
-    public class MapperExceptionBase : Exception
+    public class MapperBaseException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
-        public MapperExceptionBase(string exceptionMessage)
+        public MapperBaseException(string exceptionMessage)
             : base(exceptionMessage)
         {
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
-        public MapperExceptionBase()
+        public MapperBaseException()
         {
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="serializer">The serializer.</param>
         /// <param name="context">The context.</param>
-        protected MapperExceptionBase(SerializationInfo serializer, StreamingContext context)
+        protected MapperBaseException(SerializationInfo serializer, StreamingContext context)
             : base(serializer, context)
         {
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public MapperExceptionBase(string exceptionMessage, Exception innerException)
+        public MapperBaseException(string exceptionMessage, Exception innerException)
             : base(exceptionMessage, innerException)
         {
 

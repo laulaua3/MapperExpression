@@ -10,9 +10,9 @@ namespace MapperExpression.Exceptions
     /// <summary>
     /// Exception when no action can to be execute
     /// </summary>
-    /// <seealso cref="MapperExpression.Exceptions.MapperExceptionBase" />
+    /// <seealso cref="MapperExpression.Exceptions.MapperBaseException" />
     [Serializable]
-    public class NoActionAfterMappingException : MapperExceptionBase
+    public class NoActionAfterMappingException : MapperBaseException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NoActionAfterMappingException"/> when no action can to be execute.
@@ -41,7 +41,7 @@ namespace MapperExpression.Exceptions
 
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapperExceptionBase"/> class.
+        /// Initializes a new instance of the <see cref="MapperBaseException"/> class.
         /// </summary>
         /// <param name="exceptionMessage">The exception message.</param>
         /// <param name="innerException">The inner exception.</param>
