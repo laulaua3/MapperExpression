@@ -167,7 +167,16 @@ namespace MapperExpression.Tests.Units
             actual = Mapper.Map<ClassSource, ClassDest>(new ClassSource());
 
         }
-
+        [TestMethod, TestCategory("Map")]
+        public void Map_SourceNull_ReturnNull()
+        {
+            // Arrange.
+            ClassDest actual = new ClassDest();
+            // Act.
+            actual = Mapper.Map<ClassSource, ClassDest>(null);
+            // Assert.
+            Assert.IsNull(actual);
+        }
         [TestMethod]
         public void GetPropertiesNotMapped_ReturnProperties_Success()
         {

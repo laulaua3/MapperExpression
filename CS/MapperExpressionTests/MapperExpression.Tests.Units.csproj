@@ -86,6 +86,7 @@
     <Compile Include="ClassTests\ClassDest.cs" />
     <Compile Include="ClassTests\ClassSource2.cs" />
     <Compile Include="ClassTests\ClassSource.cs" />
+    <Compile Include="ClassTests\EnumClass.cs" />
     <Compile Include="ClassTests\IClassDest2.cs" />
     <Compile Include="ClassTests\MapperConfigurationTestContainer.cs" />
     <Compile Include="ClassTests\QueryableImplTest.cs" />

@@ -22,5 +22,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         public ClassDest2 SubClass { get; set; }
         public ClassDest2 SubClass2 { get; set; }
         public int CountListProp { get; set; }
+
+        public EnumForTest EnumProperty { get; set; }
     }
 }

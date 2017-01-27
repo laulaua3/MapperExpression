@@ -19,5 +19,7 @@ namespace MapperExpression.Tests.Units.ClassTests
         public ClassSource Same { get; set; }
 
         public ClassSource2 SubClass { get; set; }
+
+        public EnumForTest EnumProperty { get; set; }
     }
 }

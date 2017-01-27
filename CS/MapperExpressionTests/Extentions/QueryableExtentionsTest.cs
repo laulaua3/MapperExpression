@@ -93,7 +93,18 @@ namespace MapperExpression.Tests.Units.Extentions
             Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.Select)));
 
         }
+        [TestMethod, TestCategory("Extentions")]
+        public void Select_NameOFMapper_Success()
+        {
+            Init(null);
+            IQueryable<ClassDest> actual = null;
 
+            QueryableImplTest<ClassSource> expected = new QueryableImplTest<ClassSource>();
+            Mapper.CreateMap<ClassSource, ClassDest>("test");
+            actual = expected.Select<ClassSource, ClassDest>("test");
+            Assert.IsTrue(CheckExpressionMethod(actual.Expression, nameof(QueryableExtentions.Select)));
+
+        }
         [TestMethod, TestCategory("Extentions")]
         public void Where_Success()
         {
