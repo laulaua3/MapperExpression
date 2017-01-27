@@ -1,4 +1,5 @@
 ﻿
+using FizzWare.NBuilder;
 using MapperExpression.Core;
 using MapperExpression.Exceptions;
 using MapperExpression.Tests.Units.ClassTests;
@@ -90,7 +91,20 @@ namespace MapperExpression.Tests.Units
                 actual = Mapper.Map<ClassSource, ClassDest>(expected);
             }
         }
+        [TestMethod, TestCategory("ForMember")]
+        public void Map_CheckNullityForMember_Exception()
+        {
+            Clean();
+            Mapper.CreateMap<ClassSource, ClassDest>()
+               .ForMember(s => s.PropString1, d => d.PropString2, true);
+            Mapper.Initialize();
+            ClassDest actual = null;
+            ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1 };
 
+            actual = Mapper.Map<ClassSource, ClassDest>(expected);
+            Assert.AreEqual(actual.PropString2, null);
+
+        }
         [TestMethod, TestCategory("Map")]
         public void Map_Return_null()
         {
@@ -111,7 +125,7 @@ namespace MapperExpression.Tests.Units
         public void GetQueryExpression_ReturnExpression()
         {
             Clean();
-            
+
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2);
 
@@ -151,7 +165,7 @@ namespace MapperExpression.Tests.Units
             Mapper.GetMapper<ClassSource, ClassDest>().AfterMap(null);
             Mapper.Initialize();
             actual = Mapper.Map<ClassSource, ClassDest>(new ClassSource());
-            Clean();
+
         }
 
         [TestMethod]
@@ -164,23 +178,47 @@ namespace MapperExpression.Tests.Units
             Assert.IsTrue(actual.SourceProperties.Count > 0);
             Assert.IsTrue(actual.TargetProperties.Count > 0);
         }
-      
-        //[TestMethod]
-        //public void Map_ExistingObject_Success()
-        //{
-        //    ClassDest actual = new ClassDest();
-        //    ClassSource expected = Builder<ClassSource>.CreateNew()
-        //        .With(x => x.SubClass = Builder<ClassSource2>.CreateNew().Build())
-        //        .Build();
-        //    Mapper.CreateMap<ClassSource, ClassDest>()
-        //        .ForMember(s => s.SubClass, d => d.SubClass);
-        //    Mapper.CreateMap<ClassSource2, ClassDest2>();
-        //    Mapper.Initialize();
-        //    Mapper.Map(expected, actual);
-        //    Assert.IsNotNull(actual);
-        //    Assert.AreEqual(actual.PropInt1, expected.PropInt1);
-        //    Assert.AreEqual(actual.PropString2, expected.PropString1);
-        //    Clean();
-        //}
+
+        [TestMethod]
+        public void Map_ExistingObject_Success()
+        {
+            Clean();
+            ClassDest actual = new ClassDest();
+            ClassSource expected = Builder<ClassSource>.CreateNew()
+                .With(x => x.SubClass = Builder<ClassSource2>.CreateNew().Build())
+                .Build();
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.SubClass, d => d.SubClass)
+                .ForMember(s => s.PropString1, d => d.PropString2);
+            Mapper.CreateMap<ClassSource2, ClassDest2>();
+            Mapper.Initialize();
+
+            Mapper.Map(expected, actual);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(actual.PropInt1, expected.PropInt1);
+            Assert.AreEqual(actual.PropString2, expected.PropString1);
+
+        }
+
+        [TestMethod, ExpectedException(typeof(InvalidCastException), "test")]
+        public void Map_ExistingObject_Exception()
+        {
+            Clean();
+            ClassDest actual = new ClassDest();
+            ClassSource expected = Builder<ClassSource>.CreateNew()
+                .With(x => x.SubClass = Builder<ClassSource2>.CreateNew().Build())
+                .Build();
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                .ForMember(s => s.SubClass, d => d.SubClass).AfterMap((s, d) =>
+                {
+                    throw new InvalidCastException("test");
+                });
+
+            Mapper.CreateMap<ClassSource2, ClassDest2>();
+            Mapper.Initialize();
+
+            Mapper.Map(expected, actual);
+        }
     }
+
 }

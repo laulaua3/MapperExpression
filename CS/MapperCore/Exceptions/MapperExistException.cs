@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace MapperExpression.Exceptions
@@ -6,7 +7,7 @@ namespace MapperExpression.Exceptions
     /// <summary>
     /// Exception when a mapper is already exist
     /// </summary>
-    [Serializable]
+    [Serializable, ExcludeFromCodeCoverage]
     public class MapperExistException: MapperBaseException
 
     {

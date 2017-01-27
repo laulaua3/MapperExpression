@@ -71,8 +71,7 @@ namespace MapperExpression.Tests.Units
             expected.ReverseMap();
 
             actual = expected.ReverseMap();
-            //For remove the reverse mapping (for the others tests)
-            MapperConfigurationCollectionContainer.Instance.RemoveAt(1);
+           
         }
 
 
@@ -148,9 +147,6 @@ namespace MapperExpression.Tests.Units
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();
             Expression<Func<ClassDest, object>> exp = x => x.PropInt1 > 0;
             actual = expected.GetPropertyInfoTest(exp);
-
-
-
         }
         [TestMethod, TestCategory("GetPropertyInfo"), ExpectedException(typeof(NotImplementedException))]
         public void GetPropertyInfo_PropertyNotImplementedExceptionDefault()

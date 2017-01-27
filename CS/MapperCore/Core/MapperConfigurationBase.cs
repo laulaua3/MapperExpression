@@ -489,7 +489,7 @@ namespace MapperExpression.Core
                                 if (sourceType == targetType)
                                 {
                                     Expression toListExp = Expression.Call(toListMethod.MakeGenericMethod(sourceType), assignExpression);
-                                    Expression setIf = Expression.IfThen(checkIfNull, Expression.Assign(propToAssign, assignExpression));
+                                    Expression setIf = Expression.IfThen(checkIfNull, Expression.Assign(propToAssign, toListExp));
                                     finalAssign.Add(setIf);
                                 }
                             }
@@ -519,7 +519,7 @@ namespace MapperExpression.Core
                                 // Use Select of Enumerable NOT TESTED !!!!!
                                 Expression selectExp = Expression.Call(selectMethod.MakeGenericMethod(sourceType), Expression.Constant(mapper.GetDelegate()));
                                 Expression checkIfNull = Expression.NotEqual(propToAssign, defaultExpression);
-                                Expression setIf = Expression.IfThen(checkIfNull, Expression.Assign(propToAssign, assignExpression));
+                                Expression setIf = Expression.IfThen(checkIfNull, Expression.Assign(propToAssign, selectExp));
                                 assignExpression = setIf;
                             }
                             finalAssign.Add(assignExpression);

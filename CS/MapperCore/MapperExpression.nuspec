@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Mapper simple like AutoMapper based on the lambda expressions</description>
     <releaseNotes />
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>Mapper Expression AutoMapper EntityFramework Linq2Sql</tags>
   </metadata>
   <files>

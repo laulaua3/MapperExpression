@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
@@ -8,7 +9,7 @@ namespace MapperExpression.Exceptions
     /// <summary>
     /// Exception when the properties aren't the same type or no mapper found
     /// </summary>
-    [Serializable]
+    [Serializable, ExcludeFromCodeCoverage]
     public class NotSameTypePropertyException : MapperBaseException
     {
         /// <summary>

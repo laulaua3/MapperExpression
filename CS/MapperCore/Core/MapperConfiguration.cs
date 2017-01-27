@@ -86,7 +86,9 @@ namespace MapperExpression.Core
         /// <param name="getPropertyDest">The get property dest.</param>
         /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
         /// <returns></returns>
-        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, bool checkIfNull)
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, 
+            Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
+            bool checkIfNull)
         {
             // Adding in the list for further processing
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, checkIfNull);
@@ -101,7 +103,9 @@ namespace MapperExpression.Core
         /// <param name="getPropertyDest">The get property dest.</param>
         /// <param name="mapperName">Name of the mapper.</param>
         /// <returns></returns>
-        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest, string mapperName)
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource,
+            Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
+            string mapperName)
         {
             // Adding in the list for further processing
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, true, mapperName);

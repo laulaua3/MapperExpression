@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -11,7 +12,7 @@ namespace MapperExpression.Exceptions
     /// Exception when no action can to be execute
     /// </summary>
     /// <seealso cref="MapperExpression.Exceptions.MapperBaseException" />
-    [Serializable]
+    [Serializable, ExcludeFromCodeCoverage]
     public class NoActionAfterMappingException : MapperBaseException
     {
         /// <summary>

@@ -10,20 +10,6 @@ namespace MapperExpression.Extensions
     /// </summary>
     public static class ExpressionExtentions
     {
-
-        /// <summary>
-        /// Converts to.
-        /// </summary>
-        /// <typeparam name="TFrom">The type of from.</typeparam>
-        /// <param name="from">From.</param>
-        /// <param name="toType">To type.</param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        public static Expression ConvertTo<TFrom>(
-            this Expression<Func<TFrom, object>> from, Type toType)
-        {
-            return ConvertImpl(from, toType);
-        }
         /// <summary>
         /// Converts to.
         /// </summary>
@@ -35,18 +21,6 @@ namespace MapperExpression.Extensions
         public static Expression ConvertTo<TFrom>(this Expression<Func<TFrom, bool>> from, Type toType)
         {
             return ConvertImpl(from, toType);
-        }
-        /// <summary>
-        /// Converts a lambda expression type <typeparamref name="TFrom"/> to <typeparamref name="TTo"/>
-        /// </summary>
-        /// <typeparam name="TFrom">The type of original.</typeparam>
-        /// <typeparam name="TTo">The type of target.</typeparam>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        public static Expression ConvertTo<TFrom, TTo>(this Expression<Func<TFrom, object>> from)
-        {
-            return ConvertImpl(from, typeof(TTo));
         }
         /// <summary>
         /// Converts expression of <typeparamref name="TFrom"/> to expression of <typeparamref name="TTo"/>.

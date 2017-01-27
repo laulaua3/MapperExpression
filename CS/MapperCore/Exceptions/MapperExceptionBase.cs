@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
@@ -8,7 +9,7 @@ namespace MapperExpression.Exceptions
     /// <summary>
     /// Mapper exception. 
     /// </summary>
-    [Serializable]
+    [Serializable, ExcludeFromCodeCoverage]
     public class MapperBaseException : Exception
     {
         /// <summary>

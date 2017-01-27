@@ -27,7 +27,7 @@ namespace MapperExpression.Helper
             // Case : Enum
             if (typeObject.IsEnum)
             {
-                // We return the first of enum
+                // We return the first of enum.
                 defaultValue =Enum.Parse(typeObject,Enum.GetNames(typeObject)[0]);
             }
 
