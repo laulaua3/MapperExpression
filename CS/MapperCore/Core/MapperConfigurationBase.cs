@@ -370,7 +370,7 @@ namespace MapperExpression.Core
 
             NewExpression newClassDest = Expression.New(typeDest);
 
-            // new ClassDestination() { Test1 = source.Test1, Test2 = source.Test2 };
+            // Like new ClassDestination() { Test1 = source.Test1, Test2 = source.Test2 }.
             MemberInitExpression exp = Expression.MemberInit(newClassDest, MemberToMapForNew);
             return exp;
         }

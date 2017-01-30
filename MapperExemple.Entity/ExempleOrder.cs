@@ -4,31 +4,27 @@ using System.Linq;
 
 namespace MapperExemple.Entity
 {
-    public class ExempleOrder
+    public class ExempleOrder: ExempleBase
     {
         #region Custom mapping
 
         public Order GetFirstOrder()
         {
-            using (ExempleDbContext context = new ExempleDbContext())
-            {
-
-                context.Database.Log = x => Debug.WriteLine(x);
-                //Need to include the sub object
-                var result = context.Orders
+           
+                
+                // Need to include the sub object.
+                var result = _context.Orders
                     .Include("Customer")
                     .Include("OrderDetails");
                 return result.FirstOrDefault();
-            }
+            
         }
 
         public IQueryable<Order> GetOrders()
         {
-            ExempleDbContext context = new ExempleDbContext();
+         
 
-            context.Database.Log = x => Debug.WriteLine(x);
-
-            var result = context.Orders;
+            var result = _context.Orders;
 
             return result;
 

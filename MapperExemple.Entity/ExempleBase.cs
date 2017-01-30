@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace MapperExemple.Entity
 {
-    public class ExempleBase :IDisposable
+    public class ExempleBase : IDisposable
 
     {
         // Flag: Has Dispose already been called?
@@ -16,9 +16,9 @@ namespace MapperExemple.Entity
 
         protected IExempleDbContext _context;
 
-       
+
         public ExempleBase()
-            :this(new ExempleDbContext())
+            : this(new ExempleDbContext())
         { }
         public ExempleBase(IExempleDbContext context)
         {
@@ -37,7 +37,7 @@ namespace MapperExemple.Entity
         protected IQueryable<TResult> GetEntities<TEntity, TResult>(Expression<Func<TEntity, TResult>> selectQuery)
             where TEntity : class
         {
-            IQueryable<TResult> result ;
+            IQueryable<TResult> result;
 
             result = (_context as DbContext).Set<TEntity>().Select(selectQuery);
 
@@ -55,7 +55,7 @@ namespace MapperExemple.Entity
         protected IQueryable<TResult> GetEntities<TEntity, TCriterias, TResult>(Expression<Func<TCriterias, bool>> criterias, Expression<Func<TEntity, TResult>> selectQuery)
             where TEntity : class
         {
-            IQueryable<TResult> result ;
+            IQueryable<TResult> result;
             result = (_context as DbContext).Set<TEntity>()
                 .Where(criterias)
                 .Select(selectQuery);
@@ -80,9 +80,9 @@ namespace MapperExemple.Entity
 
             if (disposing && _context != null)
             {
-              
-                    _context.Dispose();
-                
+
+                _context.Dispose();
+
             }
 
             // Free any unmanaged objects here.

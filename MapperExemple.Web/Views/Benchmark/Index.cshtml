@@ -23,8 +23,8 @@
         $("#time1").hide();
         $("#time4").hide();
         $("#time5").hide();
-        callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2", true);
         callService("@Url.Action("BenchMarkValueInjecter", "Benchmark")", "#time3");
+        callService("@Url.Action("BenchMarkAutoMapper", "Benchmark")", "#time2", true);
         callService("@Url.Action("BenchMarkMapperExpression", "Benchmark")", "#time1");
         callService("@Url.Action("BenchMarkDirect", "Benchmark")", "#time4");
         callService("@Url.Action("BenchMarkTinyMapper", "Benchmark")", "#time5");

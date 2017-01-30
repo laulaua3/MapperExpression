@@ -9,8 +9,9 @@
 Expression&lt;Func&lt;IExempleProduct, bool&gt;&gt; criterias = x =&gt; x.UnitsInStock &gt; 0;
 IExempleProduct exemple11 = context;
 var result = exemple11.GetProductsListWithCriterias(criterias, Mapper.GetQueryExpression&lt;Product, ProductModel&gt;());
-//EF query
+//Add this using
 using MapperExpression.Extensions;
+//EF query
 List&lt;TResult&gt; result = null;
 using (ExempleDbContext context = new ExempleDbContext())
 {

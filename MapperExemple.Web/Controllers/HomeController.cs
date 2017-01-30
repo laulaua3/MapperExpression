@@ -44,7 +44,7 @@ namespace MapperExemple.Web.Controllers
         public ActionResult Exemple2()
         {
             ViewBag.Message = "Mapping a List";
-            //this exemple show how map a list of customer to customerModel
+            // this exemple show how map a list of customer to customerModel.
             ExempleCustomer exemple2 = new ExempleCustomer();
 
             var result = exemple2.GetCustomersList();
@@ -213,7 +213,7 @@ namespace MapperExemple.Web.Controllers
 
             IExempleProduct exemple10 = context;
             //Exemple map a IQueryable 
-            // Mapper.CreateMap<Product, ProductModel>();
+            // Mapper.CreateMap<Product, ProductModel>().
             var result = exemple10.GetProducts2(Mapper.GetQueryExpression<Product, ProductModel>());
 
 
@@ -228,7 +228,7 @@ namespace MapperExemple.Web.Controllers
             ViewBag.Message = "Exemple map a expression";
             Expression<Func<IExempleProduct, bool>> criterias = x => x.UnitsInStock > 0;
             IExempleProduct exemple11 = context;
-            var result = exemple11.GetProductsListWithCriterias(criterias, Mapper.GetQueryExpression<Product, ProductModel>());
+            var result = exemple11.GetProductsWithCriterias(criterias, Mapper.GetQueryExpression<Product, ProductModel>());
 
             var model = result;
 

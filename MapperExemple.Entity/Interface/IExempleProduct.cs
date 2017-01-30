@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace MapperExemple.Entity.Interface
 {
-    public interface IExempleProduct
+    public interface IExempleProduct :IDisposable
     {
         int ProductId { get; set; }
         string ProductName { get; set; }
@@ -27,6 +27,6 @@ namespace MapperExemple.Entity.Interface
 
         IList<TResult> GetProducts2<TResult>(Expression<Func<Product, TResult>> selectQuery);
 
-        List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery);
+        IList<TResult> GetProductsWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery);
     }
 }

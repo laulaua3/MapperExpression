@@ -27,7 +27,7 @@ namespace MapperExemple.Web.App_Start
             // Exemple with Ioc.
             Mapper.ConstructServicesUsing((x) => DependencyResolver.Current.GetService(x));
             // Other exemple.
-            // Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x));
+            //  Mapper.ConstructServicesUsing((x) => ServiceLocator.Current.GetInstance(x)).
             Mapper.CreateMap<Product, IExempleProduct>().ConstructUsingServiceLocator()
                 .ReverseMap();
             Mapper.CreateMap<IExempleProduct, ProductModel>();

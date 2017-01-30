@@ -12,7 +12,6 @@ using System.Linq.Expressions;
 namespace MapperExemple.Entity
 {
     public class ExempleProduct : ExempleBase, IExempleProduct
-
     {
 
         public int ProductId { get; set; }
@@ -44,18 +43,9 @@ namespace MapperExemple.Entity
             Dispose();
             return result;
         }
-        public List<TResult> GetProductsListWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
+        public IList<TResult> GetProductsWithCriterias<TResult>(Expression<Func<IExempleProduct, bool>> criterias, Expression<Func<Product, TResult>> selectQuery)
         {
             List<TResult> result ;
-            //using (ExempleDbContext context = new ExempleDbContext())
-            //{
-            //    context.Database.Log = x => Debug.WriteLine(x);
-            //    result = context.Products
-            //                .Where(criterias)
-            //             .Select(selectQuery).ToList();
-            //}
-            //Or
-
             result = GetEntities(criterias, selectQuery).Take(10).ToList();
             Dispose();
             return result;
