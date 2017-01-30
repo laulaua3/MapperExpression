@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MapperExpression</id>
-    <version>$(version)</version>
+    <version>$version$</version>
     <title>Mapper using Expression</title>
     <authors>Boulet Laurent</authors>
     <owners>Boulet Laurent</owners>
