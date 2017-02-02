@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <metadata>
     <id>MapperExpression</id>
-    <version>__version__</version>
+    <version xdt:Transform="Replace">__version__</version>
     <title>Mapper using Expression</title>
     <authors>Boulet Laurent</authors>
     <owners>Boulet Laurent</owners>
