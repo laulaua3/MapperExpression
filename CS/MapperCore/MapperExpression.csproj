@@ -137,10 +137,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-
-    <None Include="MapperExpression.RM.nuspec" >
-      <DependentUpon>MapperExpression.nuspec</DependentUpon>
-    </None>
     <None Include="MapperExpression.Debug.ruleset" />
     <None Include="MapperExpression.nuspec" />
     <None Include="MapperExpression.ruleset" />
