@@ -63,7 +63,7 @@ namespace MapperExpression.Core
             get
             {
                 if (index > items.Count)
-                    throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException("Our index is greater than the number of item");
                 // We use this for the performance (yes it's better).
                 var enumerator = GetEnumerator();
 
@@ -141,17 +141,30 @@ namespace MapperExpression.Core
         {
             items.Clear();
         }
-
+        /// <summary>
+        /// Adds a mapper to the container.
+        /// </summary>
+        /// <param name="value">Mapper to add.</param>
         public void Add(MapperConfigurationBase value)
         {
             items.Add(value);
         }
-
+        /// <summary>
+        /// Returns an enumerator that iterates within the collection.
+        /// </summary>
+        /// <returns>
+        ///   <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate within the collection.
+        /// </returns>
         public IEnumerator<MapperConfigurationBase> GetEnumerator()
         {
             return items.GetEnumerator();
         }
-
+        /// <summary>
+        /// Returns an enumerator that iterates within the collection.
+        /// </summary>
+        /// <returns>
+        /// Objet <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate within the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

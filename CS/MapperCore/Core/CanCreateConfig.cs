@@ -7,8 +7,8 @@ namespace MapperExpression.Core
 {
     internal class CreateConfig
     {
-        public bool CanCreate { get; set; }
+        internal bool CanCreate { get; set; }
 
-        public string MapperName { get; set; }
+        internal string MapperName { get; set; }
     }
 }

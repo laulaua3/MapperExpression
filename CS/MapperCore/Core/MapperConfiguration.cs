@@ -73,7 +73,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, Expression<Func<TDest, TPropertyDest>> getPropertyDest)
         {
-            // Adding in the list for further processing
+            // Adding in the list for further processing.
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, false);
             return this;
         }
@@ -90,7 +90,7 @@ namespace MapperExpression.Core
             Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
             bool checkIfNull)
         {
-            // Adding in the list for further processing
+            // Adding in the list for further processing.
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, checkIfNull);
             return this;
         }
@@ -107,7 +107,7 @@ namespace MapperExpression.Core
             Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
             string mapperName)
         {
-            // Adding in the list for further processing
+            // Adding in the list for further processing.
             ForMemberBase(getPropertySource.Body, getPropertyDest.Body, true, mapperName);
             return this;
         }
@@ -129,7 +129,7 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> AfterMap(Action<TSource, TDest> actionAfterMap)
         {
-            // Adding in the list for further processing
+            // Adding in the list for further processing.
             actionsAfterMap.Add(actionAfterMap);
             return this;
         }
@@ -177,7 +177,7 @@ namespace MapperExpression.Core
             MapperConfigurationCollectionContainer.Instance.Add(map);
             CreateCommonMember();
 
-            // Path is the mapping of existing properties and inverse relationships are created
+            // Path is the mapping of existing properties and inverse relationships are created.
             for (int i = 0; i < PropertiesMapping.Count; i++)
             {
                 Tuple<Expression, Expression, bool, string> item = PropertiesMapping[i];
@@ -186,7 +186,7 @@ namespace MapperExpression.Core
                 {
                     if (!string.IsNullOrEmpty(item.Item4))
                     {
-                        //Find the reverse mapper
+                        // Find the reverse mapper.
                         var reverseMapper = GetMapper(item.Item2.Type, item.Item1.Type, false);
                         if (reverseMapper != null)
                         {
@@ -209,7 +209,7 @@ namespace MapperExpression.Core
         }
 
         /// <summary>
-        /// Indicates whether one uses the service injection
+        /// Indicates whether one uses the service injection.
         /// </summary>
         public MapperConfiguration<TSource, TDest> ConstructUsingServiceLocator()
         {

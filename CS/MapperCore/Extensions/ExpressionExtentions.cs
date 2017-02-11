@@ -37,7 +37,7 @@ namespace MapperExpression.Extensions
         private static Expression ConvertImpl<TFrom>(Expression<TFrom> from, Type toType)
            where TFrom : class
         {
-            //  re-map all parameters that involve different types
+            // re-map all parameters that involve different types.
             Dictionary<Expression, Expression> parameterMap
                 = new Dictionary<Expression, Expression>();
             ParameterExpression[] newParams =
@@ -48,7 +48,7 @@ namespace MapperExpression.Extensions
                 parameterMap[from.Parameters[i]] = newParams[i];
             }
 
-            //  rebuild the lambda
+            //  rebuild the lambda.
             var body = new ConverterExpressionVisitor(parameterMap, toType).Visit(from.Body);
             return Expression.Lambda(body, newParams);
         }
