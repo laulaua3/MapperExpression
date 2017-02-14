@@ -122,7 +122,8 @@ namespace MapperExpression.Tests.Units.Extentions
         public void Where_Success()
         {
             IQueryable<ClassDest> actual = null;
-
+            Mapper.CreateMap<ClassSource, ClassDest>()
+                 .ForMember(s => s.PropInt1, d => d.PropInt2, true); 
             QueryableImplTest<ClassDest> expected = new QueryableImplTest<ClassDest>();
             Expression<Func<ClassSource, bool>> criterias = x => x.PropInt1 == 1;
             actual = expected.Where(criterias);

@@ -270,14 +270,9 @@ namespace MapperExpression.Core
 
                     if (propDest.CanWrite && !ignorePropDest)
                     {
-                        Type sourceType = propSource.PropertyType;
-                        Type destType = propDest.PropertyType;
-                        bool isList = IsListOf(destType);
-                        if (isList)
-                        {
-                            sourceType = TypeSystem.GetElementType(propSource.PropertyType);
-                            destType = TypeSystem.GetElementType(propDest.PropertyType);
-                        }
+                        Type sourceType = TypeSystem.GetElementType(propSource.PropertyType);
+                        Type destType = TypeSystem.GetElementType(propDest.PropertyType);
+                        
                         var canCreateConfig = CanCreateConfig(sourceType, destType);
                         if (canCreateConfig.CanCreate)
                         {

@@ -63,7 +63,7 @@ namespace MapperExpression.Core
             get
             {
                 if (index > items.Count)
-                    throw new IndexOutOfRangeException("Our index is greater than the number of item");
+                    throw new ArgumentOutOfRangeException("Our index is greater than the number of item");
                 // We use this for the performance (yes it's better).
                 var enumerator = GetEnumerator();
 

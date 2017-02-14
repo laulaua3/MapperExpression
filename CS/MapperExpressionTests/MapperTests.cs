@@ -109,6 +109,7 @@ namespace MapperExpression.Tests.Units
         public void Map_Return_null()
         {
             ClassDest actual = null;
+            Mapper.CreateMap<ClassSource, ClassDest>();
             ClassSource expected = new ClassSource() { PropInt1 = 1, PropSourceInt1 = 1, PropString1 = "test" };
             using (ShimsContext.Create())
             {
