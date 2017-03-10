@@ -102,7 +102,7 @@ namespace MapperExpression.Tests.Units
             Assert.IsNotNull(actual);
         }
 
-        [TestMethod, TestCategory("GetSortedExpression")ExpectedException(typeof(PropertyNoExistException))]
+        [TestMethod, TestCategory("GetSortedExpression"),ExpectedException(typeof(PropertyNoExistException))]
         public void GetSortedExpression_PropertyNotFound_Exception()
         {
             MapperConfigurationTestContainer expected = new MapperConfigurationTestContainer();

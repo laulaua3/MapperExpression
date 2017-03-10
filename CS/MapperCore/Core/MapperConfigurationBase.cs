@@ -243,7 +243,7 @@ namespace MapperExpression.Core
         /// <exception cref="NoFoundMapperException"></exception>
         protected static MapperConfigurationBase GetMapper(Type typeOfSource, Type typeOfTarget, bool throwExceptionOnNoFound, string name = null)
         {
-            MapperConfigurationBase mapperExterne ;
+            MapperConfigurationBase mapperExterne;
 
             mapperExterne = MapperConfigurationCollectionContainer.Instance.Find(typeOfSource, typeOfTarget, name);
             // we raise an exception if there is nothing and configured
@@ -252,31 +252,31 @@ namespace MapperExpression.Core
 
             return mapperExterne;
         }
+
         /// <summary>
         /// Creates the common member.
         /// </summary>
         protected void CreateCommonMember()
         {
-
             PropertyInfo[] propertiesSource = SourceType.GetProperties();
             foreach (PropertyInfo propSource in propertiesSource)
             {
                 PropertyInfo propDest = TargetType.GetProperty(propSource.Name);
-                if (propDest != null)
+                if (propDest != null && propDest.CanWrite)
                 {
                     // We check if already exist or ignored.
                     bool ignorePropDest = propertiesToIgnore.Exists(x => x.Name == propDest.Name) ||
                         propertiesMapping.Exists(x => GetPropertyInfo(x.Item2).Name == propDest.Name);
 
-                    if (propDest.CanWrite && !ignorePropDest)
+                    if (!ignorePropDest)
                     {
                         Type sourceType = TypeSystem.GetElementType(propSource.PropertyType);
                         Type destType = TypeSystem.GetElementType(propDest.PropertyType);
-                        
+
                         var canCreateConfig = CanCreateConfig(sourceType, destType);
                         if (canCreateConfig.CanCreate)
                         {
-                            //We create only the relation for the moment 
+                            //We create only the relation for the moment. 
                             Expression expSource = Expression.MakeMemberAccess(paramClassSource, propSource);
                             ParameterExpression paramDest = Expression.Parameter(TargetType, "t");
                             Expression expDest = Expression.MakeMemberAccess(paramDest, propDest);
@@ -284,27 +284,9 @@ namespace MapperExpression.Core
                         }
                     }
                 }
+
             }
 
-        }
-
-        private static CreateConfig CanCreateConfig(Type typeSource, Type typeTarget)
-        {
-            CreateConfig result = new CreateConfig();
-            result.CanCreate = typeSource == typeTarget;
-            //Is not the same type
-            if (!result.CanCreate)
-            {
-                //Find if a mapper exist
-                var mapper = MapperConfigurationCollectionContainer.Instance.Find(typeSource, typeTarget);
-                if (mapper != null)
-                {
-                    result.MapperName = mapper.Name;
-                    result.CanCreate = true;
-                }
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -320,19 +302,19 @@ namespace MapperExpression.Core
             Type typeSource = configExpression.Item1.Type;
             Type typeTarget = configExpression.Item2.Type;
 
-            // Normaly the target expression is a MemberExpression
+            // Normaly the target expression is a MemberExpression.
             PropertyInfo propTarget = GetPropertyInfo(configExpression.Item2);
 
             if (propTarget.CanWrite)
             {
                 CheckAndRemoveMemberDest(propTarget.Name);
-                if (!IsListOf(typeTarget))
+                if (IsListOf(typeTarget))
                 {
-                    CreatBindingFromSimple(ref configExpression, typeSource, typeTarget, propTarget);
+                    CreateBindingFromList(ref configExpression, typeSource, typeTarget, propTarget);
                 }
                 else
                 {
-                    CreateBindingFromList(ref configExpression, typeSource, typeTarget, propTarget);
+                    CreatBindingFromSimple(ref configExpression, typeSource, typeTarget, propTarget);
                 }
             }
             else
@@ -438,7 +420,6 @@ namespace MapperExpression.Core
 
         internal void Initialize(Func<Type, object> constructor)
         {
-
             CreateMappingExpression(constructor);
             CreateMemberAssignementForExistingTarget();
         }
@@ -457,7 +438,7 @@ namespace MapperExpression.Core
                 {
                     var item = propertiesMapping[i];
                     var propToAssign = visitTarget.Visit(item.Item2);
-                    Expression assignExpression ;
+                    Expression assignExpression;
                     assignExpression = visitSource.Visit(item.Item1);
                     Type sourceType = TypeSystem.GetElementType(item.Item2.Type);
                     Type targetType = TypeSystem.GetElementType(item.Item1.Type);
@@ -503,7 +484,6 @@ namespace MapperExpression.Core
                             if (!IsListOf(propToAssign.Type))
                             {
                                 ChangParameterExpressionVisitor changeVisitor = new ChangParameterExpressionVisitor(propToAssign, assignExpression);
-
                                 Expression modifiedExpression = changeVisitor.Visit(mapper.expressionForExisting.Body);
                                 Expression checkIfNull = Expression.NotEqual(propToAssign, defaultExpression);
                                 Expression setIf = Expression.IfThen(checkIfNull, modifiedExpression);
@@ -550,11 +530,12 @@ namespace MapperExpression.Core
         {
             if (!isInitialized)
             {
-                // it is put before treatment to avoid recursive loops.
+                // It is put before treatment to avoid recursive loops.
                 isInitialized = true;
                 constructorFunc = constructor;
                 CreateCommonMember();
-                var propsToAnalyse = propertiesMapping.ToList();// Clone the list because we can change.
+                // Clone the list because we can change.
+                var propsToAnalyse = propertiesMapping.ToList();
                 for (int i = 0; i < propsToAnalyse.Count; i++)
                 {
                     var propToAnalyse = propsToAnalyse[i];
@@ -576,7 +557,7 @@ namespace MapperExpression.Core
         internal PropertiesNotMapped GetPropertiesNotMapped()
         {
             PropertiesNotMapped result = new PropertiesNotMapped();
-            // Get Propeties0.
+            // Get Propeties.
             List<PropertyInfo> sourceProperties = SourceType.GetProperties().ToList();
             List<PropertyInfo> targetProperties = TargetType.GetProperties().ToList();
 
@@ -599,7 +580,7 @@ namespace MapperExpression.Core
         internal LambdaExpression GetSortedExpression(string propertySource)
         {
             Contract.Requires(!string.IsNullOrEmpty(propertySource));
-            Expression result ;
+            Expression result;
             var exp = PropertiesMapping.Find(x => GetPropertyInfo(x.Item2).Name == propertySource);
             if (exp == null)
             {
@@ -635,7 +616,7 @@ namespace MapperExpression.Core
             {
                 return externalMapper;
             }
-            //If the mapper with a name was no found
+            // If the mapper with a name was no found.
             else if (!string.IsNullOrEmpty(name))
             {
                 throw new NoFoundMapperException(name);
@@ -700,16 +681,16 @@ namespace MapperExpression.Core
             {
                 var externalMapper = GetAndCheckMapper(sourceTypeList, destTypeList, configExpression.Item4);
                 externalMapper.CreateMappingExpression(constructorFunc);
-                MemberAssignment expBind ;
+                MemberAssignment expBind;
                 Expression expSource = configExpression.Item1;
 
                 ChangParameterExpressionVisitor visitor = new ChangParameterExpressionVisitor(paramClassSource);
                 expSource = visitor.Visit(expSource);
 
-                //For compatibility with EF/LINQ2SQL.
+                // For compatibility with EF/LINQ2SQL.
                 LambdaExpression expMappeur = externalMapper.GetGenericLambdaExpression();
                 /* We create the call to the Select method and
-                   we insert a lambda expression in select of Enumerable(the parameter is a delegate),
+                   we insert a lambda expression in select of Enumerable (the parameter is a delegate),
                    normally, that's impossible but (we think) that the compiler creating like this and that LINQ2SQL/EF can make the sql query.*/
                 Expression select = Expression.Call(selectMethod.MakeGenericMethod(sourceTypeList, destTypeList),
                     new Expression[] { expSource, expMappeur });
@@ -721,14 +702,14 @@ namespace MapperExpression.Core
 
                     // Test if the source property is null.
                     Expression checkIfNull = Expression.NotEqual(expSource, Expression.Constant(MapperHelper.GetDefaultValue(expSource.Type), expSource.Type));
-                    Expression expCondition ;
+                    Expression expCondition;
                     // For boxing some time the ToList method not working.
                     // With a class that implement a list that does not work.
                     Expression asExp = Expression.TypeAs(toList, propTarget.PropertyType);
-                    // Create condition
+                    // Create condition.
                     expCondition = Expression.Condition(checkIfNull, asExp, Expression.Constant(MapperHelper.GetDefaultValue(typeTarget), typeTarget));
 
-                    // Assigning to the destination propery.
+                    // Assigning to the destination property.
                     expBind = Expression.Bind(propTarget, expCondition);
                 }
                 else
@@ -743,6 +724,25 @@ namespace MapperExpression.Core
                 }
                 memberForNew.Add(expBind);
             }
+        }
+
+        private static CreateConfig CanCreateConfig(Type typeSource, Type typeTarget)
+        {
+            CreateConfig result = new CreateConfig();
+            result.CanCreate = typeSource == typeTarget;
+            // Is not the same type.
+            if (!result.CanCreate)
+            {
+                // Find if a mapper exist.
+                var mapper = MapperConfigurationCollectionContainer.Instance.Find(typeSource, typeTarget);
+                if (mapper != null)
+                {
+                    result.MapperName = mapper.Name;
+                    result.CanCreate = true;
+                }
+            }
+
+            return result;
         }
 
         #endregion

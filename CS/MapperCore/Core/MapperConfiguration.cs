@@ -86,8 +86,8 @@ namespace MapperExpression.Core
         /// <param name="getPropertyDest">The get property dest.</param>
         /// <param name="checkIfNull">if set to <c>true</c> [check if null].</param>
         /// <returns></returns>
-        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource, 
-            Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
+        public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource,
+            Expression<Func<TDest, TPropertyDest>> getPropertyDest,
             bool checkIfNull)
         {
             // Adding in the list for further processing.
@@ -104,7 +104,7 @@ namespace MapperExpression.Core
         /// <param name="mapperName">Name of the mapper.</param>
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> ForMember<TPropertySource, TPropertyDest>(Expression<Func<TSource, TPropertySource>> getPropertySource,
-            Expression<Func<TDest, TPropertyDest>> getPropertyDest, 
+            Expression<Func<TDest, TPropertyDest>> getPropertyDest,
             string mapperName)
         {
             // Adding in the list for further processing.
@@ -118,7 +118,6 @@ namespace MapperExpression.Core
         /// <returns></returns>
         public MapperConfiguration<TSource, TDest> Ignore<TProperty>(Expression<Func<TDest, TProperty>> propertyDest)
         {
-
             return IgnoreBase(propertyDest) as MapperConfiguration<TSource, TDest>;
         }
 
@@ -145,7 +144,6 @@ namespace MapperExpression.Core
             {
                 for (int i = 0; i < actionsAfterMap.Count; i++)
                 {
-
                     var action = actionsAfterMap[i];
                     if (action == null)
                     {
@@ -193,18 +191,12 @@ namespace MapperExpression.Core
                             map.ForMemberBase(item.Item2, item.Item1, item.Item3, reverseMapper.Name);
                         }
                     }
-                    else
+                    else if (item.Item1.NodeType == ExpressionType.MemberAccess)
                     {
-                        if (item.Item1.NodeType == ExpressionType.MemberAccess)
-                        {
-                            map.ForMemberBase(item.Item2, item.Item1, item.Item3, item.Item4);
-                        }
+                        map.ForMemberBase(item.Item2, item.Item1, item.Item3, item.Item4);
                     }
-
                 }
             }
-
-
             return map as MapperConfiguration<TDest, TSource>;
         }
 

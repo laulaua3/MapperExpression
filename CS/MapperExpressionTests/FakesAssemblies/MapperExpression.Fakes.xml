@@ -199,8 +199,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances.UseServiceLocatorSetBoolean">
             <summary>Définit le shim de MapperConfigurationBase.set_UseServiceLocator(Boolean value)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances._GetPropertiesNotMappedb__54_2PropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.&lt;GetPropertiesNotMapped&gt;b__54_2(PropertyInfo p)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.AllInstances._GetPropertiesNotMappedb__53_2PropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.&lt;GetPropertiesNotMapped&gt;b__53_2(PropertyInfo p)</summary>
         </member>
         <member name="M:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.BehaveAsCurrent">
             <summary>Attribue le comportement &apos;Current&apos; à toutes les méthodes du type ayant fait l&apos;objet d&apos;un shim</summary>
@@ -316,8 +316,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase.UseServiceLocatorSetBoolean">
             <summary>Définit le shim de MapperConfigurationBase.set_UseServiceLocator(Boolean value)</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase._GetPropertiesNotMappedb__54_2PropertyInfo">
-            <summary>Définit le shim de MapperConfigurationBase.&lt;GetPropertiesNotMapped&gt;b__54_2(PropertyInfo p)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationBase._GetPropertiesNotMappedb__53_2PropertyInfo">
+            <summary>Définit le shim de MapperConfigurationBase.&lt;GetPropertiesNotMapped&gt;b__53_2(PropertyInfo p)</summary>
         </member>
         <member name="T:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer">
             <summary>Type shim de MapperExpression.Core.MapperConfigurationCollectionContainer</summary>

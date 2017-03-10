@@ -22,6 +22,7 @@ namespace MapperExemple.Web.Controllers
         readonly IExempleProduct context;
 
         #region Simple Mapping
+
         public HomeController(IExempleProduct product)
         {
             context = product;
@@ -40,7 +41,6 @@ namespace MapperExemple.Web.Controllers
             return View(model);
         }
 
-
         public ActionResult Exemple2()
         {
             ViewBag.Message = "Mapping a List";
@@ -53,6 +53,7 @@ namespace MapperExemple.Web.Controllers
 
             return View(model);
         }
+
         public ActionResult Exemple3()
         {
             ViewBag.Message = "Mapping a IQueryable";
@@ -128,7 +129,6 @@ namespace MapperExemple.Web.Controllers
             }
             return View(model);
         }
-
 
         #endregion
 
