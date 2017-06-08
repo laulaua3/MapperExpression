@@ -106,7 +106,7 @@ namespace MapperExpression.Core
         /// Whether mapping exists from the predicate.
         /// </summary>
         /// <param name="match">The predigate.</param>
-        internal bool Exists(Func<MapperConfigurationBase, bool> match)
+        internal bool Exists(Predicate<MapperConfigurationBase> match)
         {
             var enumerator = GetEnumerator();
             // We use this for the performance (yes it's better).

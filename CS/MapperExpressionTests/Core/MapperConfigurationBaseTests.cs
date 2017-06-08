@@ -89,7 +89,7 @@ namespace MapperExpression.Tests.Units
             Mapper.Initialize();
             Expression<Func<ClassSource, object>> source = s => s.ListString;
             Expression<Func<ClassDest, object>> target = d => d.ListString;
-            Tuple<Expression, Expression, bool, string> tuple = Tuple.Create<Expression, Expression, bool, string>(source.Body, target.Body, false,string.Empty);
+            Tuple<Expression, Expression, bool, string> tuple = Tuple.Create(source.Body, target.Body, false,string.Empty);
             expected.CheckAndConfigureMappingTest(tuple);
             Assert.IsNotNull(expected.GetDelegate());
 

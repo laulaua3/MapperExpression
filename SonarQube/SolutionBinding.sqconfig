@@ -1,5 +1,5 @@
 {
-  "ServerUri": "http://tfsr2:9000",
+  "ServerUri": "http://tfsr2:9000/",
   "ProjectKey": "MapperExpression",
   "Profiles": {
     "CSharp": {

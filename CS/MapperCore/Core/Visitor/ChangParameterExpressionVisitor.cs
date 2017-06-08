@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace MapperExpression.Core.Visitor
 {
-    internal class ChangParameterExpressionVisitor : ExpressionVisitor
+    internal class ChangeParameterExpressionVisitor : ExpressionVisitor
     {
         readonly Expression[] _parameter;
-        internal ChangParameterExpressionVisitor(params Expression[] parameter)
+        internal ChangeParameterExpressionVisitor(params Expression[] parameter)
         {
             _parameter = parameter;
         }

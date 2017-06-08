@@ -13,7 +13,7 @@ namespace MapperExpression.Tests.Units.Extentions
         public static void Init(TestContext context)
         {
             Clean();
-            //Create the default map for the test
+            // Create the default map for the test.
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2)
                 .ReverseMap();
@@ -25,7 +25,7 @@ namespace MapperExpression.Tests.Units.Extentions
         [ClassCleanup]
         public static void Clean()
         {
-            //Remove all map after test
+            // Remove all map after test.
             Mapper.Reset();
         }
         [TestMethod]
@@ -47,7 +47,7 @@ namespace MapperExpression.Tests.Units.Extentions
         {
 
             Clean();
-            //Create the default map for the test
+            // Create the default map for the test.
             Mapper.CreateMap<ClassSource, ClassDest>()
                 .ForMember(s => s.PropString1, d => d.PropString2).ReverseMap();
             LambdaExpression actual = null;

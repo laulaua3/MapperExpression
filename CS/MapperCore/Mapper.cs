@@ -11,7 +11,7 @@ namespace MapperExpression
 {
 
     /// <summary>
-    ///Base class for each access to mapper
+    ///Base class for each access to mapper.
     /// </summary>
     public static class Mapper
     {
@@ -49,7 +49,7 @@ namespace MapperExpression
                 if (query != null)
                 {
                     result = query(source);
-                    // Action performed after the mapping
+                    // Action performed after the mapping.
                     mapper.ExecuteAfterActions(source, result);
                 }
             }
@@ -83,7 +83,7 @@ namespace MapperExpression
                 if (query != null)
                 {
                     query(source, target);
-                    // Action performed after the mapping
+                    // Action performed after the mapping.
                     mapper.ExecuteAfterActions(source, result);
                 }
             }
@@ -212,7 +212,7 @@ namespace MapperExpression
         #endregion
     }
     /// <summary>
-    ///Base class for each access to mapper(simplified access)
+    /// Base class for each access to mapper(simplified access).
     /// </summary>
     /// <typeparam name="TTarget">The type of the dest.</typeparam>
     public static class Mapper<TTarget>

@@ -343,8 +343,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.CountGet">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.get_Count()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.ExistsFuncOfMapperConfigurationBaseBoolean">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Func`2&lt;MapperConfigurationBase,Boolean&gt; match)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.ExistsPredicateOfMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.AllInstances.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.Find(Type source, Type target, String name)</summary>
@@ -385,8 +385,8 @@
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.CountGet">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.get_Count()</summary>
         </member>
-        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.ExistsFuncOfMapperConfigurationBaseBoolean">
-            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Func`2&lt;MapperConfigurationBase,Boolean&gt; match)</summary>
+        <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.ExistsPredicateOfMapperConfigurationBase">
+            <summary>Définit le shim de MapperConfigurationCollectionContainer.Exists(Predicate`1&lt;MapperConfigurationBase&gt; match)</summary>
         </member>
         <member name="P:MapperExpression.Core.Fakes.ShimMapperConfigurationCollectionContainer.FindTypeTypeString">
             <summary>Définit le shim de MapperConfigurationCollectionContainer.Find(Type source, Type target, String name)</summary>

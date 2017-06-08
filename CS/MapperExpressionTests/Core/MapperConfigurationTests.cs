@@ -203,5 +203,4 @@ namespace MapperExpression.Tests.Units
             Assert.IsNotNull(expected.GetDelegateForExistingTargetTest());
         }
     }
-
 }

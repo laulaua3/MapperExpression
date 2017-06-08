@@ -105,21 +105,10 @@ namespace MapperExpression.Core
         }
 
 
-        private string name;
         /// <summary>
         /// Name of the mapper.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            protected set
-            {
-                name = value;
-            }
-        }
+        public string Name { get; protected set; }
 
         #endregion
 
@@ -429,8 +418,8 @@ namespace MapperExpression.Core
             {
                 // For change the parameter of the original expression.
                 var paramTarget = Expression.Parameter(TargetType, paramClassSource.Name.Replace("s", "t"));
-                ChangParameterExpressionVisitor visitSource = new ChangParameterExpressionVisitor(paramClassSource);
-                ChangParameterExpressionVisitor visitTarget = new ChangParameterExpressionVisitor(paramTarget);
+                ChangeParameterExpressionVisitor visitSource = new ChangeParameterExpressionVisitor(paramClassSource);
+                ChangeParameterExpressionVisitor visitTarget = new ChangeParameterExpressionVisitor(paramTarget);
 
                 List<Expression> finalAssign = new List<Expression>();
 
@@ -483,7 +472,7 @@ namespace MapperExpression.Core
                             Expression defaultExpression = Expression.Constant(MapperHelper.GetDefaultValue(item.Item2.Type), item.Item2.Type);
                             if (!IsListOf(propToAssign.Type))
                             {
-                                ChangParameterExpressionVisitor changeVisitor = new ChangParameterExpressionVisitor(propToAssign, assignExpression);
+                                ChangeParameterExpressionVisitor changeVisitor = new ChangeParameterExpressionVisitor(propToAssign, assignExpression);
                                 Expression modifiedExpression = changeVisitor.Visit(mapper.expressionForExisting.Body);
                                 Expression checkIfNull = Expression.NotEqual(propToAssign, defaultExpression);
                                 Expression setIf = Expression.IfThen(checkIfNull, modifiedExpression);
@@ -570,7 +559,7 @@ namespace MapperExpression.Core
                 targetProperties.RemoveAll((p) => visitor.GetProperties(members.Expression).Contains(p));
             }
             // Check the ignored properties.
-            sourceProperties.RemoveAll((p) => propertiesToIgnore.Contains(p));
+            sourceProperties.RemoveAll(p => propertiesToIgnore.Contains(p));
             result.sourceProperties = sourceProperties;
             result.targetProperties = targetProperties;
 
@@ -646,7 +635,7 @@ namespace MapperExpression.Core
                 Expression defaultExpression = Expression.Constant(MapperHelper.GetDefaultValue(configExpression.Item1.Type), configExpression.Item1.Type);
                 // To change the parameter.
                 Expression expSource = visitorMapper.Visit(configExpression.Item1, false);
-                ChangParameterExpressionVisitor changeParamaterVisitor = new ChangParameterExpressionVisitor(expSource);
+                ChangeParameterExpressionVisitor changeParamaterVisitor = new ChangeParameterExpressionVisitor(expSource);
                 mapExpression = changeParamaterVisitor.Visit(mapExpression);
                 // Now we can create the check with the good parameters.
                 Expression checkIfNull = Expression.NotEqual(expSource, defaultExpression);
@@ -684,7 +673,7 @@ namespace MapperExpression.Core
                 MemberAssignment expBind;
                 Expression expSource = configExpression.Item1;
 
-                ChangParameterExpressionVisitor visitor = new ChangParameterExpressionVisitor(paramClassSource);
+                ChangeParameterExpressionVisitor visitor = new ChangeParameterExpressionVisitor(paramClassSource);
                 expSource = visitor.Visit(expSource);
 
                 // For compatibility with EF/LINQ2SQL.

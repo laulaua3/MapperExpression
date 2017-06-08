@@ -40,9 +40,6 @@ namespace MapperExpression.Tests.Units.ClassTests
             return GetPropertyInfo(expression);
         }
 
-       
-
-       
         public void CreateCommonMemberTest()
         {
             CreateCommonMember();

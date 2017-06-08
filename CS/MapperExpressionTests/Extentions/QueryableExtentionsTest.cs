@@ -25,7 +25,7 @@ namespace MapperExpression.Tests.Units.Extentions
         [ClassCleanup]
         public static void Clean()
         {
-            //Remove all map after test
+            // Remove all map after test.
             Mapper.Reset();
         }
         [TestMethod, TestCategory("Extentions")]
