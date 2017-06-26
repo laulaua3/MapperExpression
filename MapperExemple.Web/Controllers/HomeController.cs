@@ -19,7 +19,7 @@ namespace MapperExemple.Web.Controllers
     {
         private const int nbItemPerPage = 10;
 
-        private IExempleProduct context;
+        private readonly IExempleProduct context;
 
         #region Simple Mapping
         public HomeController(IExempleProduct product)
@@ -153,7 +153,7 @@ namespace MapperExemple.Web.Controllers
             ViewBag.Message = "List Exemple for custom mapping";
             // This exemple show how map a IQueryable to List  with custom mapping.
             ExempleOrder exemple6 = new ExempleOrder();
-            List<OrderModel> model = null;
+            List<OrderModel> model;
             var result = exemple6.GetOrders();
             // See sql request in console output.
             model = result.Select<Order, OrderModel>().ToList();
@@ -212,8 +212,8 @@ namespace MapperExemple.Web.Controllers
             ViewBag.Message = "Other exemple map a IQueryable";
 
             IExempleProduct exemple10 = context;
-            //Exemple map a IQueryable 
-            //Mapper.CreateMap<Product, ProductModel>();
+            //Exemple map a IQueryable
+            // Mapper.CreateMap<Product, ProductModel>();
             var result = exemple10.GetProducts2(Mapper.GetQueryExpression<Product, ProductModel>());
 
 

@@ -12,9 +12,9 @@ namespace MapperExpression.Core
 
         private bool checkNull;
 
-        private Expression parameter;
+        readonly Expression parameter;
 
-        private Stack<MemberExpression> membersToCheck;
+        readonly Stack<MemberExpression> membersToCheck;
 
 
         internal Expression Parameter
@@ -52,7 +52,7 @@ namespace MapperExpression.Core
         public Expression Visit(Expression node, bool checkIfNullity = false)
         {
             checkNull = checkIfNullity;
-            Expression result = null;
+            Expression result ;
             if (node == null)
                 return node;
             if (checkNull)
@@ -130,7 +130,7 @@ namespace MapperExpression.Core
                     object defaultValue = MapperHelper.GetDefaultValue(item.Type);
                     // Creating verification of default value.
                     Expression notDefaultValue = Expression.NotEqual(item, Expression.Constant(defaultValue, item.Type));
-                    Expression conditional = null;
+                    Expression conditional ;
                     conditional = Expression.Condition(notDefaultValue, item, Expression.Constant(defaultValue, item.Type));
 
                     return conditional;

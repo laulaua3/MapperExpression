@@ -13,7 +13,7 @@ namespace MapperExpression.Core
         IEnumerable<MapperConfigurationBase>
     {
 
-        private HashSet<MapperConfigurationBase> items;
+        private readonly HashSet<MapperConfigurationBase> items;
         private static MapperConfigurationCollectionContainer currentInstance;
 
         /// <summary>
