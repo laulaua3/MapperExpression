@@ -2,9 +2,6 @@
 using System.Linq.Expressions;
 using MapperExpression.Core;
 using MapperExpression.Exceptions;
-using System.Reflection;
-using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 namespace MapperExpression
@@ -126,7 +123,7 @@ namespace MapperExpression
             }
             return map as MapperConfiguration<TSource, TTarget>;
         }
-     
+
         /// <summary>
         /// Indicates the injection service used
         /// </summary>
@@ -144,7 +141,7 @@ namespace MapperExpression
         {
             MapperConfigurationCollectionContainer.Instance.Clear();
         }
-   
+
         /// <summary>
         /// Gets the mapper.
         /// </summary>
@@ -190,7 +187,7 @@ namespace MapperExpression
         /// </summary>
         public static PropertiesNotMapped GetPropertiesNotMapped<TSource, TDest>(string name = null)
              where TSource : class
-            where TDest : class
+             where TDest : class
         {
             var mapper = GetMapper<TSource, TDest>(name);
             return mapper.GetPropertiesNotMapped();
@@ -217,7 +214,7 @@ namespace MapperExpression
     /// <typeparam name="TTarget">The type of the dest.</typeparam>
     public static class Mapper<TTarget>
          where TTarget : class
-    { 
+    {
         /// <summary>
         /// Maps the specified source.
         /// </summary>
