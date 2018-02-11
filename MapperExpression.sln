@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperExpression", "CS\MapperCore\MapperExpression.csproj", "{A23D28C5-4FFA-46E9-913F-5C959782CDAA}"
 EndProject
@@ -32,32 +32,23 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug46|Any CPU = Debug46|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Debug46|Any CPU.ActiveCfg = Debug46|Any CPU
-		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Debug46|Any CPU.Build.0 = Debug46|Any CPU
 		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A23D28C5-4FFA-46E9-913F-5C959782CDAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug46|Any CPU.ActiveCfg = Debug46|Any CPU
-		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Debug46|Any CPU.Build.0 = Debug46|Any CPU
 		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Debug46|Any CPU.ActiveCfg = Debug|Any CPU
-		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Debug46|Any CPU.Build.0 = Debug|Any CPU
 		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Debug46|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Debug46|Any CPU.Build.0 = Debug|Any CPU
 		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -69,5 +60,8 @@ Global
 		{6D1B4CDF-C0B5-4F7F-8A4B-8343AB13695A} = {F2A9C5A7-8E66-4CDE-803A-2B0E51F9E5B4}
 		{F19ACD26-B8C8-4DB9-8ABA-08DAB1957682} = {7AB142FD-A819-46DC-9581-6245B810B5EA}
 		{CD0A0F84-D8B2-48E2-82B5-2A39B4F41F1C} = {7AB142FD-A819-46DC-9581-6245B810B5EA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CCED085-B107-401A-9D30-A15DBDEDDE6B}
 	EndGlobalSection
 EndGlobal

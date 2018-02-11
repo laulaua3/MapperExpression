@@ -4,10 +4,9 @@ using MapperExpression;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MapperExpression.Extensions;
-using Microsoft.Practices.ServiceLocation;
+
 using MapperExemple.Entity.Interface;
 using MapperExemple.Entity.EF;
 using System.Linq.Expressions;
@@ -18,8 +17,7 @@ namespace MapperExemple.Web.Controllers
     public class HomeController : Controller
     {
         private const int nbItemPerPage = 10;
-
-        readonly IExempleProduct context;
+        private readonly IExempleProduct context;
 
         #region Simple Mapping
 
